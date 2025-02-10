@@ -1,0 +1,97 @@
+@import './base.css';
+
+:root {
+  --ever-primary: #003561;
+  --ever-font-body: 'vox', sans-serif;
+  --ever-font-header: 'vox', sans-serif;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  font-family: var(--ever-font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--ever-font-header);
+}
+
+.lazy-background {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.ever-text-primary {
+  color: var(--ever-primary);
+}
+
+.ever-bg-primary {
+  background-color: var(--ever-primary);
+}
+
+a {
+  text-decoration: none;
+  color: black !important;
+  transition: 0.4s;
+  padding: 3px;
+}
+
+.btn {
+  border: 3px solid var(--ever-primary);
+  padding: 5px 15px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 15px;
+  color: white !important;
+  box-shadow:
+    0 4px 8px 0 rgb(0 0 0/20%),
+    0 6px 20px 0 rgb(0 0 0/19%);
+}
+
+.ever-btn-primary {
+  background-color: var(--ever-primary) !important;
+}
+
+.ever-btn-primary:hover {
+  background-color: white;
+  color: var(--ever-primary);
+  border: 3px solid white;
+}
+
+.separator {
+  background-color: #ffc72c;
+  display: inline-block;
+  height: 5px;
+  margin-bottom: 14px;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.callouts {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -25px auto 0;
+  padding: 20px 10px;
+  position: relative;
+  width: 80%;
+}
+
+.lazy-background {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: #003561;
+  }
+}
