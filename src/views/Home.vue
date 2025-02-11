@@ -185,32 +185,15 @@ const getCalendarLink = (email) => {
   return `mailto:${email}?subject=Everglades Resource Event Request&body=`
 }
 
-// Computed Properties for Active Menu
-const activeMenu = computed(() => menuStore.active)
-const breadcrumbs = computed(() => {
-  let crumbs = []
-  let path = ''
+watch(
+  () => menuStore.active, 
+  async () => {
+    await menuStore.fetchImages()
+  }, 
+  { deep: true }
+)
 
-  if (activeMenu.value.year) {
-    path += `/year/${activeMenu.value.year.key}`
-    crumbs.push({ name: activeMenu.value.year.year, path })
-  }
-  if (activeMenu.value.boat) {
-    path += `/boat/${activeMenu.value.boat.key}`
-    crumbs.push({ name: activeMenu.value.boat.name, path })
-  }
-  if (activeMenu.value.type) {
-    path += `/type/${activeMenu.value.type.key}`
-    crumbs.push({ name: activeMenu.value.type.name, path })
-  }
-  if (activeMenu.value.category) {
-    path += `/category/${activeMenu.value.category.key}`
-    crumbs.push({ name: activeMenu.value.category.name, path })
-  }
-  return crumbs
-})
-
-// Define `load` function before using it in `watch`
+// Load resources based on route
 const load = async () => {
   try {
     if (route.fullPath === '/') {
@@ -220,16 +203,13 @@ const load = async () => {
 
     notFound.value = false
 
-    // Fetch data (simulate with a dummy fetch call)
     const response = await fetch(`/json/resources${route.path}?page=${page.value}`)
     const data = await response.json()
 
-    // Update state
     resources.value = data.resources
     categories.value = data.categories
     total.value = data.pages
 
-    // Update active state in store
     menuStore.active = {
       boat: data.boat,
       year: data.year,
@@ -242,18 +222,21 @@ const load = async () => {
   }
 }
 
-// Watch Route Changes & Trigger `load`
+// Watch for route changes and trigger `load`
 watch(
   () => route.fullPath,
   async () => {
     if (route.query.page) {
       page.value = Number(route.query.page)
     }
-    await load() // No more error!
+    await load()
   },
-  { immediate: true },
+  { immediate: true }
 )
 
-// Load data on component mount
-onMounted(load)
+// Fetch initial images on component mount
+onMounted(() => {
+  menuStore.fetchImages()
+  load()
+})
 </script>
