@@ -66,9 +66,11 @@ export const useMenuStore = defineStore('menu', {
     user: null,
     menu: reactive(dummyMenuData),
     active: {
-      year: dummyMenuData.years.length ? dummyMenuData.years[0] : { key: '', year: 'Unknown' },
-      boat: dummyMenuData.boats.length ? dummyMenuData.boats[0] : { key: '', name: 'Unknown' },
-      type: dummyMenuData.types.length ? dummyMenuData.types[0] : { key: '', name: 'Unknown' },
+      year: dummyMenuData.years.length ? dummyMenuData.years[0] : { key: '', year: 'Model Year' },
+      boat: dummyMenuData.boats.length ? dummyMenuData.boats[0] : { key: '', name: 'Boat Model' },
+      type: dummyMenuData.types.length
+        ? dummyMenuData.types[0]
+        : { key: '', name: 'Resource Type' },
     },
   }),
 
@@ -88,6 +90,13 @@ export const useMenuStore = defineStore('menu', {
       if (this.active) {
         this.active[filterKey] = filterValue
       }
+    },
+    resetFilter() {
+      Object.assign(this.active, {
+        year: { key: '', year: 'Model Year' },
+        boat: { key: '', name: 'Boat Model' },
+        type: { key: '', name: 'Resource Type' },
+      })
     },
   },
 })
