@@ -236,6 +236,7 @@ watch(
 
 // Fetch initial images on component mount
 onMounted(() => {
+  menuStore.fetchFilters()
   menuStore.fetchImages()
   load()
 })

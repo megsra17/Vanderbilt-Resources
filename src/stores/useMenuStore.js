@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
-import { reactive } from 'vue' // Import reactive
+import { reactive, ref } from 'vue'
 
 export const useMenuStore = defineStore('menu', {
   state: () => ({
@@ -31,44 +31,24 @@ export const useMenuStore = defineStore('menu', {
       const authStore = useAuthStore()
       this.user = authStore.user
     },
-    async fetchFilters() {
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-      this.loading = true
 
+    async fetchFilters() {
+      this.loading = true
       try {
-        // Fetch folders from Cloudinary
-        const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${cloudName}/resources/search?expression=resource_type:image&max_results=500`,
-        )
+        // Call the backend API to get available folders from Cloudinary
+        const response = await fetch('http://localhost:3001/cloudinary/folders')
         const data = await response.json()
 
-        // Extract unique folders
-        const folders = new Set()
-        data.resources.forEach((img) => {
-          const folderPath = img.folder || ''
-          const parts = folderPath.split('/')
-          if (parts.length >= 2) {
-            folders.add(parts[1]) // Extract the year
-          }
-        })
+        this.menu.years = data.years.map((year) => ({ key: year, year }))
+        this.menu.boats = data.boats.map((boat) => ({ key: boat, name: boat }))
+        this.menu.types = data.types.map((type) => ({ key: type, name: type }))
 
-        // Convert folder names to menu items
-        this.menu.years = [...folders].map((year) => ({ key: year, year }))
-        this.menu.boats = [
-          { key: 'boat-1', name: 'Speed Boat' },
-          { key: 'boat-2', name: 'Yacht' },
-        ] // Placeholder boats
-        this.menu.types = [
-          { key: 'photos', name: 'Photos' },
-          { key: 'videos', name: 'Videos' },
-        ]
-
-        // Set active filters to first available
+        // Set first available filter values
         this.active.year = this.menu.years.length ? this.menu.years[0] : null
         this.active.boat = this.menu.boats.length ? this.menu.boats[0] : null
         this.active.type = this.menu.types.length ? this.menu.types[0] : null
       } catch (error) {
-        console.error('Error fetching Cloudinary folders:', error)
+        console.error('Error fetching filters:', error)
       } finally {
         this.loading = false
       }
@@ -80,17 +60,15 @@ export const useMenuStore = defineStore('menu', {
         return
       }
 
-      const folderPath = `nauticstar/${this.active.year.key}/${this.active.type.key}`
-      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-
       this.loading = true
       try {
+        // Call the backend API to fetch images
         const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${cloudName}/resources/search?expression=folder:${folderPath}`,
+          `http://localhost:3001/cloudinary/images?year=${this.active.year.key}&type=${this.active.type.key}`,
         )
         const data = await response.json()
 
-        this.images = data.resources.map((img) => ({
+        this.images = data.images.map((img) => ({
           url: img.secure_url,
           alt: img.public_id,
         }))
@@ -104,7 +82,7 @@ export const useMenuStore = defineStore('menu', {
 
     setFilter(filterKey, filterValue) {
       this.active[filterKey] = filterValue
-      this.fetchImages() // Fetch new images when a filter is changed
+      this.fetchImages()
     },
   },
 })
