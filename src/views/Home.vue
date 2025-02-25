@@ -139,13 +139,42 @@
 
     <!-- Gallery Section for Cloudinary Images -->
     <div class="container py-4">
+      <!-- Display the active folder if available -->
+      <div v-if="menuStore.active.year && menuStore.active.boat" class="mb-3">
+        <h5>
+          Currently viewing folder:
+          <strong>
+            nauticstar/{{ menuStore.active.year.key }}/{{ menuStore.active.boat.key }}
+          </strong>
+        </h5>
+      </div>
       <h2 class="boat-title">Gallery</h2>
       <div v-if="menuStore.loading" class="text-center">
         Loading images...
       </div>
-      <div v-else class="d-flex flex-wrap">
-        <div v-for="(img, index) in menuStore.images" :key="index" class="p-2">
-          <img :src="img.url" :alt="img.alt" style="width: 300px; object-fit: cover;" />
+      <div v-else class="row">
+        <div
+          v-for="(img, index) in menuStore.images"
+          :key="index"
+          class="col-md-3 mb-4 text-center"
+        >
+          <div class="d-flex flex-column align-items-center">
+            <img
+              :src="img.url"
+              :alt="img.alt"
+              class="img-fluid"
+              style="object-fit: cover;"
+            />
+            <!-- Display the title (use display_name or a title property) -->
+            <h5 class="mt-2">{{ img.display_name || img.alt }}</h5>
+            <a
+              :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
+              download
+              class="btn btn-sm btn-primary mt-2"
+            >
+              Download
+            </a>
+          </div>
         </div>
         <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
           No images found.
