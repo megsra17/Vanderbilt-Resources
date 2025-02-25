@@ -20,36 +20,67 @@ cloudinary.config({
 // 📌 Endpoint: Fetch all folders
 app.get('/cloudinary/folders', async (req, res) => {
   try {
-    const result = await cloudinary.api.root_folders()
+    // Fetch all top-level folders (years)
+    const result = await cloudinary.api.sub_folders('nauticstar')
+
+    console.log(
+      '📂 Available Folders:',
+      result.folders.map((folder) => folder.path),
+    )
+
+    // Extract available years
+    const years = result.folders.map((folder) => folder.name)
+
+    let boats = [] // Placeholder for boat models
+
+    // Fetch boat models for the first available year (default behavior)
+    if (years.length > 0) {
+      const firstYear = years[0] // Example: "2022"
+      console.log(`📁 Fetching boats inside nauticstar/${firstYear}`)
+
+      const boatResult = await cloudinary.api.sub_folders(`nauticstar/${firstYear}`)
+      boats = boatResult.folders.map((folder) => folder.name) // Extract boat names
+    }
 
     res.json({
-      years: result.folders.map((folder) => folder.name),
-      boats: ['Speed Boat', 'Yacht'], // Example boats
-      types: ['photos', 'videos'], // Example types
+      years,
+      boats,
+      types: ['photos', 'videos'], // Keep types for now
     })
   } catch (error) {
-    console.error('Error fetching folders:', error)
+    console.error('❌ Error fetching Cloudinary folders:', error)
     res.status(500).json({ error: 'Failed to fetch Cloudinary folders' })
   }
 })
 
 // 📌 Endpoint: Fetch images from a specific folder
 app.get('/cloudinary/images', async (req, res) => {
-  const { year, type } = req.query
-  if (!year || !type) {
+  const { year, boat } = req.query
+
+  console.log(`📩 Received API Request - Year: ${year}, Type: ${boat}`)
+
+  if (!year || !boat) {
     return res.status(400).json({ error: 'Missing year or type parameter' })
   }
 
+  const folderPath = `Home/nauticstar/${year}/${boat}`
+  console.log(`🔍 Searching Cloudinary folder: ${folderPath}`)
+
   try {
     const result = await cloudinary.api.resources({
-      type: 'upload',
-      prefix: `nauticstar/${year}/${type}`,
+      type: 'upload', // 🔹 Makes sure it looks for uploaded images
+      prefix: folderPath,
       max_results: 50,
     })
 
+    console.log(
+      '📸 Cloudinary API Response:',
+      result.resources.map((img) => img.secure_url),
+    )
+
     res.json({ images: result.resources })
   } catch (error) {
-    console.error('Error fetching images:', error)
+    console.error('❌ Error fetching images from Cloudinary:', error)
     res.status(500).json({ error: 'Failed to fetch Cloudinary images' })
   }
 })
