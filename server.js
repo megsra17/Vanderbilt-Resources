@@ -68,20 +68,32 @@ app.get('/cloudinary/list-subfolders', async (req, res) => {
 
 // 📌 Endpoint: Fetch images from a specific folder
 app.get('/cloudinary/images', async (req, res) => {
-  const { year, boat } = req.query
+  const { year, boat, type } = req.query
 
-  console.log(`📩 Received API Request - Year: ${year}, Boat: ${boat}`)
+  console.log(`📩 Received API Request - Year: ${year}, Boat: ${boat}, Type: ${type}`)
 
   if (!year || !boat) {
-    return res.status(400).json({ error: 'Missing year or type parameter' })
+    return res.status(400).json({ error: 'Missing year or boat parameter' })
   }
 
   const folderPath = `nauticstar/${year}/${boat}`
   console.log(`🔍 Searching Cloudinary folder: ${folderPath}`)
 
+  // Map the type parameter to a Cloudinary resource type.
+  // Default to 'image' if type is not provided or doesn't match other options.
+  let resourceType = 'image'
+  if (type) {
+    if (type === 'videos') {
+      resourceType = 'video'
+    } else if (type === 'raw') {
+      resourceType = 'raw'
+    }
+    // Add additional mappings if needed.
+  }
+
   try {
     const result = await cloudinary.search
-      .expression(`folder:"${folderPath}" AND resource_type:image`)
+      .expression(`folder:"${folderPath}" AND resource_type:${resourceType}`)
       .sort_by('created_at', 'desc')
       .max_results(50)
       .execute()

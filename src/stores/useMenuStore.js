@@ -102,13 +102,14 @@ export const useMenuStore = defineStore('menu', {
       const encodedBoat = encodeURIComponent(this.active.boat.key)
 
       console.log(
-        `📡 Fetching images for Year: ${this.active.year.key}, Boat: ${this.active.boat.key}`,
+        `📡 Fetching images for Year: ${this.active.year.key}, Boat: ${this.active.boat.key}, Type: ${this.active.type.key}`,
       )
 
       this.loading = true
       try {
+        // Include the "type" filter in the query string
         const response = await fetch(
-          `http://localhost:3001/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}`,
+          `http://localhost:3001/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}&type=${this.active.type.key}`,
         )
         const data = await response.json()
 
@@ -131,7 +132,6 @@ export const useMenuStore = defineStore('menu', {
         this.loading = false
       }
     },
-
     setFilter(filterKey, filterValue) {
       this.active[filterKey] = filterValue
       if (filterKey === 'year') {
