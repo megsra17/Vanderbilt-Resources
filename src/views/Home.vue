@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <!-- Breadcrumbs -->
+    <!-- Breadcrumbs & Resources (for non-home routes) -->
     <div v-if="$route.fullPath !== '/'">
       <div class="container">
         <nav aria-label="breadcrumb">
@@ -73,10 +73,14 @@
             <li class="breadcrumb-item">
               <router-link to="/" class="text-decoration-none">Home</router-link>
             </li>
-            <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="breadcrumb-item">
-              <router-link :to="breadcrumb.path" class="text-decoration-none">{{
-                breadcrumb.name
-              }}</router-link>
+            <li
+              v-for="(breadcrumb, index) in breadcrumbs"
+              :key="index"
+              class="breadcrumb-item"
+            >
+              <router-link :to="breadcrumb.path" class="text-decoration-none">
+                {{ breadcrumb.name }}
+              </router-link>
             </li>
           </ol>
         </nav>
@@ -133,24 +137,18 @@
       </div>
     </div>
 
-    <!-- Calendar Section -->
-    <div class="calendar-page text-center py-5" v-if="$route.fullPath === '/'">
-      <div class="container">
-        <div class="calendar-header d-flex justify-content-between align-items-center">
-          <h1 class="boat-title">Everglades' Schedule & Events</h1>
-          <a :href="getCalendarLink('amanda.aloy@evergladesboats.com')" class="btn btn-primary">
-            > Event Request
-          </a>
+    <!-- Gallery Section for Cloudinary Images -->
+    <div class="container py-4">
+      <h2 class="boat-title">Gallery</h2>
+      <div v-if="menuStore.loading" class="text-center">
+        Loading images...
+      </div>
+      <div v-else class="d-flex flex-wrap">
+        <div v-for="(img, index) in menuStore.images" :key="index" class="p-2">
+          <img :src="img.url" :alt="img.alt" style="width: 300px; object-fit: cover;" />
         </div>
-        <div class="calendar-holder mt-4">
-          <iframe
-            src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&showPrint=0&showTitle=0&showNav=1&showCalendars=1&showTz=1&src=ZGVhbGVycG9ydGFsY2FsZW5kYXJAZ21haWwuY29t&src=dTZha3JnZWMxbjUwZGptczA4ZnR2amZhMWNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZDhvODhtNzJoMThpMWhpcHAwYms3cDU3MjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZmJwYWI2dWdrYW9wNjM2NnVlMmp0NGk5N2dAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=a3MwcjBuaG9qZGYxaWphNHJtc2w2MWFyNGdAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%23F09300&color=%23D81B60&color=%237CB342&color=%233F51B5&color=%230B8043"
-            style="border: 0"
-            width="100%"
-            height="600"
-            frameborder="0"
-            scrolling="no"
-          ></iframe>
+        <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
+          No images found.
         </div>
       </div>
     </div>
@@ -158,42 +156,39 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
-import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
+import { ref, watch, onMounted } from 'vue'
+import { useMenuStore } from '@/stores/useMenuStore'
 import { useRouter, useRoute } from 'vue-router'
 import backgroundImage from '@/images/main-image.webp'
 
-// Initialize Stores and Router
+// Initialize Pinia Store and Router
 const menuStore = useMenuStore()
 const router = useRouter()
 const route = useRoute()
 
-// Reactive State
+// Local reactive state
 const resources = ref([])
 const categories = ref([])
 const page = ref(1)
 const total = ref(0)
 const notFound = ref(false)
 
-//get email for Contact link
-const getContactLink = (email) => {
-  return `mailto:${email}?subject=Everglades Resources Contact Request&body=`
-}
+// Email helper functions for contact and calendar links
+const getContactLink = (email) =>
+  `mailto:${email}?subject=Everglades Resources Contact Request&body=`
+const getCalendarLink = (email) =>
+  `mailto:${email}?subject=Everglades Resource Event Request&body=`
 
-//get email for Calendar link
-const getCalendarLink = (email) => {
-  return `mailto:${email}?subject=Everglades Resource Event Request&body=`
-}
-
+// Watch for changes to active filters in the store
 watch(
-  () => menuStore.active, 
+  () => menuStore.active,
   async () => {
     await menuStore.fetchImages()
-  }, 
+  },
   { deep: true }
 )
 
-// Load resources based on route
+// Load additional resources based on the current route
 const load = async () => {
   try {
     if (route.fullPath === '/') {
@@ -202,7 +197,6 @@ const load = async () => {
     }
 
     notFound.value = false
-
     const response = await fetch(`/json/resources${route.path}?page=${page.value}`)
     const data = await response.json()
 
@@ -222,7 +216,7 @@ const load = async () => {
   }
 }
 
-// Watch for route changes and trigger `load`
+// Watch for route changes and reload resources accordingly
 watch(
   () => route.fullPath,
   async () => {
@@ -234,7 +228,7 @@ watch(
   { immediate: true }
 )
 
-// Fetch initial images on component mount
+// Fetch initial data when the component mounts
 onMounted(() => {
   menuStore.fetchFilters()
   menuStore.fetchImages()
