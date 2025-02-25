@@ -63,12 +63,12 @@ app.get('/cloudinary/images', async (req, res) => {
     return res.status(400).json({ error: 'Missing year or type parameter' })
   }
 
-  const folderPath = `Home/nauticstar/${year}/${boat}`
+  const folderPath = `nauticstar/${year}/${boat}`
   console.log(`🔍 Searching Cloudinary folder: ${folderPath}`)
 
   try {
     const result = await cloudinary.api.resources({
-      type: 'upload', // 🔹 Makes sure it looks for uploaded images
+      type: 'upload', // 🔹 Ensures it looks for uploaded images
       prefix: folderPath,
       max_results: 50,
     })
@@ -82,6 +82,21 @@ app.get('/cloudinary/images', async (req, res) => {
   } catch (error) {
     console.error('❌ Error fetching images from Cloudinary:', error)
     res.status(500).json({ error: 'Failed to fetch Cloudinary images' })
+  }
+})
+
+// 📌 Endpoint: Fetch all assets
+app.get('/cloudinary/all-assets', async (req, res) => {
+  try {
+    const result = await cloudinary.api.resources({
+      resource_type: 'image', // Only images will be fetched
+      max_results: 100,
+    })
+    console.log('📂 All image assets:', result.resources)
+    res.json({ assets: result.resources, next_cursor: result.next_cursor })
+  } catch (error) {
+    console.error('❌ Error fetching all assets:', error)
+    res.status(500).json({ error: 'Failed to fetch assets' })
   }
 })
 
