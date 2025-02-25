@@ -57,7 +57,7 @@ app.get('/cloudinary/folders', async (req, res) => {
 app.get('/cloudinary/images', async (req, res) => {
   const { year, boat } = req.query
 
-  console.log(`📩 Received API Request - Year: ${year}, Type: ${boat}`)
+  console.log(`📩 Received API Request - Year: ${year}, Boat: ${boat}`)
 
   if (!year || !boat) {
     return res.status(400).json({ error: 'Missing year or type parameter' })
@@ -67,21 +67,21 @@ app.get('/cloudinary/images', async (req, res) => {
   console.log(`🔍 Searching Cloudinary folder: ${folderPath}`)
 
   try {
-    const result = await cloudinary.api.resources({
-      type: 'upload', // 🔹 Ensures it looks for uploaded images
-      prefix: folderPath,
-      max_results: 50,
-    })
+    const result = await cloudinary.search
+      .expression(`folder:${folderPath} AND resource_type:image`)
+      .sort_by('created_at', 'desc')
+      .max_results(50)
+      .execute()
 
     console.log(
-      '📸 Cloudinary API Response:',
+      '📸 Cloudinary Search API Response:',
       result.resources.map((img) => img.secure_url),
     )
 
     res.json({ images: result.resources })
   } catch (error) {
-    console.error('❌ Error fetching images from Cloudinary:', error)
-    res.status(500).json({ error: 'Failed to fetch Cloudinary images' })
+    console.error('❌ Error searching Cloudinary:', error)
+    res.status(500).json({ error: 'Failed to search Cloudinary images' })
   }
 })
 
