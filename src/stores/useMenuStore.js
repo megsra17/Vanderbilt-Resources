@@ -38,8 +38,6 @@ export const useMenuStore = defineStore('menu', {
         const response = await fetch('http://localhost:3001/cloudinary/folders')
         const data = await response.json()
 
-        console.log('📁 Fetched Folders:', data)
-
         // Extract valid years (numbers only)
         this.menu.years = data.years
           .filter((year) => !isNaN(year))
@@ -60,8 +58,6 @@ export const useMenuStore = defineStore('menu', {
           ? this.menu.types[0]
           : { key: 'photos', name: 'Photos' }
 
-        console.log('✅ Filters set correctly:', this.active)
-
         this.fetchImages()
       } catch (error) {
         console.error('❌ Error fetching Cloudinary filters:', error)
@@ -76,7 +72,7 @@ export const useMenuStore = defineStore('menu', {
           `http://localhost:3001/cloudinary/list-subfolders?year=${year}`,
         )
         const data = await response.json()
-        console.log(`Fetched boats for year ${year}:`, data.subfolders)
+
         // Map each subfolder to a boat object
         this.menu.boats = data.subfolders.map((folder) => ({
           key: folder.name,
@@ -97,13 +93,7 @@ export const useMenuStore = defineStore('menu', {
         return
       }
 
-      console.log('Active Filters before fetching images:', this.active)
-
       const encodedBoat = encodeURIComponent(this.active.boat.key)
-
-      console.log(
-        `📡 Fetching images for Year: ${this.active.year.key}, Boat: ${this.active.boat.key}, Type: ${this.active.type.key}`,
-      )
 
       this.loading = true
       try {
@@ -113,8 +103,6 @@ export const useMenuStore = defineStore('menu', {
         )
         const data = await response.json()
 
-        console.log('📸 API Response in Vue:', data)
-
         if (data.images) {
           this.images = data.images.map((img) => ({
             url: img.secure_url,
@@ -123,8 +111,6 @@ export const useMenuStore = defineStore('menu', {
         } else {
           this.images = []
         }
-
-        console.log('🖼️ Processed Images:', this.images)
       } catch (error) {
         console.error('❌ Error fetching Cloudinary images:', error)
         this.images = []
@@ -137,7 +123,6 @@ export const useMenuStore = defineStore('menu', {
       if (filterKey === 'year') {
         // When the year changes, fetch the boat folders for that year first.
         this.fetchBoatsForYear(filterValue.key).then(() => {
-          console.log('Active filters after fetching boats:', this.active)
           this.fetchImages()
         })
       } else {
