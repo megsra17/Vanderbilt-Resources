@@ -53,6 +53,19 @@ app.get('/cloudinary/folders', async (req, res) => {
   }
 })
 
+// Endpoint: Fetch boat folders for a specific year
+app.get('/cloudinary/list-subfolders', async (req, res) => {
+  const { year } = req.query
+  console.log(`Fetching subfolders for nauticstar/${year}`)
+  try {
+    const result = await cloudinary.api.sub_folders(`nauticstar/${year}`)
+    res.json({ subfolders: result.folders })
+  } catch (error) {
+    console.error('Error fetching subfolders:', error)
+    res.status(500).json({ error: 'Failed to fetch subfolders' })
+  }
+})
+
 // 📌 Endpoint: Fetch images from a specific folder
 app.get('/cloudinary/images', async (req, res) => {
   const { year, boat } = req.query
@@ -68,7 +81,7 @@ app.get('/cloudinary/images', async (req, res) => {
 
   try {
     const result = await cloudinary.search
-      .expression(`folder:${folderPath} AND resource_type:image`)
+      .expression(`folder:"${folderPath}" AND resource_type:image`)
       .sort_by('created_at', 'desc')
       .max_results(50)
       .execute()

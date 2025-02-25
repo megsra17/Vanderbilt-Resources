@@ -38,17 +38,18 @@ export const useMenuStore = defineStore('menu', {
         const response = await fetch('http://localhost:3001/cloudinary/folders')
         const data = await response.json()
 
-        console.log('📁 Fetched Folders:', data) // Debugging log
+        console.log('📁 Fetched Folders:', data)
 
         // Extract valid years (numbers only)
         this.menu.years = data.years
-          .filter((year) => !isNaN(year)) // Ensure only numeric values are used
+          .filter((year) => !isNaN(year))
           .map((year) => ({ key: year, year }))
 
+        // Use initial boats and types from API response
         this.menu.boats = data.boats.map((boat) => ({ key: boat, name: boat }))
         this.menu.types = data.types.map((type) => ({ key: type, name: type }))
 
-        // ✅ Fix: Ensure year is actually a number, not "nauticstar"
+        // Set default active values (defaulting to first year)
         this.active.year = this.menu.years.length
           ? this.menu.years[0]
           : { key: '2022', year: '2022' }
@@ -69,11 +70,34 @@ export const useMenuStore = defineStore('menu', {
       }
     },
 
+    async fetchBoatsForYear(year) {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/cloudinary/list-subfolders?year=${year}`,
+        )
+        const data = await response.json()
+        console.log(`Fetched boats for year ${year}:`, data.subfolders)
+        // Map each subfolder to a boat object
+        this.menu.boats = data.subfolders.map((folder) => ({
+          key: folder.name,
+          name: folder.name,
+        }))
+        // Update active boat to the first available for the year, if any.
+        this.active.boat = this.menu.boats.length
+          ? this.menu.boats[0]
+          : { key: 'default', name: 'Default Boat' }
+      } catch (error) {
+        console.error('❌ Error fetching boats for year:', year, error)
+      }
+    },
+
     async fetchImages() {
       if (!this.active.year || !this.active.boat) {
         console.error('❌ Filters are not set correctly:', this.active)
         return
       }
+
+      console.log('Active Filters before fetching images:', this.active)
 
       const encodedBoat = encodeURIComponent(this.active.boat.key)
 
@@ -107,9 +131,18 @@ export const useMenuStore = defineStore('menu', {
         this.loading = false
       }
     },
+
     setFilter(filterKey, filterValue) {
       this.active[filterKey] = filterValue
-      this.fetchImages()
+      if (filterKey === 'year') {
+        // When the year changes, fetch the boat folders for that year first.
+        this.fetchBoatsForYear(filterValue.key).then(() => {
+          console.log('Active filters after fetching boats:', this.active)
+          this.fetchImages()
+        })
+      } else {
+        this.fetchImages()
+      }
     },
   },
 })
