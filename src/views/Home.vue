@@ -66,22 +66,14 @@
     </div>
 
     <!-- Upload Section -->
-    <div class="container py-4">
+<div class="container py-4">
   <h2 class="boat-title">Upload an Image</h2>
   <div class="mb-3">
     <input type="file" ref="fileInput" @change="handleFileChange" />
   </div>
-  <!-- Dropdowns for folder selection -->
+  <!-- Only show boat dropdown; the year comes from the active store -->
   <div class="row mb-3">
-    <div class="col-md-6">
-      <select v-model="selectedYear" class="form-control">
-        <option disabled value="">Select Year</option>
-        <option v-for="year in menuStore.menu.years" :key="year.key" :value="year.key">
-          {{ year.year }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <select v-model="selectedBoat" class="form-control">
         <option disabled value="">Select Boat Folder</option>
         <option v-for="boat in menuStore.menu.boats" :key="boat.key" :value="boat.key">
@@ -160,13 +152,12 @@ const fileInput = ref(null)
 const selectedFile = ref(null)
 // Compute the folder path based on the selected values
 const uploadFolder = computed(() => {
-  if (selectedYear.value && selectedBoat.value) {
-    return `nauticstar/${selectedYear.value}/${selectedBoat.value}`
+  if (menuStore.active.year && selectedBoat.value) {
+    return `nauticstar/${menuStore.active.year.key}/${selectedBoat.value}`
   }
   return 'nauticstar/default'
 })
 const uploadStatus = ref('')
-const selectedYear = ref('')
 const selectedBoat = ref('')
 
 // Local reactive state
@@ -245,8 +236,15 @@ function handleFileChange(event) {
 
 // Upload file method
 async function uploadFile() {
+  // Check if a file is selected
   if (!selectedFile.value) {
     uploadStatus.value = 'Please select a file to upload.'
+    return
+  }
+  
+  // Check if a boat folder has been selected from the dropdown
+  if (!selectedBoat.value) {
+    uploadStatus.value = 'Please select a boat folder from the dropdown.'
     return
   }
 
