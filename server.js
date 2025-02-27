@@ -2,12 +2,15 @@ import express from 'express'
 import cors from 'cors'
 import { v2 as cloudinary } from 'cloudinary'
 import dotenv from 'dotenv'
+import multer from 'multer'
 
 // Load environment variables
 dotenv.config()
 
 const app = express()
 app.use(cors())
+
+const upload = multer({ dest: 'uploads/' })
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -122,6 +125,22 @@ app.get('/cloudinary/all-assets', async (req, res) => {
   } catch (error) {
     console.error('❌ Error fetching all assets:', error)
     res.status(500).json({ error: 'Failed to fetch assets' })
+  }
+})
+
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    const folderPath = req.body.folder || 'nauticstar/defualt'
+
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: folderPath,
+    })
+
+    console.log('Upload results:', result)
+    res.json(result)
+  } catch (error) {
+    console.error('upload error:', error)
+    res.status(500).json({ error: 'Upload failed' })
   }
 })
 

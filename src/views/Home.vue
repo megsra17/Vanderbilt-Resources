@@ -65,6 +65,38 @@
       </div>
     </div>
 
+    <!-- Upload Section -->
+    <div class="container py-4">
+  <h2 class="boat-title">Upload an Image</h2>
+  <div class="mb-3">
+    <input type="file" ref="fileInput" @change="handleFileChange" />
+  </div>
+  <!-- Dropdowns for folder selection -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <select v-model="selectedYear" class="form-control">
+        <option disabled value="">Select Year</option>
+        <option v-for="year in menuStore.menu.years" :key="year.key" :value="year.key">
+          {{ year.year }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <select v-model="selectedBoat" class="form-control">
+        <option disabled value="">Select Boat Folder</option>
+        <option v-for="boat in menuStore.menu.boats" :key="boat.key" :value="boat.key">
+          {{ boat.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <button @click="uploadFile" class="btn btn-primary">Upload</button>
+  <div v-if="uploadStatus" class="mt-2">
+    {{ uploadStatus }}
+  </div>
+</div>
+
+
     <!-- Gallery Section for Cloudinary Images -->
     <div class="container py-4">
       <!-- Display the active folder if available -->
@@ -113,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted,computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useRouter, useRoute } from 'vue-router'
 import backgroundImage from '@/images/main-image.webp'
@@ -122,6 +154,20 @@ import backgroundImage from '@/images/main-image.webp'
 const menuStore = useMenuStore()
 const router = useRouter()
 const route = useRoute()
+
+// Reactive state for upload
+const fileInput = ref(null)
+const selectedFile = ref(null)
+// Compute the folder path based on the selected values
+const uploadFolder = computed(() => {
+  if (selectedYear.value && selectedBoat.value) {
+    return `nauticstar/${selectedYear.value}/${selectedBoat.value}`
+  }
+  return 'nauticstar/default'
+})
+const uploadStatus = ref('')
+const selectedYear = ref('')
+const selectedBoat = ref('')
 
 // Local reactive state
 const resources = ref([])
@@ -191,4 +237,36 @@ onMounted(() => {
   menuStore.fetchImages()
   load()
 })
+
+// File change handler
+function handleFileChange(event) {
+  selectedFile.value = event.target.files[0]
+}
+
+// Upload file method
+async function uploadFile() {
+  if (!selectedFile.value) {
+    uploadStatus.value = 'Please select a file to upload.'
+    return
+  }
+
+  const formData = new FormData()
+  formData.append('file', selectedFile.value)
+  formData.append('folder', uploadFolder.value)
+
+  try {
+    uploadStatus.value = 'Uploading...'
+    const response = await fetch('http://localhost:3001/upload', {
+      method: 'POST',
+      body: formData,
+    })
+    const result = await response.json()
+    console.log('Upload result:', result)
+    uploadStatus.value = 'Upload successful!'
+    menuStore.fetchImages()
+  } catch (error) {
+    console.error('Upload error:', error)
+    uploadStatus.value = 'Upload failed.'
+  }
+}
 </script>
