@@ -1,122 +1,143 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <!-- Logo -->
-      <router-link class="navbar-brand" to="/">
-        <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Logo" height="40" />
-      </router-link>
+  <!-- WRAP everything in a parent container so we can have a top bar above the nav -->
+  <div>
+    <!-- TOP BAR (White background) -->
+    <div
+      class="d-flex justify-content-between align-items-center px-4 py-2"
+      style="background-color: #fff; border-bottom: 1px solid #ddd"
+    >
+      <!-- Left side: Logo + "Built For Beyond" -->
+      <div class="d-flex align-items-center">
+        <!-- Swap in your actual Everglades logo if desired -->
+        <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" />
+      </div>
 
-      <!-- Mobile Toggle Button -->
-      <button class="navbar-toggler" type="button" @click="mobileOpen = !mobileOpen">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbar Links -->
-      <div class="collapse navbar-collapse" :class="{ show: mobileOpen }">
-        <ul class="navbar-nav ms-auto">
-          <!-- Model Year -->
-          <li class="nav-item dropdown" @mouseenter="menuOver('years')" @mouseleave="menuLeave">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              @click.prevent="menuClick('years')"
-            >
-              {{ menuStore.active.year ? menuStore.active.year.year : 'Model Year' }}
-            </a>
-            <ul class="dropdown-menu" :class="{ show: active === 'years' }">
-              <li v-for="(year, index) in menuStore.menu.years" :key="index">
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  @click.prevent="menuStore.setFilter('year', year)"
-                >
-                  {{ year.year }}
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Boat Model -->
-          <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              @click.prevent="menuClick('boats')"
-            >
-              {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
-            </a>
-            <ul class="dropdown-menu" :class="{ show: active === 'boats' }">
-              <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  @click.prevent="menuStore.setFilter('boat', boat)"
-                >
-                  {{ boat.name }}
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Resource Type -->
-          <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              @click.prevent="menuClick('types')"
-            >
-              {{ menuStore.active.type ? menuStore.active.type.name : 'Resource Type' }}
-            </a>
-            <ul class="dropdown-menu" :class="{ show: active === 'types' }">
-              <li v-for="(type, index) in menuStore.menu.types" :key="index">
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  @click.prevent="menuStore.setFilter('type', type)"
-                >
-                  {{ type.name }}
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Reset Filter -->
-          <li class="nav-item">
-            <router-link class="nav-link" to="/" @click="closeMenu">Reset Filter</router-link>
-          </li>
-
-          <!-- 🔒 Authentication Section -->
-          <li class="nav-item" v-if="!menuStore.isAuthenticated">
-            <router-link class="nav-link" to="/login">Login</router-link>
-          </li>
-          <li class="nav-item dropdown" v-else>
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              @click.prevent="userOpen = !userOpen"
-            >
-              Test User
-              <!-- {{ menuStore.user.name || 'Account' }} -->
-            </a>
-            <ul class="dropdown-menu" v-if="userOpen">
-              <li>
-                <router-link class="dropdown-item" to="/profile" @click="closeMenu"
-                  >Profile</router-link
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
+      <!-- Right side: "Dealer Appeal & POS Materials" + E30 badge -->
+      <div class="d-flex align-items-center">
+        <a class="fw-bold me-3" href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
+          >Dealer Appeal</a
+        ><span></span>
+        <!-- <span class="badge rounded-pill bg-warning text-dark">E30</span> -->
       </div>
     </div>
-  </nav>
+
+    <!-- MAIN NAVBAR (Navy background) -->
+    <nav class="navbar navbar-expand-lg" style="background-color: #0b2349">
+      <div class="container-fluid">
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links (unchanged from your code) -->
+        <div class="collapse navbar-collapse" :class="{ show: mobileOpen }">
+          <ul class="navbar-nav ms-auto text-white">
+            <!-- Model Year -->
+            <li class="nav-item dropdown" @mouseenter="menuOver('years')" @mouseleave="menuLeave">
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                @click.prevent="menuClick('years')"
+              >
+                {{ menuStore.active.year ? menuStore.active.year.year : 'Model Year' }}
+              </a>
+              <ul class="dropdown-menu" :class="{ show: active === 'years' }">
+                <li v-for="(year, index) in menuStore.menu.years" :key="index">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('year', year)"
+                  >
+                    {{ year.year }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Boat Model -->
+            <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                @click.prevent="menuClick('boats')"
+              >
+                {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
+              </a>
+              <ul class="dropdown-menu" :class="{ show: active === 'boats' }">
+                <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('boat', boat)"
+                  >
+                    {{ boat.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Resource Type -->
+            <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                @click.prevent="menuClick('types')"
+              >
+                {{ menuStore.active.type ? menuStore.active.type.name : 'Resource Type' }}
+              </a>
+              <ul class="dropdown-menu" :class="{ show: active === 'types' }">
+                <li v-for="(type, index) in menuStore.menu.types" :key="index">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('type', type)"
+                  >
+                    {{ type.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Reset Filter -->
+            <li class="nav-item text-white">
+              <router-link class="nav-link text-white" to="/" @click="closeMenu"
+                >Reset Filter</router-link
+              >
+            </li>
+
+            <!-- 🔒 Authentication Section -->
+            <li class="nav-item" v-if="!menuStore.isAuthenticated">
+              <router-link class="nav-link text-white" to="/login">Login</router-link>
+            </li>
+            <li class="nav-item dropdown" v-else>
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                @click.prevent="userOpen = !userOpen"
+              >
+                Test User
+                <!-- {{ menuStore.user.name || 'Account' }} -->
+              </a>
+              <ul class="dropdown-menu" v-if="userOpen">
+                <li>
+                  <router-link class="dropdown-item" to="/profile" @click="closeMenu"
+                    >Profile</router-link
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script setup>

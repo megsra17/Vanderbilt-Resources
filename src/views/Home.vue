@@ -99,7 +99,8 @@
           </strong>
         </h5>
       </div>
-      <h2 class="boat-title">Gallery</h2>
+      <!-- Use the computed property for the title -->
+      <h2 class="boat-title">{{ galleryTitle }}</h2>
       <div v-if="menuStore.loading" class="text-center">Loading images...</div>
       <div v-else class="row">
         <div
@@ -142,6 +143,9 @@ const route = useRoute()
 // Reactive state for upload
 const fileInput = ref(null)
 const selectedFile = ref(null)
+const uploadStatus = ref('')
+const selectedBoat = ref('')
+
 // Compute the folder path based on the selected values
 const uploadFolder = computed(() => {
   if (menuStore.active.year && selectedBoat.value) {
@@ -149,8 +153,6 @@ const uploadFolder = computed(() => {
   }
   return 'nauticstar/default'
 })
-const uploadStatus = ref('')
-const selectedBoat = ref('')
 
 // Local reactive state
 const resources = ref([])
@@ -158,6 +160,21 @@ const categories = ref([])
 const page = ref(1)
 const total = ref(0)
 const notFound = ref(false)
+
+// Computed property for Gallery title based on the type filter
+const galleryTitle = computed(() => {
+  if (menuStore.active.type && menuStore.active.type.name) {
+    const typeName = menuStore.active.type.name.toLowerCase()
+    if (typeName.includes('video')) {
+      return 'Video Gallery'
+    } else if (typeName.includes('image')) {
+      return 'Image Gallery'
+    } else {
+      return menuStore.active.type.name + ' Gallery'
+    }
+  }
+  return 'Gallery'
+})
 
 // Email helper functions for contact and calendar links
 const getContactLink = (email) =>
