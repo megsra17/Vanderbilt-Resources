@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRoute, useRouter } from 'vue-router'
-import backgroundImage from '@/images/home-background.webp'
+import backgroundImage from '@/images/home-background-DuuOsHM--1.jpg'
 
 // Import your custom login form components
 import LoginForm from '@/components/auth/LoginForm.vue'
