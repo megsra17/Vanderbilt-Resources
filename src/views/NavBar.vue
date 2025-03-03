@@ -114,20 +114,8 @@
             <li class="nav-item" v-if="!authStore.isAuthenticated">
               <router-link class="nav-link text-white" to="/login">Login</router-link>
             </li>
-            <li class="nav-item dropdown" v-else>
-              <a
-                class="nav-link dropdown-toggle text-white"
-                href="#"
-                role="button"
-                @click.prevent="userOpen = !userOpen"
-              >
-                {{ authStore.getUser.name || 'Account' }}
-              </a>
-              <ul class="dropdown-menu" v-if="userOpen">
-                <li>
-                  <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
-                </li>
-              </ul>
+            <li class="nav-item" v-else>
+              <a class="nav-link text-white" href="#" @click.prevent="logout">Logout</a>
             </li>
           </ul>
         </div>
@@ -186,6 +174,7 @@ const closeMenu = () => {
 const logout = () => {
   authStore.logout() // Use the auth store's logout method
   closeMenu()
+  window.location.reload()
 }
 
 // Email contact link
