@@ -35,11 +35,6 @@ app.get('/cloudinary/folders', async (req, res) => {
     // Fetch all top-level folders (years)
     const result = await cloudinary.api.sub_folders('nauticstar')
 
-    console.log(
-      '📂 Available Folders:',
-      result.folders.map((folder) => folder.path),
-    )
-
     // Extract available years
     const years = result.folders.map((folder) => folder.name)
 
@@ -48,7 +43,6 @@ app.get('/cloudinary/folders', async (req, res) => {
     // Fetch boat models for the first available year (default behavior)
     if (years.length > 0) {
       const firstYear = years[0] // Example: "2022"
-      console.log(`📁 Fetching boats inside nauticstar/${firstYear}`)
 
       const boatResult = await cloudinary.api.sub_folders(`nauticstar/${firstYear}`)
       boats = boatResult.folders.map((folder) => folder.name) // Extract boat names
@@ -68,7 +62,6 @@ app.get('/cloudinary/folders', async (req, res) => {
 // Endpoint: Fetch boat folders for a specific year
 app.get('/cloudinary/list-subfolders', async (req, res) => {
   const { year } = req.query
-  console.log(`Fetching subfolders for nauticstar/${year}`)
   try {
     const result = await cloudinary.api.sub_folders(`nauticstar/${year}`)
     res.json({ subfolders: result.folders })
@@ -82,17 +75,12 @@ app.get('/cloudinary/list-subfolders', async (req, res) => {
 app.get('/cloudinary/images', async (req, res) => {
   const { year, boat, type } = req.query
 
-  console.log(`📩 Received API Request - Year: ${year}, Boat: ${boat}, Type: ${type}`)
-
   if (!year || !boat) {
     return res.status(400).json({ error: 'Missing year or boat parameter' })
   }
 
   const folderPath = `nauticstar/${year}/${boat}`
-  console.log(`🔍 Searching Cloudinary folder: ${folderPath}`)
 
-  // Map the type parameter to a Cloudinary resource type.
-  // Default to 'image' if type is not provided or doesn't match other options.
   let resourceType = 'image'
   if (type) {
     if (type === 'videos') {
@@ -110,11 +98,6 @@ app.get('/cloudinary/images', async (req, res) => {
       .max_results(50)
       .execute()
 
-    console.log(
-      '📸 Cloudinary Search API Response:',
-      result.resources.map((img) => img.secure_url),
-    )
-
     res.json({ images: result.resources })
   } catch (error) {
     console.error('❌ Error searching Cloudinary:', error)
@@ -129,7 +112,7 @@ app.get('/cloudinary/all-assets', async (req, res) => {
       resource_type: 'image', // Only images will be fetched
       max_results: 100,
     })
-    console.log('📂 All image assets:', result.resources)
+
     res.json({ assets: result.resources, next_cursor: result.next_cursor })
   } catch (error) {
     console.error('❌ Error fetching all assets:', error)
@@ -145,7 +128,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
       folder: folderPath,
     })
 
-    console.log('Upload results:', result)
     res.json(result)
   } catch (error) {
     console.error('upload error:', error)

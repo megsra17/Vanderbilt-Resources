@@ -17,8 +17,6 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async login({ email, password }) {
-      console.log('🔹 Attempting login with:', email, password)
-
       if (!email || !password) {
         console.error('🚨 Error: Email or password is empty!')
         throw new Error('Email and password are required.')
@@ -34,7 +32,6 @@ export const useAuthStore = defineStore('auth', {
         this.token = token
         localStorage.setItem('user', JSON.stringify(user))
         localStorage.setItem('token', token)
-        console.log('✅ Login successful!')
       } catch (error) {
         console.error('Login error:', error)
         throw new Error(error.response?.data?.error || 'Login failed.')
@@ -43,7 +40,6 @@ export const useAuthStore = defineStore('auth', {
 
     async logout() {
       try {
-        console.log('🔴 Logging out...')
         const useDummyAuth = true
         if (!useDummyAuth) {
           await axios.post('/json/logout')
@@ -53,7 +49,6 @@ export const useAuthStore = defineStore('auth', {
         this.token = null
         localStorage.removeItem('user')
         localStorage.removeItem('token')
-        console.log('✅ Successfully logged out!')
       } catch (error) {
         console.error('Logout error:', error)
       }

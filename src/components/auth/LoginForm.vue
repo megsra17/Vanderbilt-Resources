@@ -19,13 +19,8 @@ const login = async (event) => {
   emit('loading', true)
   error.value = null
 
-  console.log('📝 Submitting login with:', user.value.email, user.value.password)
-
   try {
-    console.log('🛣️ Checking router:', router)
     await authStore.login(user.value, router) //Ensure this only runs once
-    console.log('✅ Successfully logged in!')
-
     // Emit only if necessary
     emit('submit', { user: authStore.user })
     // Redirect to the home page after successful login

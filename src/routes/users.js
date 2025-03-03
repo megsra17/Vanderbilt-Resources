@@ -37,16 +37,13 @@ router.post('/register', async (req, res) => {
 // Login endpoint
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
-  console.log('Login attempt for:', email) // Debug log
   try {
     const user = await User.findOne({ email })
     if (!user) {
-      console.log('User not found for email:', email)
       return res.status(400).json({ error: 'Invalid credentials' })
     }
     const isMatch = await user.comparePassword(password)
     if (!isMatch) {
-      console.log('Password mismatch for email:', email)
       return res.status(400).json({ error: 'Invalid credentials' })
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' })
