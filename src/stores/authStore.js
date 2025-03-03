@@ -11,27 +11,33 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     isAuthenticated: (state) => !!state.token,
     getUser: (state) => state.user,
+    userRole: (state) => (state.user ? state.user.role : 'viewer'),
+    isAdmin: (state) => state.user && state.user.role === 'admin',
   },
 
   actions: {
     async login({ email, password }) {
-      console.log('🔹 Attempting login with:', email, password) // Debugging log
+      console.log('🔹 Attempting login with:', email, password)
 
       if (!email || !password) {
         console.error('🚨 Error: Email or password is empty!')
         throw new Error('Email and password are required.')
       }
 
-      // Simulated authentication (Replace with API call)
-      if (email === 'test@example.com' && password === 'password123') {
+      try {
+        const response = await axios.post('http://localhost:3001/api/users/login', {
+          email,
+          password,
+        })
+        const { user, token } = response.data
+        this.user = user
+        this.token = token
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('token', token)
         console.log('✅ Login successful!')
-        this.user = { email, name: 'Test User' }
-        this.token = 'dummy-token-123'
-        localStorage.setItem('user', JSON.stringify(this.user))
-        localStorage.setItem('token', this.token)
-      } else {
-        console.error('❌ Invalid credentials')
-        throw new Error('Invalid email or password.')
+      } catch (error) {
+        console.error('Login error:', error)
+        throw new Error(error.response?.data?.error || 'Login failed.')
       }
     },
 

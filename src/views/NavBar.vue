@@ -14,7 +14,10 @@
 
       <!-- Right side: "Dealer Appeal & POS Materials" + E30 badge -->
       <div class="d-flex align-items-center">
-        <a class="fw-bold me-3" href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
+        <a
+          class="fw-bold me-3"
+          target="_blank"
+          href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
           >Dealer Appeal</a
         ><span></span>
         <!-- <span class="badge rounded-pill bg-warning text-dark">E30</span> -->
@@ -107,9 +110,8 @@
                 >Reset Filter</router-link
               >
             </li>
-
             <!-- 🔒 Authentication Section -->
-            <li class="nav-item" v-if="!menuStore.isAuthenticated">
+            <li class="nav-item" v-if="!authStore.isAuthenticated">
               <router-link class="nav-link text-white" to="/login">Login</router-link>
             </li>
             <li class="nav-item dropdown" v-else>
@@ -119,15 +121,9 @@
                 role="button"
                 @click.prevent="userOpen = !userOpen"
               >
-                Test User
-                <!-- {{ menuStore.user.name || 'Account' }} -->
+                {{ authStore.getUser.name || 'Account' }}
               </a>
               <ul class="dropdown-menu" v-if="userOpen">
-                <li>
-                  <router-link class="dropdown-item" to="/profile" @click="closeMenu"
-                    >Profile</router-link
-                  >
-                </li>
                 <li>
                   <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
                 </li>
@@ -143,9 +139,10 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
+import { useAuthStore } from '@/stores/authStore' // Import auth store
 
 const menuStore = useMenuStore()
-
+const authStore = useAuthStore()
 const active = ref(null)
 const userOpen = ref(false)
 const mobileOpen = ref(false)
@@ -186,9 +183,8 @@ const closeMenu = () => {
   }
 }
 
-// Logout user
 const logout = () => {
-  menuStore.logout()
+  authStore.logout() // Use the auth store's logout method
   closeMenu()
 }
 

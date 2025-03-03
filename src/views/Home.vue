@@ -65,8 +65,8 @@
       </div>
     </div>
 
-    <!-- Upload Section -->
-    <div class="container py-4">
+    <!-- Upload Section (hidden for viewer role) -->
+    <div v-if="authStore.userRole !== 'viewer'" class="container py-4">
       <h2 class="boat-title">Upload an Image</h2>
       <div class="mb-3">
         <input type="file" ref="fileInput" @change="handleFileChange" />
@@ -132,11 +132,13 @@
 <script setup>
 import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
+import { useAuthStore } from '@/stores/authStore' // Import the auth store
 import { useRouter, useRoute } from 'vue-router'
 import backgroundImage from '@/images/main-image.jpg'
 
-// Initialize Pinia Store and Router
+// Initialize Pinia Stores and Router
 const menuStore = useMenuStore()
+const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 

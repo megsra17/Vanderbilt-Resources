@@ -3,12 +3,15 @@ import cors from 'cors'
 import { v2 as cloudinary } from 'cloudinary'
 import dotenv from 'dotenv'
 import multer from 'multer'
+import mongoose from 'mongoose'
+import userRoutes from './src/routes/users.js'
 
 // Load environment variables
 dotenv.config()
 
 const app = express()
 app.use(cors())
+app.use(express.json())
 
 const upload = multer({ dest: 'uploads/' })
 
@@ -19,6 +22,12 @@ cloudinary.config({
   api_secret: process.env.VITE_CLOUDINARY_API_SECRET,
   secure: true,
 })
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch((error) => console.error('MongoDB connection error:', error))
 
 // 📌 Endpoint: Fetch all folders
 app.get('/cloudinary/folders', async (req, res) => {
@@ -143,5 +152,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     res.status(500).json({ error: 'Upload failed' })
   }
 })
+
+// Mount user routes
+app.use('/api/users', userRoutes)
 
 app.listen(3001, () => console.log('Server running on port 3001'))
