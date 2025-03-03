@@ -21,7 +21,7 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 
     <!-- Optional Footer -->
     <footer class="bg-dark text-white text-center py-3">
-      <p class="mb-0">© 2025 Everglades Boats. All rights reserved.</p>
+      <p class="mb-0">© 2025 NauticStar Boats. All rights reserved.</p>
     </footer>
   </div>
 </template>

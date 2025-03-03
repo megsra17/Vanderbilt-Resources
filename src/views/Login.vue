@@ -104,8 +104,10 @@ onMounted(async () => {
             are available.
           </p>
           <p>
-            <b>Amanda Aloy</b> - Marketing Manager<br />
-            <a href="mailto:amanda.aloy@evergladesboats.com">amanda.aloy@evergladesboats.com</a>
+            <b>Ryan Fritinger</b> - Marketing Manager<br />
+            <a href="mailto:ryan.fritinger@nauticstarboats.com"
+              >ryan.fritinger@nauticstarboats.com</a
+            >
           </p>
         </div>
       </div>
