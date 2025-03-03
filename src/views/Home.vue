@@ -181,9 +181,21 @@ const galleryTitle = computed(() => {
 // Email helper functions for contact and calendar links
 const getContactLink = (email) =>
   `mailto:${email}?subject=Everglades Resources Contact Request&body=`
-const getCalendarLink = (email) => `mailto:${email}?subject=Everglades Resource Event Request&body=`
 
-// Watch for changes to active filters in the store
+// Function to reset the active filters (and close menus)
+const closeMenu = () => {
+  active.value = null
+  mobileOpen.value = false
+  userOpen.value = false
+  menuStore.active = {
+    // Reset active menu to default values
+    year: menuStore.menu.years.length ? menuStore.menu.years[0] : { key: '', year: 'Unknown' },
+    boat: menuStore.menu.boats.length ? menuStore.menu.boats[0] : { key: '', name: 'Unknown' },
+    type: menuStore.menu.types.length ? menuStore.menu.types[0] : { key: '', name: 'Unknown' },
+  }
+}
+
+// Watch for changes to active filters in the store and fetch images accordingly
 watch(
   () => menuStore.active,
   async () => {
@@ -237,7 +249,21 @@ onMounted(() => {
   menuStore.fetchFilters()
   menuStore.fetchImages()
   load()
+
+  // Debug: Log the authentication state
+  console.log('Is Authenticated?', authStore.isAuthenticated)
+  console.log('Current user:', authStore.getUser)
 })
+
+// Watch the authentication state; when a user logs in, reset the filters
+watch(
+  () => authStore.isAuthenticated,
+  (isAuthenticated) => {
+    if (isAuthenticated) {
+      closeMenu()
+    }
+  },
+)
 
 // File change handler
 function handleFileChange(event) {
@@ -277,4 +303,9 @@ async function uploadFile() {
     uploadStatus.value = 'Upload failed.'
   }
 }
+
+// Additional navbar-related reactive state
+const active = ref(null)
+const mobileOpen = ref(false)
+const userOpen = ref(false)
 </script>
