@@ -3,7 +3,7 @@
     <div class="container">
       <!-- Logo -->
       <router-link class="navbar-brand" to="/">
-        <img src="@/images/logo.svg" alt="Logo" height="40" />
+        <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Logo" height="40" />
       </router-link>
 
       <!-- Mobile Toggle Button -->

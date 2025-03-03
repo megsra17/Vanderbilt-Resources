@@ -2,8 +2,8 @@
 
 :root {
   --ever-primary: #003561;
-  --ever-font-body: 'vox', sans-serif;
-  --ever-font-header: 'vox', sans-serif;
+  --ever-font-body: 'Oxanium', sans-serif;
+  --ever-font-header: 'Oxanium', sans-serif;
 }
 
 html,
@@ -40,6 +40,7 @@ a {
   color: black !important;
   transition: 0.4s;
   padding: 3px;
+  font-family: var(--ever-font-body);
 }
 
 .btn {

@@ -19,8 +19,8 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <h4 class="fw-bold">Sales & Servicing</h4>
           <p>
-            If you require dealer net price sheets, please reach out to your Everglades Director of
-            Business Development.
+            If you require dealer net price sheets, please reach out to your NauticStar regional
+            sales manager.
           </p>
         </div>
 
@@ -50,15 +50,15 @@
         <!-- Press Contact -->
         <div class="col-lg-4 col-md-12 mb-4">
           <h4 class="fw-bold">Press Contact</h4>
-          <p>Everglades is enthusiastic to provide media and press assets.</p>
+          <p>NauticStar is enthusiastic to provide media and press assets.</p>
           <p>
-            <b>Amanda Aloy</b> - Marketing Manager<br />
+            <b>Ryan Fritinger</b> - Marketing Manager<br />
             <a href="tel:3864160432" class="text-decoration-none">386.416.0432</a> |
             <a
-              :href="getContactLink('amanda.aloy@evergladesboats.com')"
+              :href="getContactLink('ryan.fritinger@nauticstarboats.com')"
               class="text-decoration-none"
             >
-              amanda.aloy@evergladesboats.com
+              ryan.fritinger@nauticstarboats.com
             </a>
           </p>
         </div>
@@ -66,28 +66,27 @@
     </div>
 
     <!-- Upload Section -->
-<div class="container py-4">
-  <h2 class="boat-title">Upload an Image</h2>
-  <div class="mb-3">
-    <input type="file" ref="fileInput" @change="handleFileChange" />
-  </div>
-  <!-- Only show boat dropdown; the year comes from the active store -->
-  <div class="row mb-3">
-    <div class="col-md-12">
-      <select v-model="selectedBoat" class="form-control">
-        <option disabled value="">Select Boat Folder</option>
-        <option v-for="boat in menuStore.menu.boats" :key="boat.key" :value="boat.key">
-          {{ boat.name }}
-        </option>
-      </select>
+    <div class="container py-4">
+      <h2 class="boat-title">Upload an Image</h2>
+      <div class="mb-3">
+        <input type="file" ref="fileInput" @change="handleFileChange" />
+      </div>
+      <!-- Only show boat dropdown; the year comes from the active store -->
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <select v-model="selectedBoat" class="form-control">
+            <option disabled value="">Select Boat Folder</option>
+            <option v-for="boat in menuStore.menu.boats" :key="boat.key" :value="boat.key">
+              {{ boat.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <button @click="uploadFile" class="btn btn-primary">Upload</button>
+      <div v-if="uploadStatus" class="mt-2">
+        {{ uploadStatus }}
+      </div>
     </div>
-  </div>
-  <button @click="uploadFile" class="btn btn-primary">Upload</button>
-  <div v-if="uploadStatus" class="mt-2">
-    {{ uploadStatus }}
-  </div>
-</div>
-
 
     <!-- Gallery Section for Cloudinary Images -->
     <div class="container py-4">
@@ -101,9 +100,7 @@
         </h5>
       </div>
       <h2 class="boat-title">Gallery</h2>
-      <div v-if="menuStore.loading" class="text-center">
-        Loading images...
-      </div>
+      <div v-if="menuStore.loading" class="text-center">Loading images...</div>
       <div v-else class="row">
         <div
           v-for="(img, index) in menuStore.images"
@@ -111,12 +108,7 @@
           class="col-md-3 mb-4 text-center"
         >
           <div class="d-flex flex-column align-items-center">
-            <img
-              :src="img.url"
-              :alt="img.alt"
-              class="img-fluid"
-              style="object-fit: cover;"
-            />
+            <img :src="img.url" :alt="img.alt" class="img-fluid" style="object-fit: cover" />
             <!-- Display the title (use display_name or a title property) -->
             <h5 class="mt-2">{{ img.display_name || img.alt }}</h5>
             <a
@@ -137,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted,computed } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useRouter, useRoute } from 'vue-router'
 import backgroundImage from '@/images/main-image.webp'
@@ -170,8 +162,7 @@ const notFound = ref(false)
 // Email helper functions for contact and calendar links
 const getContactLink = (email) =>
   `mailto:${email}?subject=Everglades Resources Contact Request&body=`
-const getCalendarLink = (email) =>
-  `mailto:${email}?subject=Everglades Resource Event Request&body=`
+const getCalendarLink = (email) => `mailto:${email}?subject=Everglades Resource Event Request&body=`
 
 // Watch for changes to active filters in the store
 watch(
@@ -179,7 +170,7 @@ watch(
   async () => {
     await menuStore.fetchImages()
   },
-  { deep: true }
+  { deep: true },
 )
 
 // Load additional resources based on the current route
@@ -219,7 +210,7 @@ watch(
     }
     await load()
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Fetch initial data when the component mounts
@@ -241,7 +232,7 @@ async function uploadFile() {
     uploadStatus.value = 'Please select a file to upload.'
     return
   }
-  
+
   // Check if a boat folder has been selected from the dropdown
   if (!selectedBoat.value) {
     uploadStatus.value = 'Please select a boat folder from the dropdown.'
