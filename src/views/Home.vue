@@ -133,7 +133,7 @@
 import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useRouter, useRoute } from 'vue-router'
-import backgroundImage from '@/images/main-image.webp'
+import backgroundImage from '@/images/main-image.jpg'
 
 // Initialize Pinia Store and Router
 const menuStore = useMenuStore()
