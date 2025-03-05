@@ -94,9 +94,9 @@
       <div v-if="menuStore.active.year && menuStore.active.boat" class="mb-3">
         <h5>
           Currently viewing folder:
-          <strong>
-            nauticstar/{{ menuStore.active.year.key }}/{{ menuStore.active.boat.key }}
-          </strong>
+          <strong
+            >nauticstar/{{ menuStore.active.year.key }}/{{ menuStore.active.boat.key }}</strong
+          >
         </h5>
       </div>
       <!-- Use the computed property for the title -->
@@ -132,11 +132,11 @@
 <script setup>
 import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
-import { useAuthStore } from '@/stores/authStore' // Import the auth store
+import { useAuthStore } from '@/stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
 import backgroundImage from '@/images/main-image.jpg'
 
-// Initialize Pinia Stores and Router
+// Initialize Stores and Router
 const menuStore = useMenuStore()
 const authStore = useAuthStore()
 const router = useRouter()
@@ -148,7 +148,7 @@ const selectedFile = ref(null)
 const uploadStatus = ref('')
 const selectedBoat = ref('')
 
-// Compute the folder path based on the selected values
+// Compute folder path based on active filter and boat selection
 const uploadFolder = computed(() => {
   if (menuStore.active.year && selectedBoat.value) {
     return `nauticstar/${menuStore.active.year.key}/${selectedBoat.value}`
@@ -156,14 +156,14 @@ const uploadFolder = computed(() => {
   return 'nauticstar/default'
 })
 
-// Local reactive state
+// Local reactive state for additional resources
 const resources = ref([])
 const categories = ref([])
 const page = ref(1)
 const total = ref(0)
 const notFound = ref(false)
 
-// Computed property for Gallery title based on the type filter
+// Computed property for Gallery title based on active type
 const galleryTitle = computed(() => {
   if (menuStore.active.type && menuStore.active.type.name) {
     const typeName = menuStore.active.type.name.toLowerCase()
@@ -178,24 +178,28 @@ const galleryTitle = computed(() => {
   return 'Gallery'
 })
 
-// Email helper functions for contact and calendar links
+// Email helper function for contact links
 const getContactLink = (email) =>
   `mailto:${email}?subject=Everglades Resources Contact Request&body=`
 
-// Function to reset the active filters (and close menus)
+// Reactive state for Navbar (declared only once)
+const active = ref(null)
+const mobileOpen = ref(false)
+const userOpen = ref(false)
+
+// Function to reset active filters and close menus
 const closeMenu = () => {
   active.value = null
   mobileOpen.value = false
   userOpen.value = false
   menuStore.active = {
-    // Reset active menu to default values
     year: menuStore.menu.years.length ? menuStore.menu.years[0] : { key: '', year: 'Unknown' },
     boat: menuStore.menu.boats.length ? menuStore.menu.boats[0] : { key: '', name: 'Unknown' },
     type: menuStore.menu.types.length ? menuStore.menu.types[0] : { key: '', name: 'Unknown' },
   }
 }
 
-// Watch for changes to active filters in the store and fetch images accordingly
+// Watch for changes in active filters to fetch images
 watch(
   () => menuStore.active,
   async () => {
@@ -204,22 +208,24 @@ watch(
   { deep: true },
 )
 
-// Load additional resources based on the current route
+// Load resources based on the current route
 const load = async () => {
   try {
     if (route.fullPath === '/') {
-      menuStore.active = {}
+      // If authenticated, reset to default filters; else, clear active filters.
+      if (authStore.isAuthenticated) {
+        closeMenu()
+      } else {
+        menuStore.active = {}
+      }
       return
     }
-
     notFound.value = false
     const response = await fetch(`/json/resources${route.path}?page=${page.value}`)
     const data = await response.json()
-
     resources.value = data.resources
     categories.value = data.categories
     total.value = data.pages
-
     menuStore.active = {
       boat: data.boat,
       year: data.year,
@@ -232,7 +238,7 @@ const load = async () => {
   }
 }
 
-// Watch for route changes and reload resources accordingly
+// Watch for route changes and reload resources
 watch(
   () => route.fullPath,
   async () => {
@@ -244,18 +250,19 @@ watch(
   { immediate: true },
 )
 
-// Fetch initial data when the component mounts
+// On component mount, fetch filters and images; if authenticated, reset filters.
 onMounted(() => {
   menuStore.fetchFilters()
   menuStore.fetchImages()
   load()
-
-  // Debug: Log the authentication state
+  if (authStore.isAuthenticated) {
+    closeMenu()
+  }
   console.log('Is Authenticated?', authStore.isAuthenticated)
   console.log('Current user:', authStore.getUser)
 })
 
-// Watch the authentication state; when a user logs in, reset the filters
+// Watch authentication state; reset filters upon login.
 watch(
   () => authStore.isAuthenticated,
   (isAuthenticated) => {
@@ -272,22 +279,17 @@ function handleFileChange(event) {
 
 // Upload file method
 async function uploadFile() {
-  // Check if a file is selected
   if (!selectedFile.value) {
     uploadStatus.value = 'Please select a file to upload.'
     return
   }
-
-  // Check if a boat folder has been selected from the dropdown
   if (!selectedBoat.value) {
     uploadStatus.value = 'Please select a boat folder from the dropdown.'
     return
   }
-
   const formData = new FormData()
   formData.append('file', selectedFile.value)
   formData.append('folder', uploadFolder.value)
-
   try {
     uploadStatus.value = 'Uploading...'
     const response = await fetch('http://localhost:3001/upload', {
@@ -303,9 +305,4 @@ async function uploadFile() {
     uploadStatus.value = 'Upload failed.'
   }
 }
-
-// Additional navbar-related reactive state
-const active = ref(null)
-const mobileOpen = ref(false)
-const userOpen = ref(false)
 </script>

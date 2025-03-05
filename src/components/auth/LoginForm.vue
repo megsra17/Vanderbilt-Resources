@@ -24,7 +24,7 @@ const login = async (event) => {
     // Emit only if necessary
     emit('submit', { user: authStore.user })
     // Redirect to the home page after successful login
-    router.push('/home') // Or use: router.push('/')
+    router.push('/') // Or use: router.push('/')
   } catch (err) {
     error.value = err.message || 'Invalid email or password.'
     console.error('🚨 Login failed:', err.message)
