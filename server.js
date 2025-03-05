@@ -29,6 +29,11 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((error) => console.error('MongoDB connection error:', error))
 
+// Default route for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the NauticStar Resource App')
+})
+
 // 📌 Endpoint: Fetch all folders
 app.get('/cloudinary/folders', async (req, res) => {
   try {
