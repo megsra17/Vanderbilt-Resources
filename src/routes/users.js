@@ -4,6 +4,7 @@ import User from '../models/Users.js'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
+import crypto from 'crypto'
 
 dotenv.config()
 
@@ -77,15 +78,15 @@ router.post('/reset-password-request', async (req, res) => {
     // Generate reset token
     const resetToken = user.generatePasswordReset()
     await user.save()
-    const resetUrl = `${req.protocol}://${req.get('host')}/reset-password?key=${resetToken}`
+    // Point to your frontend domain instead of the backend host
+    const resetUrl = `http://localhost:5173/reset-password?key=${resetToken}`
 
     // Set up email options
     const mailOptions = {
-      from: '"Your App Name" <no-reply@yourapp.com>', // sender address
-      to: user.email, // recipient address
+      from: '"Your App Name" <no-reply@yourapp.com>',
+      to: user.email,
       subject: 'Password Reset Request',
       text: `You requested a password reset. Click here to reset your password: ${resetUrl}\n\nIf you did not request this, please ignore this email.`,
-      // Optionally, add HTML version:
       html: `<p>You requested a password reset.</p><p>Click <a href="${resetUrl}">here</a> to reset your password.</p><p>If you did not request this, please ignore this email.</p>`,
     }
 
