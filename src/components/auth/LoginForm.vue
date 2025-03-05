@@ -66,10 +66,10 @@ const login = async (event) => {
         {{ loading ? 'Logging in...' : 'Log In' }}
       </button>
       <p class="mt-3">
-        <!-- <a href="#" @click.prevent="emit('forgot')">Forgot Password</a> -->
+        <a href="#" @click.prevent="emit('forgot')">Forgot Password</a>
         <br />
         <a
-          href="mailto:amanda.aloy@evergladesboats.com?subject=Request%20Everglades%20Resources%20Access&amp;body="
+          href="mailto:ryan.fritinger@nauticstarboats.com?subject=Request%20Everglades%20Resources%20Access&amp;body="
           >Need Access? Request Here</a
         >
       </p>

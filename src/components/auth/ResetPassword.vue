@@ -1,27 +1,28 @@
 <script setup>
-import { ref } from "vue";
-import { useAuthStore } from "@/stores/authStore";
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
 
-const authStore = useAuthStore();
-const email = ref("");
-const loading = ref(false);
-const successMessage = ref("");
-const errorMessage = ref("");
+const authStore = useAuthStore()
+const email = ref('')
+const loading = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
 
 const sendResetRequest = async () => {
-  loading.value = true;
-  successMessage.value = "";
-  errorMessage.value = "";
+  loading.value = true
+  successMessage.value = ''
+  errorMessage.value = ''
 
   try {
-    await authStore.sendResetRequest(email.value);
-    successMessage.value = "Reset email sent! Check your inbox.";
+    await authStore.sendResetRequest(email.value)
+    successMessage.value = 'Reset email sent! Check your inbox.'
   } catch (error) {
-    errorMessage.value = "Failed to send reset email.";
+    console.error('Error sending reset request:', error)
+    errorMessage.value = error.response?.data?.error || 'Failed to send reset email.'
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
+}
 </script>
 
 <template>
@@ -35,14 +36,22 @@ const sendResetRequest = async () => {
       {{ errorMessage }}
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Email Address</label>
-      <input v-model="email" type="email" class="form-control" placeholder="Enter your email" required />
-    </div>
-
-    <button class="btn btn-primary w-100" :disabled="loading" @click="sendResetRequest">
-      {{ loading ? "Sending..." : "Send Reset Link" }}
-    </button>
+    <form @submit.prevent="sendResetRequest">
+      <div class="mb-3">
+        <label for="resetEmail" class="form-label">Email Address</label>
+        <input
+          id="resetEmail"
+          v-model="email"
+          type="email"
+          class="form-control"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary w-100" :disabled="loading">
+        {{ loading ? 'Sending...' : 'Send Reset Link' }}
+      </button>
+    </form>
   </div>
 </template>
 
