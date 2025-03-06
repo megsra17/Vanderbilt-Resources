@@ -24,25 +24,77 @@
           </p>
         </div>
 
-        <!-- Northeast & Southeast Contacts -->
+        <!-- Chesapeake Bay Region & Southeast Contacts -->
         <div class="col-lg-4 col-md-6 mb-4">
-          <h5 class="fw-bold">Northeast</h5>
+          <h5 class="fw-bold">Chesapeake Bay Region</h5>
           <p>
-            Caroline Cozier-Rainis - Director of Business Development<br />
-            <a href="tel:5165216596" class="text-decoration-none">516.521.6596</a> |
-            <a :href="getContactLink('caroline@evergladesboats.com')" class="text-decoration-none">
-              caroline@evergladesboats.com
+            Ryan Kagy - 
+            <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
+              ryankagy3@gmail.com
             </a>
           </p>
-          <h5 class="fw-bold mt-3">Southeast</h5>
           <p>
-            Matt Holloway - Director of Business Development<br />
-            <a href="tel:8044131553" class="text-decoration-none">804.413.1553</a> |
+            Connor Radcliff - 
+            <a :href="getContactLink('connor.radcliff@nauticstarboats.com')" class="text-decoration-none">
+              connor.radcliff@nauticstarboats.com
+            </a>
+          </p>
+          <h5 class="fw-bold mt-3">Northeast & Canada Region</h5>
+          <p>
+            Ryan Kagy -
             <a
-              :href="getContactLink('matt.holloway@evergladesboats.com')"
+              :href="getContactLink('ryankagy3@gmail.com')"
               class="text-decoration-none"
             >
-              matt.holloway@evergladesboats.com
+              ryankagy3@gmail.com
+            </a>
+          </p>
+          <h5 class="fw-bold mt-3">Southeast and Southwest Region</h5>
+          <p>
+            Darren Landry - 
+            <a
+              :href="getContactLink('darren.landry@nauticstarboats.com')"
+              class="text-decoration-none"
+            >
+              darren.landry@nauticstarboats.com
+            </a>
+          </p>
+          <p>
+            Hunter Landry - 
+            <a
+              :href="getContactLink('darren.landry@nauticstarboats.com')"
+              class="text-decoration-none"
+            >
+              hunter.landry@nauticstarboats.com
+            </a>
+          </p>
+          <h5 class="fw-bold mt-3">Midwest and Florida Region</h5>
+          <p>
+            Dennis Radcliff - 
+            <a
+              :href="getContactLink('dennisradcliff@icloud.com')"
+              class="text-decoration-none"
+            >
+              dennisradcliff@icloud.com
+            </a>
+          </p>
+          <p>
+            Connor Radcliffe - 
+            <a
+              :href="getContactLink('connor.radcliff@nauticstarboats.com')"
+              class="text-decoration-none"
+            >
+              connor.radcliff@nauticstarboats.com
+            </a>
+          </p>
+          <h5 class="fw-bold mt-3">West Region</h5>
+          <p>
+            Brian Allred - 
+            <a
+              :href="getContactLink('dbrian.allred@nauticstarboats.com')"
+              class="text-decoration-none"
+            >
+              brian.allred@nauticstarboats.com
             </a>
           </p>
         </div>
@@ -53,7 +105,7 @@
           <p>NauticStar is enthusiastic to provide media and press assets.</p>
           <p>
             <b>Ryan Fritinger</b> - Marketing Manager<br />
-            <a href="tel:3864160432" class="text-decoration-none">386.416.0432</a> |
+            <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
             <a
               :href="getContactLink('ryan.fritinger@nauticstarboats.com')"
               class="text-decoration-none"

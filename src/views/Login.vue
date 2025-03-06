@@ -113,6 +113,12 @@ onMounted(async () => {
               >ryan.fritinger@nauticstarboats.com</a
             >
           </p>
+          <p>
+            <b>Tyson Moran</b> - Marketing Director<br />
+            <a href="mailto:tyson@bigthundermarine.com"
+              >tyson@bigthundermarine.com</a
+            >
+          </p>
         </div>
       </div>
     </div>
