@@ -134,7 +134,7 @@
           </select>
         </div>
       </div>
-      <button @click="uploadFile" class="btn btn-primary">Upload</button>
+      <button @click="uploadFile" class="btn ever-btn-secondary">Upload</button>
       <div v-if="uploadStatus" class="mt-2">
         {{ uploadStatus }}
       </div>
@@ -167,7 +167,7 @@
             <a
               :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
               download
-              class="btn btn-sm btn-primary mt-2"
+              class="btn btn-sm ever-btn-secondary mt-2"
             >
               Download
             </a>

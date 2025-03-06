@@ -40,7 +40,7 @@ const sendResetRequest = async () => {
       <input v-model="email" type="email" class="form-control" placeholder="Enter your email" required />
     </div>
 
-    <button class="btn btn-primary w-100" :disabled="loading" @click="sendResetRequest">
+    <button class="btn ever-btn-primary w-100" :disabled="loading" @click="sendResetRequest">
       {{ loading ? "Sending..." : "Send Reset Link" }}
     </button>
   </div>

@@ -20,7 +20,7 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
     </main>
 
     <!-- Optional Footer -->
-    <footer class="bg-dark text-white text-center py-3">
+    <footer class="ever-bg-primary text-white text-center py-3">
       <p class="mb-0">© 2025 NauticStar Boats. All rights reserved.</p>
     </footer>
   </div>

@@ -1,7 +1,8 @@
 @import './base.css';
 
 :root {
-  --ever-primary: #003561;
+  --ever-primary: #0b234a;
+  --ever-secondary: #eba121;
   --ever-font-body: 'Oxanium', sans-serif;
   --ever-font-header: 'Oxanium', sans-serif;
 }
@@ -62,6 +63,16 @@ a {
 .ever-btn-primary:hover {
   background-color: white;
   color: var(--ever-primary);
+  border: 3px solid white;
+}
+
+.ever-btn-secondary {
+  background-color: var(--ever-secondary) !important;
+}
+
+.ever-btn-primary:hover {
+  background-color: white;
+  color: var(--ever-secondary);
   border: 3px solid white;
 }
 

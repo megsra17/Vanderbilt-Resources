@@ -53,7 +53,7 @@
           <!-- You can add other roles as needed -->
         </select>
       </div>
-      <button type="submit" class="btn btn-primary" :disabled="loading">
+      <button type="submit" class="btn ever-btn-secondary" :disabled="loading">
         {{ loading ? 'Adding User...' : 'Add User' }}
       </button>
     </form>

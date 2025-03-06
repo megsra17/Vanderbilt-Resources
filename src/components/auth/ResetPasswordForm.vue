@@ -28,7 +28,7 @@
           required
         />
       </div>
-      <button type="submit" class="btn btn-primary w-100" :disabled="loading">
+      <button type="submit" class="btn ever-btn-primary w-100" :disabled="loading">
         {{ loading ? 'Resetting...' : 'Reset Password' }}
       </button>
     </form>
