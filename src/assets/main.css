@@ -1,9 +1,9 @@
 @import './base.css';
 
 :root {
-  --ever-primary: #0b234a;
-  --ever-secondary: #eba121;
-  --ever-font-body: 'Oxanium', sans-serif;
+  --ever-primary: #003e5a;
+  --ever-secondary: #fdbb27;
+  --ever-font-body: 'Poppins', Sans-serif;
   --ever-font-header: 'Oxanium', sans-serif;
 }
 

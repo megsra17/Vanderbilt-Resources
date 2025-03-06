@@ -107,6 +107,8 @@ export const useMenuStore = defineStore('menu', {
           this.images = data.images.map((img) => ({
             url: img.secure_url,
             alt: img.public_id,
+            created_at: img.created_at,
+            display_name: img.display_name,
           }))
         } else {
           this.images = []

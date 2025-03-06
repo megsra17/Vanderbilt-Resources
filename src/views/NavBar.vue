@@ -19,10 +19,10 @@
           target="_blank"
           href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
           >Dealer Appeal</a
-        ><span></span>
+        >
         <a
           v-if="authStore.isAdmin"
-          class="badge rounded-pill bg-warning text-dark text-decoration-none"
+          class="badge rounded-pill bg-warning text-decoration-none"
           href="/add-user"
         >
           Add New User
@@ -31,7 +31,7 @@
     </div>
 
     <!-- MAIN NAVBAR (Navy background) -->
-    <nav class="navbar navbar-expand-lg" style="background-color: #0b2349">
+    <nav class="navbar navbar-expand-lg ever-bg-primary">
       <div class="container-fluid">
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">

@@ -27,7 +27,7 @@
         <!-- Chesapeake Bay Region & Southeast Contacts -->
         <div class="col-lg-4 col-md-6 mb-4">
           <h5 class="fw-bold">Chesapeake Bay Region</h5>
-          <p>
+          <p class="mb-0">
             Ryan Kagy - 
             <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
               ryankagy3@gmail.com
@@ -50,7 +50,7 @@
             </a>
           </p>
           <h5 class="fw-bold mt-3">Southeast and Southwest Region</h5>
-          <p>
+          <p class="mb-0">
             Darren Landry - 
             <a
               :href="getContactLink('darren.landry@nauticstarboats.com')"
@@ -69,7 +69,7 @@
             </a>
           </p>
           <h5 class="fw-bold mt-3">Midwest and Florida Region</h5>
-          <p>
+          <p class="mb-0">
             Dennis Radcliff - 
             <a
               :href="getContactLink('dennisradcliff@icloud.com')"
@@ -163,7 +163,10 @@
           <div class="d-flex flex-column align-items-center">
             <img :src="img.url" :alt="img.alt" class="img-fluid" style="object-fit: cover" />
             <!-- Display the title (use display_name or a title property) -->
-            <h5 class="mt-2">{{ img.display_name || img.alt }}</h5>
+            <h5 class="mt-2">{{ (img.display_name || img.alt).split('/').pop() }}</h5>
+            <p class="text-muted small">
+              Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
+            </p>
             <a
               :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
               download
