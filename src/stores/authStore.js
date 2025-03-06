@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: JSON.parse(localStorage.getItem('user') || 'null'), // Prevent JSON parsing errors
@@ -22,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
         throw new Error('Email and password are required.')
       }
       try {
-        const response = await axios.post('http://localhost:3001/api/users/login', {
+        const response = await axios.post(`${API_URL}}/api/users/login`, {
           email,
           password,
         })
@@ -41,7 +43,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const useDummyAuth = true
         if (!useDummyAuth) {
-          await axios.post('http://localhost:3001/api/users/logout')
+          await axios.post(`${API_URL}/api/users/logout`)
         }
         this.user = null
         this.token = null
@@ -55,10 +57,7 @@ export const useAuthStore = defineStore('auth', {
     // Send a password reset request (email-based)
     async sendResetRequest(email) {
       try {
-        const response = await axios.post(
-          'http://localhost:3001/api/users/reset-password-request',
-          { email },
-        )
+        const response = await axios.post(`${API_URL}/api/users/reset-password-request`, { email })
         return response.data
       } catch (error) {
         console.error('Reset request error:', error)
@@ -69,7 +68,7 @@ export const useAuthStore = defineStore('auth', {
     // Reset the password using the provided token and new password
     async resetPassword(token, newPassword) {
       try {
-        const response = await axios.post('http://localhost:3001/api/users/reset-password', {
+        const response = await axios.post(`${API_URL}/api/users/reset-password`, {
           token,
           newPassword,
         })
@@ -83,9 +82,7 @@ export const useAuthStore = defineStore('auth', {
     // Optional: Verify the reset token without resetting the password
     async verifyResetToken(token) {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/api/users/verify-reset-token?token=${token}`,
-        )
+        const response = await axios.get(`${API_URL}/api/users/verify-reset-token?token=${token}`)
         return response.data
       } catch (error) {
         console.error('Verify token error:', error)

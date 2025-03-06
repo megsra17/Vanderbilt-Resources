@@ -163,6 +163,8 @@ const page = ref(1)
 const total = ref(0)
 const notFound = ref(false)
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 // Computed property for Gallery title based on active type
 const galleryTitle = computed(() => {
   if (menuStore.active.type && menuStore.active.type.name) {
@@ -292,7 +294,7 @@ async function uploadFile() {
   formData.append('folder', uploadFolder.value)
   try {
     uploadStatus.value = 'Uploading...'
-    const response = await fetch('http://localhost:3001/upload', {
+    const response = await fetch(`${API_URL}/upload`, {
       method: 'POST',
       body: formData,
     })

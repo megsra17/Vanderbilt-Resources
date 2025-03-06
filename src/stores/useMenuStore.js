@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
 import { reactive, ref } from 'vue'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 export const useMenuStore = defineStore('menu', {
   state: () => ({
     user: null,
@@ -35,7 +37,7 @@ export const useMenuStore = defineStore('menu', {
     async fetchFilters() {
       this.loading = true
       try {
-        const response = await fetch('http://localhost:3001/cloudinary/folders')
+        const response = await fetch(`${API_URL}/cloudinary/folders`)
         const data = await response.json()
 
         // Extract valid years (numbers only)
@@ -68,9 +70,7 @@ export const useMenuStore = defineStore('menu', {
 
     async fetchBoatsForYear(year) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/cloudinary/list-subfolders?year=${year}`,
-        )
+        const response = await fetch(`${API_URL}/cloudinary/list-subfolders?year=${year}`)
         const data = await response.json()
 
         // Map each subfolder to a boat object
@@ -99,7 +99,7 @@ export const useMenuStore = defineStore('menu', {
       try {
         // Include the "type" filter in the query string
         const response = await fetch(
-          `http://localhost:3001/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}&type=${this.active.type.key}`,
+          `${API_URL}/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}&type=${this.active.type.key}`,
         )
         const data = await response.json()
 
