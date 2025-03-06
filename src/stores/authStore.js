@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+console.log('API_URL:', API_URL)
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -24,7 +25,7 @@ export const useAuthStore = defineStore('auth', {
         throw new Error('Email and password are required.')
       }
       try {
-        const response = await axios.post(`${API_URL}}/api/users/login`, {
+        const response = await axios.post(`${API_URL}/api/users/login`, {
           email,
           password,
         })
