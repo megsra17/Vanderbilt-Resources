@@ -49,30 +49,34 @@ onMounted(async () => {
       class="lazy-background login-background p-5"
       :style="{ backgroundImage: `url(${backgroundImage})` }"
     >
-      <div class="card w-25 p-4 border-0 shadow-lg mb-3">
-        <loader :loading="loading"></loader>
-        <h1 class="fw-bold text-uppercase">Dealer Digital Asset Library</h1>
-        <div class="separator"></div>
-        <p>
-          Engage your customers with high-quality branded content from NauticStar Boats. New users
-          can request access, existing users can login below.
-        </p>
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card p-4 border-0 shadow-lg mb-3">
+            <loader :loading="loading"></loader>
+            <h1 class="fw-bold text-uppercase">Dealer Digital Asset Library</h1>
+            <div class="separator"></div>
+            <p>
+              Engage your customers with high-quality branded content from NauticStar Boats. New users
+              can request access, existing users can login below.
+            </p>
 
-        <!-- Login & Password Reset Forms -->
-        <transition name="fade" mode="out-in">
-          <LoginForm
-            v-if="!resetting && !forgot"
-            @submit="login"
-            @forgot="forgot = true"
-            @loading="(val) => (loading = val)"
-          />
-          <SendResetForm
-            v-else-if="!resetting && forgot"
-            @back="forgot = false"
-            @loading="(val) => (loading = val)"
-          />
-          <!-- <ResetPasswordForm v-else-if="resetting" @loading="(val) => (loading = val)" /> -->
-        </transition>
+            <!-- Login & Password Reset Forms -->
+            <transition name="fade" mode="out-in">
+              <LoginForm
+                v-if="!resetting && !forgot"
+                @submit="login"
+                @forgot="forgot = true"
+                @loading="(val) => (loading = val)"
+              />
+              <SendResetForm
+                v-else-if="!resetting && forgot"
+                @back="forgot = false"
+                @loading="(val) => (loading = val)"
+              />
+              <!-- <ResetPasswordForm v-else-if="resetting" @loading="(val) => (loading = val)" /> -->
+            </transition>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -20,7 +20,13 @@
           href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
           >Dealer Appeal</a
         ><span></span>
-        <a class="badge rounded-pill bg-warning text-dark text-decoration-none" href="/add-user">Add New User</a>
+        <a
+          v-if="authStore.isAdmin"
+          class="badge rounded-pill bg-warning text-dark text-decoration-none"
+          href="/add-user"
+        >
+          Add New User
+        </a>
       </div>
     </div>
 
@@ -32,13 +38,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navbar Links (unchanged from your code) -->
-        <div class="collapse navbar-collapse" :class="{ show: mobileOpen }">
-          <ul class="navbar-nav ms-auto text-white">
+        <!-- Navbar Links: Center items using justify-content-center -->
+        <div class="collapse navbar-collapse justify-content-center" :class="{ show: mobileOpen }">
+          <ul class="navbar-nav text-white">
             <!-- Model Year -->
             <li class="nav-item dropdown" @mouseenter="menuOver('years')" @mouseleave="menuLeave">
               <a
-                class="nav-link dropdown-toggle text-white"
+                class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
                 role="button"
                 @click.prevent="menuClick('years')"
@@ -47,11 +53,7 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'years' }">
                 <li v-for="(year, index) in menuStore.menu.years" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('year', year)"
-                  >
+                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('year', year)">
                     {{ year.year }}
                   </a>
                 </li>
@@ -59,9 +61,9 @@
             </li>
 
             <!-- Boat Model -->
-            <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+            <li class="nav-item dropdown px-lg-4"  @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
               <a
-                class="nav-link dropdown-toggle text-white"
+                class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
                 role="button"
                 @click.prevent="menuClick('boats')"
@@ -70,11 +72,7 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'boats' }">
                 <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('boat', boat)"
-                  >
+                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('boat', boat)">
                     {{ boat.name }}
                   </a>
                 </li>
@@ -82,9 +80,9 @@
             </li>
 
             <!-- Resource Type -->
-            <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
+            <li class="nav-item dropdown pe-lg-4" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
               <a
-                class="nav-link dropdown-toggle text-white"
+                class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
                 role="button"
                 @click.prevent="menuClick('types')"
@@ -93,11 +91,7 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'types' }">
                 <li v-for="(type, index) in menuStore.menu.types" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('type', type)"
-                  >
+                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('type', type)">
                     {{ type.name }}
                   </a>
                 </li>
@@ -105,24 +99,31 @@
             </li>
 
             <!-- Reset Filter -->
-            <li class="nav-item text-white">
-              <router-link class="nav-link text-white" to="/" @click="closeMenu"
-                >Reset Filter</router-link
-              >
+            <li class="nav-item text-white pe-lg-4">
+              <router-link class="nav-link text-white fs-5" to="/" @click="closeMenu">Reset Filter</router-link>
             </li>
-            <!-- 🔒 Authentication Section -->
+
+            <!-- Authentication Section -->
             <li class="nav-item" v-if="!authStore.isAuthenticated">
-              <router-link class="nav-link text-white" to="/login">Login</router-link>
+              <router-link class="nav-link text-white fs-5" to="/login">Login</router-link>
             </li>
             <li class="nav-item" v-else>
-              <a class="nav-link text-white" href="#" @click.prevent="logout">Logout</a>
+              <a class="nav-link text-white fs-5" href="#" @click.prevent="logout">Logout</a>
             </li>
           </ul>
+          
         </div>
       </div>
     </nav>
+
   </div>
 </template>
+
+<style scoped>
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+</style>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
