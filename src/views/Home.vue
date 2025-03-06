@@ -65,8 +65,8 @@
       </div>
     </div>
 
-    <!-- Upload Section (hidden for viewer role) -->
-    <div v-if="authStore.userRole !== 'viewer'" class="container py-4">
+    <!-- Upload Section (hidden for user role) -->
+    <div v-if="authStore.userRole !== 'user'" class="container py-4">
       <h2 class="boat-title">Upload an Image</h2>
       <div class="mb-3">
         <input type="file" ref="fileInput" @change="handleFileChange" />

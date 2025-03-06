@@ -9,10 +9,10 @@
       <!-- Left side: Logo + "Built For Beyond" -->
       <div class="d-flex align-items-center">
         <!-- Swap in your actual Everglades logo if desired -->
-        <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" />
+       <a href="/"> <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" /></a>
       </div>
 
-      <!-- Right side: "Dealer Appeal & POS Materials" + E30 badge -->
+      <!-- Right side: "Dealer Appeal & POS Materials" -->
       <div class="d-flex align-items-center">
         <a
           class="fw-bold me-3"
@@ -20,7 +20,7 @@
           href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
           >Dealer Appeal</a
         ><span></span>
-        <!-- <span class="badge rounded-pill bg-warning text-dark">E30</span> -->
+        <a class="badge rounded-pill bg-warning text-dark text-decoration-none" href="/add-user">Add New User</a>
       </div>
     </div>
 

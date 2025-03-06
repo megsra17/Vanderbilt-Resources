@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
@@ -13,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     isAuthenticated: (state) => !!state.token,
     getUser: (state) => state.user,
-    userRole: (state) => (state.user ? state.user.role : 'viewer'),
+    userRole: (state) => (state.user ? state.user.role : 'user'),
     isAdmin: (state) => state.user && state.user.role === 'admin',
   },
 
