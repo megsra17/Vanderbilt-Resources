@@ -164,13 +164,23 @@
             <p class="text-muted small">
               Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
             </p>
-            <a
-              :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
-              download
-              class="btn ever-btn-secondary mt-2"
-            >
-              Download
-            </a>
+            <p class="d-flex align-items-center">
+              Download:
+              <a
+                :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
+                download
+                class="ever-text-primary text-hover-primary"
+              >
+                High Res
+              </a>
+              <a
+                :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
+                download
+                class="ever-text-primary text-hover-primary"
+              >
+                Low Res
+              </a>
+            </p>
             <button class="btn ever-btn-primary mt-2" @click="openShareModal(img.url)">
               Share
             </button>

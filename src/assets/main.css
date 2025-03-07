@@ -32,8 +32,20 @@ h5 {
   color: var(--ever-primary);
 }
 
+.ever-text-secondary {
+  color: var(--ever-secondary);
+}
+
 .ever-bg-primary {
   background-color: var(--ever-primary);
+}
+
+.ever-bg-secondary {
+  background-color: var(--ever-secondary);
+}
+
+.text-hover-primary:hover {
+  color: var(--ever-secondary) !important;
 }
 
 a {
