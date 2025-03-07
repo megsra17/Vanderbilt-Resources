@@ -28,30 +28,30 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <h5 class="fw-bold">Chesapeake Bay Region</h5>
           <p class="mb-0">
-            Ryan Kagy - 
+            Ryan Kagy -
             <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
               ryankagy3@gmail.com
             </a>
           </p>
           <p>
-            Connor Radcliff - 
-            <a :href="getContactLink('connor.radcliff@nauticstarboats.com')" class="text-decoration-none">
+            Connor Radcliff -
+            <a
+              :href="getContactLink('connor.radcliff@nauticstarboats.com')"
+              class="text-decoration-none"
+            >
               connor.radcliff@nauticstarboats.com
             </a>
           </p>
           <h5 class="fw-bold mt-3">Northeast & Canada Region</h5>
           <p>
             Ryan Kagy -
-            <a
-              :href="getContactLink('ryankagy3@gmail.com')"
-              class="text-decoration-none"
-            >
+            <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
               ryankagy3@gmail.com
             </a>
           </p>
           <h5 class="fw-bold mt-3">Southeast and Southwest Region</h5>
           <p class="mb-0">
-            Darren Landry - 
+            Darren Landry -
             <a
               :href="getContactLink('darren.landry@nauticstarboats.com')"
               class="text-decoration-none"
@@ -60,7 +60,7 @@
             </a>
           </p>
           <p>
-            Hunter Landry - 
+            Hunter Landry -
             <a
               :href="getContactLink('darren.landry@nauticstarboats.com')"
               class="text-decoration-none"
@@ -70,16 +70,13 @@
           </p>
           <h5 class="fw-bold mt-3">Midwest and Florida Region</h5>
           <p class="mb-0">
-            Dennis Radcliff - 
-            <a
-              :href="getContactLink('dennisradcliff@icloud.com')"
-              class="text-decoration-none"
-            >
+            Dennis Radcliff -
+            <a :href="getContactLink('dennisradcliff@icloud.com')" class="text-decoration-none">
               dennisradcliff@icloud.com
             </a>
           </p>
           <p>
-            Connor Radcliffe - 
+            Connor Radcliffe -
             <a
               :href="getContactLink('connor.radcliff@nauticstarboats.com')"
               class="text-decoration-none"
@@ -89,7 +86,7 @@
           </p>
           <h5 class="fw-bold mt-3">West Region</h5>
           <p>
-            Brian Allred - 
+            Brian Allred -
             <a
               :href="getContactLink('dbrian.allred@nauticstarboats.com')"
               class="text-decoration-none"
@@ -170,14 +167,45 @@
             <a
               :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
               download
-              class="btn btn-sm ever-btn-secondary mt-2"
+              class="btn ever-btn-secondary mt-2"
             >
               Download
             </a>
+            <button class="btn ever-btn-primary mt-2" @click="openShareModal(img.url)">
+              Share
+            </button>
           </div>
         </div>
         <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
           No images found.
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Share Modal -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    :class="{ show: showShareModal }"
+    :style="showShareModal ? 'display: block;' : 'display: none;'"
+    aria-modal="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Share Image</h5>
+          <button type="button" class="btn-close" @click="closeShareModal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Copy the link below to share this image:</p>
+          <div class="input-group">
+            <input type="text" class="form-control" v-model="shareUrl" readonly />
+            <button class="btn ever-btn-primary" type="button" @click="copyShareUrl">
+              Copy Link
+            </button>
+          </div>
+          <div v-if="copySuccess" class="text-success mt-2">Link copied!</div>
         </div>
       </div>
     </div>
@@ -202,6 +230,11 @@ const fileInput = ref(null)
 const selectedFile = ref(null)
 const uploadStatus = ref('')
 const selectedBoat = ref('')
+
+// New reactive state for the share modal
+const showShareModal = ref(false)
+const shareUrl = ref('')
+const copySuccess = ref(false)
 
 // Compute folder path based on active filter and boat selection
 const uploadFolder = computed(() => {
@@ -360,6 +393,29 @@ async function uploadFile() {
   } catch (error) {
     console.error('Upload error:', error)
     uploadStatus.value = 'Upload failed.'
+  }
+}
+
+// Function to open the share modal and set the share URL
+const openShareModal = (url) => {
+  shareUrl.value = url
+  showShareModal.value = true
+  copySuccess.value = false
+}
+
+// Function to close the share modal
+const closeShareModal = () => {
+  showShareModal.value = false
+}
+
+// Function to copy the share URL to the clipboard
+const copyShareUrl = async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value)
+    copySuccess.value = true
+  } catch (err) {
+    console.error('Failed to copy!', err)
+    copySuccess.value = false
   }
 }
 </script>
