@@ -1,3 +1,36 @@
+<style>
+.pagination-container {
+  gap: 0.5rem;
+}
+
+.page-arrow,
+.page-number {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 0.25rem;
+}
+
+.page-arrow:disabled,
+.page-number:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-number.active {
+  background-color: #0b2349; /* your brand color */
+  color: #fff;
+  border-color: #0b2349;
+}
+</style>
+
 <template>
   <not-found-content v-if="notFound"></not-found-content>
   <div class="home" v-else>
@@ -76,7 +109,7 @@
             </a>
           </p>
           <p>
-            Connor Radcliffe -
+            Connor Radcliff -
             <a
               :href="getContactLink('connor.radcliff@nauticstarboats.com')"
               class="text-decoration-none"
@@ -151,47 +184,95 @@
       <!-- Use the computed property for the title -->
       <h2 class="boat-title">{{ galleryTitle }}</h2>
       <div v-if="menuStore.loading" class="text-center">Loading images...</div>
-      <div v-else class="row">
-        <div
-          v-for="(img, index) in menuStore.images"
-          :key="index"
-          class="col-md-3 mb-4 text-center"
-        >
-          <div class="d-flex flex-column align-items-center">
-            <img :src="img.url" :alt="img.alt" class="img-fluid" style="object-fit: cover" />
-            <!-- Display the title (use display_name or a title property) -->
-            <h5 class="mt-2">{{ (img.display_name || img.alt).split('/').pop() }}</h5>
-            <p class="text-muted small">
-              Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
-            </p>
-            <p class="d-flex align-items-center">
-              Download:
-              <a
-                :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
-                download
-                class="ever-text-primary text-hover-primary"
-              >
-                High Res
-              </a>
-              <a
-                :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
-                download
-                class="ever-text-primary text-hover-primary"
-              >
-                Low Res
-              </a>
-            </p>
-            <button class="btn ever-btn-primary mt-2" @click="openShareModal(img.url)">
-              Share
-            </button>
+      <div v-else>
+        <!-- Image Cards -->
+        <div class="row">
+          <div
+            v-for="(img, index) in paginatedImages"
+            :key="index"
+            class="col-md-3 mb-4 text-center"
+          >
+            <div class="d-flex flex-column align-items-center">
+              <img :src="img.url" :alt="img.alt" class="img-fluid" style="object-fit: cover" />
+              <!-- Display the title (use display_name or a title property) -->
+              <h5 class="mt-2">{{ (img.display_name || img.alt).split('/').pop() }}</h5>
+              <p class="text-muted small">
+                Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
+              </p>
+              <p class="d-flex align-items-center">
+                Download:
+                <a
+                  :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
+                  download
+                  class="ever-text-primary text-hover-primary ms-1"
+                >
+                  High Res
+                </a>
+                <a
+                  :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
+                  download
+                  class="ever-text-primary text-hover-primary ms-2"
+                >
+                  Low Res
+                </a>
+              </p>
+              <button class="btn ever-btn-primary mt-2" @click="openShareModal(img.url)">
+                Share
+              </button>
+            </div>
+          </div>
+          <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
+            No images found.
           </div>
         </div>
-        <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
-          No images found.
+
+        <!-- Pagination Controls -->
+        <div class="d-flex justify-content-center align-items-center mt-4 pagination-container">
+          <!-- Go to first page -->
+          <button class="page-arrow" :disabled="currentPage === 1" @click="goToPage(1)">«</button>
+
+          <!-- Go to previous page -->
+          <button
+            class="page-arrow"
+            :disabled="currentPage === 1"
+            @click="goToPage(currentPage - 1)"
+          >
+            ‹
+          </button>
+
+          <!-- Page numbers -->
+          <button
+            v-for="pageNumber in pages"
+            :key="pageNumber"
+            class="page-number"
+            :class="{ active: pageNumber === currentPage }"
+            @click="goToPage(pageNumber)"
+          >
+            {{ pageNumber }}
+          </button>
+
+          <!-- Go to next page -->
+          <button
+            class="page-arrow"
+            :disabled="currentPage === totalPages"
+            @click="goToPage(currentPage + 1)"
+          >
+            ›
+          </button>
+
+          <!-- Go to last page -->
+          <button
+            class="page-arrow"
+            :disabled="currentPage === totalPages"
+            @click="goToPage(totalPages)"
+          >
+            »
+          </button>
         </div>
       </div>
     </div>
   </div>
+
   <!-- Share Modal -->
   <div
     class="modal fade"
@@ -241,12 +322,38 @@ const selectedFile = ref(null)
 const uploadStatus = ref('')
 const selectedBoat = ref('')
 
-// New reactive state for the share modal
+// State for share modal
 const showShareModal = ref(false)
 const shareUrl = ref('')
 const copySuccess = ref(false)
 
-// Compute folder path based on active filter and boat selection
+// Pagination state
+const currentPage = ref(1)
+const imagesPerPage = 32
+
+// totalPages: how many pages based on images length
+const totalPages = computed(() => Math.ceil(menuStore.images.length / imagesPerPage))
+
+// pages: array of page numbers
+const pages = computed(() => {
+  return Array.from({ length: totalPages.value }, (_, i) => i + 1)
+})
+
+// paginatedImages: slice of images for the current page
+const paginatedImages = computed(() => {
+  const startIndex = (currentPage.value - 1) * imagesPerPage
+  const endIndex = currentPage.value * imagesPerPage
+  return menuStore.images.slice(startIndex, endIndex)
+})
+
+// Go to specific page
+function goToPage(pageNumber) {
+  if (pageNumber < 1) pageNumber = 1
+  if (pageNumber > totalPages.value) pageNumber = totalPages.value
+  currentPage.value = pageNumber
+}
+
+// Cloudinary folder path
 const uploadFolder = computed(() => {
   if (menuStore.active.year && selectedBoat.value) {
     return `nauticstar/${menuStore.active.year.key}/${selectedBoat.value}`
@@ -254,7 +361,7 @@ const uploadFolder = computed(() => {
   return 'nauticstar/default'
 })
 
-// Local reactive state for additional resources
+// Local reactive state for resources
 const resources = ref([])
 const categories = ref([])
 const page = ref(1)
@@ -278,16 +385,16 @@ const galleryTitle = computed(() => {
   return 'Gallery'
 })
 
-// Email helper function for contact links
+// Email helper function
 const getContactLink = (email) =>
   `mailto:${email}?subject=Everglades Resources Contact Request&body=`
 
-// Reactive state for Navbar (declared only once)
+// Navbar states
 const active = ref(null)
 const mobileOpen = ref(false)
 const userOpen = ref(false)
 
-// Function to reset active filters and close menus
+// Close menu
 const closeMenu = () => {
   active.value = null
   mobileOpen.value = false
@@ -304,6 +411,8 @@ watch(
   () => menuStore.active,
   async () => {
     await menuStore.fetchImages()
+    // Reset to page 1 when the filter changes
+    currentPage.value = 1
   },
   { deep: true },
 )
@@ -312,7 +421,6 @@ watch(
 const load = async () => {
   try {
     if (route.fullPath === '/') {
-      // If authenticated, reset to default filters; else, clear active filters.
       if (authStore.isAuthenticated) {
         closeMenu()
       } else {
@@ -338,7 +446,7 @@ const load = async () => {
   }
 }
 
-// Watch for route changes and reload resources
+// Watch route changes
 watch(
   () => route.fullPath,
   async () => {
@@ -350,7 +458,7 @@ watch(
   { immediate: true },
 )
 
-// On component mount, fetch filters and images; if authenticated, reset filters.
+// On mount
 onMounted(() => {
   menuStore.fetchFilters()
   menuStore.fetchImages()
@@ -362,7 +470,7 @@ onMounted(() => {
   console.log('Current user:', authStore.getUser)
 })
 
-// Watch authentication state; reset filters upon login.
+// Watch auth state
 watch(
   () => authStore.isAuthenticated,
   (isAuthenticated) => {
@@ -406,19 +514,15 @@ async function uploadFile() {
   }
 }
 
-// Function to open the share modal and set the share URL
+// Share modal methods
 const openShareModal = (url) => {
   shareUrl.value = url
   showShareModal.value = true
   copySuccess.value = false
 }
-
-// Function to close the share modal
 const closeShareModal = () => {
   showShareModal.value = false
 }
-
-// Function to copy the share URL to the clipboard
 const copyShareUrl = async () => {
   try {
     await navigator.clipboard.writeText(shareUrl.value)
