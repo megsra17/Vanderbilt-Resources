@@ -173,14 +173,26 @@
     <!-- Gallery Section for Cloudinary Images -->
     <div class="container py-4">
       <!-- Display the active folder if available -->
-      <div v-if="menuStore.active.year && menuStore.active.boat" class="mb-3">
-        <h5>
-          Currently viewing folder:
-          <strong
-            >nauticstar/{{ menuStore.active.year.key }}/{{ menuStore.active.boat.key }}</strong
-          >
-        </h5>
-      </div>
+      <nav style="--bs-breadcrumb-divider: '/'" aria-label="breadcrumb" class="mb-2">
+        <ol class="breadcrumb">
+          <!-- Home -->
+          <li class="breadcrumb-item">
+            <router-link to="/">Home</router-link>
+          </li>
+
+          <!-- Year (non-active) -->
+          <li class="breadcrumb-item">
+            <router-link>
+              {{ menuStore.active.year?.key || '2025' }}
+            </router-link>
+          </li>
+
+          <!-- Boat Model (active) -->
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ menuStore.active.boat?.key || 'Model' }}
+          </li>
+        </ol>
+      </nav>
       <!-- Use the computed property for the title -->
       <h2 class="boat-title">{{ galleryTitle }}</h2>
       <div v-if="menuStore.loading" class="text-center">Loading images...</div>
