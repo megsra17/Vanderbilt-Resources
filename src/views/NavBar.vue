@@ -1,32 +1,33 @@
 <template>
   <!-- WRAP everything in a parent container so we can have a top bar above the nav -->
   <div>
-    <!-- TOP BAR (White background) -->
-    <div
-      class="d-flex justify-content-between align-items-center px-4 py-2"
-      style="background-color: #fff; border-bottom: 1px solid #ddd"
-    >
-      <!-- Left side: Logo + "Built For Beyond" -->
-      <div class="d-flex align-items-center">
-        <!-- Swap in your actual Everglades logo if desired -->
-       <a href="/"> <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" /></a>
-      </div>
+    <!-- Example Top Bar -->
+    <div class="container-fluid border-bottom py-2" style="background-color: #fff">
+      <div class="row align-items-center">
+        <!-- Left side: Logo -->
+        <div class="col-6 d-flex align-items-center">
+          <a href="/">
+            <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" />
+          </a>
+        </div>
 
-      <!-- Right side: "Dealer Appeal & POS Materials" -->
-      <div class="d-flex align-items-center">
-        <a
-          class="fw-bold me-3"
-          target="_blank"
-          href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
-          >Dealer Appeal</a
-        >
-        <a
-          v-if="authStore.isAdmin"
-          class="badge rounded-pill bg-warning text-decoration-none"
-          href="/add-user"
-        >
-          Add New User
-        </a>
+        <!-- Right side: Dealer Appeal + Add New User (if admin) -->
+        <div class="col-6 text-end">
+          <a
+            class="fw-bold me-lg-3"
+            target="_blank"
+            href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
+          >
+            Dealer Appeal
+          </a>
+          <a
+            v-if="authStore.isAdmin"
+            class="badge rounded-pill bg-warning text-decoration-none"
+            href="/add-user"
+          >
+            Add New User
+          </a>
+        </div>
       </div>
     </div>
 
@@ -53,7 +54,11 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'years' }">
                 <li v-for="(year, index) in menuStore.menu.years" :key="index">
-                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('year', year)">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('year', year)"
+                  >
                     {{ year.year }}
                   </a>
                 </li>
@@ -61,7 +66,11 @@
             </li>
 
             <!-- Boat Model -->
-            <li class="nav-item dropdown px-lg-4"  @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+            <li
+              class="nav-item dropdown px-lg-4"
+              @mouseenter="menuOver('boats')"
+              @mouseleave="menuLeave"
+            >
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -72,7 +81,11 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'boats' }">
                 <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('boat', boat)">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('boat', boat)"
+                  >
                     {{ boat.name }}
                   </a>
                 </li>
@@ -80,7 +93,11 @@
             </li>
 
             <!-- Resource Type -->
-            <li class="nav-item dropdown pe-lg-4" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
+            <li
+              class="nav-item dropdown pe-lg-4"
+              @mouseenter="menuOver('types')"
+              @mouseleave="menuLeave"
+            >
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -91,7 +108,11 @@
               </a>
               <ul class="dropdown-menu" :class="{ show: active === 'types' }">
                 <li v-for="(type, index) in menuStore.menu.types" :key="index">
-                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('type', type)">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('type', type)"
+                  >
                     {{ type.name }}
                   </a>
                 </li>
@@ -100,7 +121,9 @@
 
             <!-- Reset Filter -->
             <li class="nav-item text-white pe-lg-4">
-              <router-link class="nav-link text-white fs-5" to="/" @click="closeMenu">Reset Filter</router-link>
+              <router-link class="nav-link text-white fs-5" to="/" @click="closeMenu"
+                >Reset Filter</router-link
+              >
             </li>
 
             <!-- Authentication Section -->
@@ -111,11 +134,9 @@
               <a class="nav-link text-white fs-5" href="#" @click.prevent="logout">Logout</a>
             </li>
           </ul>
-          
         </div>
       </div>
     </nav>
-
   </div>
 </template>
 
