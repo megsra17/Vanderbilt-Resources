@@ -192,33 +192,49 @@
             :key="index"
             class="col-md-3 mb-4 text-center"
           >
-            <div class="d-flex flex-column align-items-center">
-              <img :src="img.url" :alt="img.alt" class="img-fluid" style="object-fit: cover" />
-              <!-- Display the title (use display_name or a title property) -->
-              <h5 class="mt-2">{{ (img.display_name || img.alt).split('/').pop() }}</h5>
-              <p class="text-muted small">
-                Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
-              </p>
-              <p class="d-flex align-items-center">
-                Download:
-                <a
-                  :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
-                  download
-                  class="ever-text-primary text-hover-primary ms-1"
-                >
-                  High Res
-                </a>
-                <a
-                  :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
-                  download
-                  class="ever-text-primary text-hover-primary ms-2"
-                >
-                  Low Res
-                </a>
-              </p>
-              <button class="btn ever-btn-primary mt-2" @click="openShareModal(img.url)">
-                Share
-              </button>
+            <div class="card h-100 d-flex flex-column justify-content-between">
+              <!-- Card image -->
+              <img
+                :src="img.url"
+                :alt="img.alt"
+                class="card-img-top"
+                style="object-fit: cover; max-height: 200px"
+              />
+
+              <!-- Card body -->
+              <div class="card-body">
+                <!-- Title -->
+                <h5 class="card-title">
+                  {{ (img.display_name || img.alt).split('/').pop() }}
+                </h5>
+                <p class="text-muted small mb-2">
+                  Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
+                </p>
+                <p class="card-text d-flex align-items-center justify-content-center">
+                  Download:
+                  <a
+                    :href="img.url.replace('/upload/', '/upload/fl_attachment/')"
+                    download
+                    class="ever-text-primary text-hover-primary ms-1"
+                  >
+                    High Res
+                  </a>
+                  <a
+                    :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
+                    download
+                    class="ever-text-primary text-hover-primary ms-2"
+                  >
+                    Low Res
+                  </a>
+                </p>
+              </div>
+
+              <!-- Card footer (optional) -->
+              <div class="card-footer bg-transparent border-0">
+                <button class="btn ever-btn-primary w-100" @click="openShareModal(img.url)">
+                  Share
+                </button>
+              </div>
             </div>
           </div>
           <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
