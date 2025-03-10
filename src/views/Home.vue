@@ -404,7 +404,7 @@ const galleryTitle = computed(() => {
     const typeName = menuStore.active.type.name.toLowerCase()
     if (typeName.includes('video')) {
       return 'Video Gallery'
-    } else if (typeName.includes('image')) {
+    } else if (typeName.includes('photos')) {
       return 'Image Gallery'
     } else {
       return menuStore.active.type.name + ' Gallery'
