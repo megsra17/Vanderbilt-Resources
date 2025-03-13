@@ -66,11 +66,7 @@
             </li>
 
             <!-- Boat Model -->
-            <li
-              class="nav-item dropdown px-lg-4"
-              @mouseenter="menuOver('boats')"
-              @mouseleave="menuLeave"
-            >
+            <li class="nav-item dropdown px-lg-4" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -79,18 +75,16 @@
               >
                 {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
               </a>
-              <ul class="dropdown-menu" :class="{ show: active === 'boats' }">
+              <ul class="dropdown-menu multi-column" :class="{ show: active === 'boats' }">
                 <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('boat', boat)"
-                  >
+                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('boat', boat)">
                     {{ boat.name }}
                   </a>
                 </li>
               </ul>
             </li>
+
+
 
             <!-- Resource Type -->
             <li
@@ -143,6 +137,21 @@
 <style scoped>
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Multi-column layout for dropdown */
+.dropdown-menu.multi-column {
+  column-count: 2;
+  column-gap: 1rem;
+  max-height: 300px;   /* optional: set a max height */
+  overflow-y: auto;    /* optional: enable scrolling if content overflows */
+}
+
+/* Optional: Adjust for smaller screens (use one column) */
+@media (max-width: 576px) {
+  .dropdown-menu.multi-column {
+    column-count: 1;
+  }
 }
 </style>
 
