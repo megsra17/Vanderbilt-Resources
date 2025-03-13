@@ -141,7 +141,7 @@
 
 /* Multi-column layout for dropdown */
 .dropdown-menu.multi-column {
-  column-count: 2;
+  column-count: 3;
   column-gap: 1rem;
   max-height: 300px;   /* optional: set a max height */
   overflow-y: auto;    /* optional: enable scrolling if content overflows */
