@@ -66,7 +66,11 @@
             </li>
 
             <!-- Boat Model -->
-            <li class="nav-item dropdown px-lg-4" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+            <li
+              class="nav-item dropdown px-lg-4"
+              @mouseenter="menuOver('boats')"
+              @mouseleave="menuLeave"
+            >
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -77,14 +81,16 @@
               </a>
               <ul class="dropdown-menu multi-column" :class="{ show: active === 'boats' }">
                 <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                  <a class="dropdown-item" href="#" @click.prevent="menuStore.setFilter('boat', boat)">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click.prevent="menuStore.setFilter('boat', boat)"
+                  >
                     {{ boat.name }}
                   </a>
                 </li>
               </ul>
             </li>
-
-
 
             <!-- Resource Type -->
             <li
@@ -141,10 +147,10 @@
 
 /* Multi-column layout for dropdown */
 .dropdown-menu.multi-column {
-  column-count: 3;
+  column-count: 4;
   column-gap: 1rem;
-  max-height: 300px;   /* optional: set a max height */
-  overflow-y: auto;    /* optional: enable scrolling if content overflows */
+  max-height: 300px; /* optional: set a max height */
+  overflow-y: auto; /* optional: enable scrolling if content overflows */
 }
 
 /* Optional: Adjust for smaller screens (use one column) */
