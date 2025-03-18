@@ -507,7 +507,6 @@ onMounted(() => {
   if (authStore.isAuthenticated) {
     closeMenu()
   }
-  console.log('Current user:', authStore.getUser)
 })
 
 // Watch auth state
