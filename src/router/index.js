@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
 import LoginView from '../views/Login.vue'
 import AddUser from '@/views/AddUser.vue'
+import AdminUsers from '@/views/AdminUsers.vue'
 import ResetPasswordForm from '@/components/auth/ResetPasswordForm.vue'
 import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
 
@@ -18,6 +19,12 @@ const router = createRouter({
       path: '/add-user',
       name: 'add-user',
       component: AddUser,
+      meta: { requiresAuth: true }, // 🔒 Protected route
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: AdminUsers,
       meta: { requiresAuth: true }, // 🔒 Protected route
     },
     { path: '/reset-password', component: ResetPasswordForm },

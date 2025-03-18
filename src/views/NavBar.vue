@@ -240,11 +240,6 @@ const mobileOpen = ref(false)
 // Computed properties for Pinia state
 const activeMenu = computed(() => active.value)
 
-onMounted(() => {
-  console.log('Menu Data:', menuStore.menu)
-  console.log('Active Year:', menuStore.active.year)
-})
-
 const bayBoats = computed(() =>
   menuStore.menu.boats.filter((boat) => {
     // check if boat.name includes "Bay" or ends with "Bay".

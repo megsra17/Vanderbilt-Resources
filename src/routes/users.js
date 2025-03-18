@@ -127,4 +127,54 @@ router.post('/reset-password', async (req, res) => {
   }
 })
 
+// Get all users (admin-only, so you should protect this endpoint in production)
+router.get('/', async (req, res) => {
+  try {
+    // Optionally exclude sensitive fields like the password
+    const users = await User.find({}).select('-password')
+    res.json({ users })
+  } catch (error) {
+    console.error('Error fetching users:', error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
+// Update user endpoint
+router.put('/:id', async (req, res) => {
+  try {
+    // Update the user with the provided data; exclude password if it's empty (or handle accordingly)
+    const updateData = { ...req.body }
+
+    // Optionally, if password is empty, you might want to remove it from updateData:
+    if (!updateData.password) {
+      delete updateData.password
+    }
+
+    // Find the user by ID and update; return the new user document
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+      runValidators: true, // Optional: run schema validators
+    }).select('-password') // Exclude the password field from the response
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+
+    res.json({ user: updatedUser, message: 'User updated successfully' })
+  } catch (error) {
+    console.error('Error updating user:', error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id)
+    res.json({ message: 'User deleted successfully' })
+  } catch (error) {
+    console.error('Error deleting user:', error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
 export default router
