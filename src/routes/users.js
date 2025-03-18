@@ -10,7 +10,7 @@ dotenv.config()
 
 const router = express.Router()
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const API_URL = process.env.VITE_API_URL || 'http://localhost:3001'
 
 // Create a transporter using your email service credentials
 const transporter = nodemailer.createTransport({
