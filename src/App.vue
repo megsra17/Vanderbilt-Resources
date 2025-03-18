@@ -21,7 +21,15 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 
     <!-- Optional Footer -->
     <footer class="ever-bg-primary text-white text-center py-3">
-      <p class="mb-0">© 2025 NauticStar Boats. All rights reserved.</p>
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="mb-0">© 2025 NauticStar Boats. All rights reserved.</p>
+        </div>
+        <div class="col-lg-6">
+          <p class="mb-0"><a class="text-white" href="https://nauticstarboats.com/privacy-policy/">Privacy Policy</a> | <a href="https://nauticstarboats.com/terms-of-use/" class="text-white">Terms of Use</a> | <a class="text-white" href="https://nauticstarboats.com/website-accessibility-statement/">Accessibility</a> | <a href="https://nauticstarboats.com/po-terms-conditions/" class="text-white"> Terms &Conditions</a> </p>
+        </div>
+      </div>
+      
     </footer>
   </div>
 </template>
@@ -32,6 +40,7 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
   display: flex;
   flex-direction: column;
 }
+
 
 .main-content {
   flex: 1; /* Ensures dynamic content takes up remaining space */

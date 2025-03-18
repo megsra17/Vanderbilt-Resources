@@ -7,8 +7,7 @@ import backgroundImage from '@/images/home-background-DuuOsHM--1.jpg'
 // Import your custom login form components
 import LoginForm from '@/components/auth/LoginForm.vue'
 import SendResetForm from '@/components/auth/SendResetForm.vue'
-//import ResetPasswordForm from '@/components/auth/ResetPassword.vue'
-
+ 
 const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
@@ -45,6 +44,9 @@ onMounted(async () => {
 
 <template>
   <div class="row">
+    <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="NauticStar Boats" style="width: 300px;" class="logo mb-3" />
+  </div>
+  <div class="row">
     <div
       class="lazy-background login-background p-5"
       :style="{ backgroundImage: `url(${backgroundImage})` }"
@@ -73,7 +75,6 @@ onMounted(async () => {
                 @back="forgot = false"
                 @loading="(val) => (loading = val)"
               />
-              <!-- <ResetPasswordForm v-else-if="resetting" @loading="(val) => (loading = val)" /> -->
             </transition>
           </div>
         </div>
@@ -82,7 +83,7 @@ onMounted(async () => {
 
     <!-- Callouts Section -->
     <div class="callouts">
-      <div class="row">
+      <div class="row mx-5 g-5">
         <div class="col-lg-4">
           <h4>Photography & Video</h4>
           <p>
@@ -122,7 +123,7 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mx-5">
       <div class="col">
         <p class="disclaimer">
           NauticStar Boats grants blanket permission to use any of the provided photography, logos,
