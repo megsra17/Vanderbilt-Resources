@@ -57,7 +57,7 @@
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary" :disabled="loading">
+            <button type="submit" class="btn ever-btn-primary" :disabled="loading">
               {{ loading ? 'Adding User...' : 'Add User' }}
             </button>
           </form>
