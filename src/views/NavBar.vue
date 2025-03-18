@@ -29,7 +29,7 @@
     </div>
 
     <!-- MAIN NAVBAR (Navy background) -->
-    <nav class="navbar navbar-expand-lg ever-bg-primary">
+    <nav v-if="!isAdminPage" class="navbar navbar-expand-lg ever-bg-primary">
       <div class="container-fluid">
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
@@ -227,6 +227,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
 import { useAuthStore } from '@/stores/authStore' // Import auth store
+import { useRoute } from 'vue-router'
 
 const menuStore = useMenuStore()
 const authStore = useAuthStore()
@@ -236,6 +237,12 @@ const mobileOpen = ref(false)
 
 // Computed properties for Pinia state
 const activeMenu = computed(() => active.value)
+
+// Get the current route
+const route = useRoute()
+
+// Compute a flag to determine if we are on the admin page
+const isAdminPage = computed(() => route.path === '/users')
 
 const bayBoats = computed(() =>
   menuStore.menu.boats.filter((boat) => {
