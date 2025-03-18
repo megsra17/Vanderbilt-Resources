@@ -10,6 +10,8 @@ dotenv.config()
 
 const router = express.Router()
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+
 // Create a transporter using your email service credentials
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST, // e.g., 'smtp.gmail.com'
@@ -79,7 +81,7 @@ router.post('/reset-password-request', async (req, res) => {
     const resetToken = user.generatePasswordReset()
     await user.save()
     // Point to your frontend domain instead of the backend host
-    const resetUrl = `http://localhost:5173/reset-password?key=${resetToken}`
+    const resetUrl = `${API_URL}/reset-password?key=${resetToken}`
 
     // Set up email options
     const mailOptions = {
