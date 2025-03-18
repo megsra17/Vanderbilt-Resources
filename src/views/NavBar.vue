@@ -1,7 +1,6 @@
 <template>
   <!-- WRAP everything in a parent container so we can have a top bar above the nav -->
   <div>
-    <!-- Example Top Bar -->
     <div class="container-fluid border-bottom py-2" style="background-color: #fff">
       <div class="row align-items-center">
         <!-- Left side: Logo -->
@@ -10,8 +9,6 @@
             <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" />
           </a>
         </div>
-
-        <!-- Right side: Dealer Appeal + Add New User (if admin) -->
         <div class="col-6 text-end">
           <a
             class="fw-bold me-lg-3"
@@ -22,10 +19,10 @@
           </a>
           <a
             v-if="authStore.isAdmin"
-            class="badge rounded-pill bg-warning text-decoration-none"
-            href="/add-user"
+            class="badge rounded-pill ever-bg-secondary text-decoration-none"
+            href="/users"
           >
-            Add New User
+            Manage Users
           </a>
         </div>
       </div>
