@@ -65,12 +65,8 @@
               </ul>
             </li>
 
-            <!-- Boat Model -->
-            <li
-              class="nav-item dropdown px-lg-4"
-              @mouseenter="menuOver('boats')"
-              @mouseleave="menuLeave"
-            >
+            <!-- Boat Model  -->
+             <li class="nav-item dropdown px-lg-4" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -79,16 +75,83 @@
               >
                 {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
               </a>
-              <ul class="dropdown-menu multi-column" :class="{ show: active === 'boats' }">
-                <li v-for="(boat, index) in menuStore.menu.boats" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('boat', boat)"
-                  >
-                    {{ boat.name }}
-                  </a>
-                </li>
+
+              <!-- Manual 5-column layout -->
+              <ul
+                class="dropdown-menu width-container p-3"
+                :class="{ show: active === 'boats' }"
+              >
+                <div class="row">
+                  <!-- Column 1: Bay Boats -->
+                  <div class="col-12 col-lg-2">
+                    <li class="dropdown-header">Bay Boats</li>
+                    <li v-for="boat in bayBoats" :key="boat.key">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="menuStore.setFilter('boat', boat)"
+                      >
+                        {{ boat.name }}
+                      </a>
+                    </li>
+                  </div>
+
+                  <!-- Column 2: Deck Boats -->
+                  <div class="col-12 col-lg-2">
+                    <li class="dropdown-header">Deck Boats</li>
+                    <li v-for="boat in deckBoats" :key="boat.key">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="menuStore.setFilter('boat', boat)"
+                      >
+                        {{ boat.name }}
+                      </a>
+                    </li>
+                  </div>
+
+                  <!-- Column 3: Hybrid Boats -->
+                  <div class="col-12 col-lg-2">
+                    <li class="dropdown-header">Hybrid Boats</li>
+                    <li v-for="boat in hybridBoats" :key="boat.key">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="menuStore.setFilter('boat', boat)"
+                      >
+                        {{ boat.name }}
+                      </a>
+                    </li>
+                  </div>
+
+                  <!-- Column 4: Legacy Boats -->
+                  <div class="col-12 col-lg-2">
+                    <li class="dropdown-header">Legacy Boats</li>
+                    <li v-for="boat in legacyBoats" :key="boat.key">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="menuStore.setFilter('boat', boat)"
+                      >
+                        {{ boat.name }}
+                      </a>
+                    </li>
+                  </div>
+
+                  <!-- Column 5: Offshore Boats -->
+                  <div class="col-12 col-lg-2">
+                    <li class="dropdown-header">Offshore Boats</li>
+                    <li v-for="boat in offshoreBoats" :key="boat.key">
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="menuStore.setFilter('boat', boat)"
+                      >
+                        {{ boat.name }}
+                      </a>
+                    </li>
+                  </div>
+                </div>
               </ul>
             </li>
 
@@ -145,19 +208,17 @@
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Multi-column layout for dropdown */
-.dropdown-menu.multi-column {
-  column-count: 4;
-  column-gap: 1rem;
-  max-height: 300px; /* optional: set a max height */
-  overflow-y: auto; /* optional: enable scrolling if content overflows */
+.width-container{
+  width: 900px; 
+  max-height: 400px; 
+  overflow-y: auto;
 }
 
 /* Optional: Adjust for smaller screens (use one column) */
 @media (max-width: 576px) {
-  .dropdown-menu.multi-column {
-    column-count: 1;
-  }
+  .width-container{
+  width: 400px; 
+}
 }
 </style>
 
@@ -179,6 +240,37 @@ onMounted(() => {
   console.log('Menu Data:', menuStore.menu)
   console.log('Active Year:', menuStore.active.year)
 })
+
+const bayBoats = computed(() =>
+  menuStore.menu.boats.filter((boat) => {
+    // check if boat.name includes "Bay" or ends with "Bay".
+    return boat.name.includes("Bay")
+  })
+)
+
+const deckBoats = computed(() =>
+  menuStore.menu.boats.filter((boat) => {
+    // If last word is "DC" or "SC"
+    const lastWord = boat.name.split(" ").pop()
+    return lastWord === "DC" || lastWord === "SC"
+  })
+)
+
+const hybridBoats = computed(() =>
+  menuStore.menu.boats.filter((boat) => boat.name.includes("Hybrid"))
+)
+
+const legacyBoats = computed(() =>
+  menuStore.menu.boats.filter((boat) => boat.name.includes("Legacy"))
+)
+
+const offshoreBoats = computed(() =>
+  menuStore.menu.boats.filter((boat) => {
+    // If last word is "OS" or "OSL"
+    const lastWord = boat.name.split(" ").pop()
+    return lastWord === "OS" || lastWord === "OSL"
+  })
+)
 
 /** Hover Methods for Navbar */
 const menuOver = (menuItem) => {
