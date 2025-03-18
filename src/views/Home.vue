@@ -29,6 +29,16 @@
   color: #fff;
   border-color: #0b2349;
 }
+
+.custom-border {
+  border-right: 1px solid black;
+}
+
+@media (max-width: 991px) {
+  .custom-border {
+    border-right: none;
+  }
+}
 </style>
 
 <template>
@@ -50,16 +60,12 @@
       <div class="row">
         <!-- Sales & Servicing -->
         <div class="col-lg-4 col-md-6 mb-4">
-          <h4 class="fw-bold">Sales & Servicing</h4>
+          <h4 class="fw-bold text-decoration-underline">Sales & Servicing</h4>
           <p>
             If you require dealer net price sheets, please reach out to your NauticStar regional
             sales manager.
           </p>
-        </div>
-
-        <!-- Chesapeake Bay Region & Southeast Contacts -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <h5 class="fw-bold">Chesapeake Bay Region</h5>
+          <h5 class="fw-bold mb-0">Chesapeake Bay Region</h5>
           <p class="mb-0">
             Ryan Kagy -
             <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
@@ -75,33 +81,30 @@
               connor.radcliff@nauticstarboats.com
             </a>
           </p>
-          <h5 class="fw-bold mt-3">Northeast & Canada Region</h5>
+          <h5 class="fw-bold mt-3 mb-0">Northeast & Canada Region</h5>
           <p>
             Ryan Kagy -
             <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
               ryankagy3@gmail.com
             </a>
           </p>
-          <h5 class="fw-bold mt-3">Southeast and Southwest Region</h5>
+        </div>
+
+        <!-- Chesapeake Bay Region & Southeast Contacts -->
+        <div class="col-lg-4 col-md-6 mb-4 custom-border">
+          
+          
+          <h5 class="fw-bold mt-3 mb-0">Southeast and Southwest Region</h5>
           <p class="mb-0">
-            Darren Landry -
+            Nat Rich -
             <a
-              :href="getContactLink('darren.landry@nauticstarboats.com')"
+              :href="getContactLink('nat.ritch@nauticstarboats.com')"
               class="text-decoration-none"
             >
-              darren.landry@nauticstarboats.com
+              nat.ritch@nauticstarboats.com
             </a>
           </p>
-          <p>
-            Hunter Landry -
-            <a
-              :href="getContactLink('darren.landry@nauticstarboats.com')"
-              class="text-decoration-none"
-            >
-              hunter.landry@nauticstarboats.com
-            </a>
-          </p>
-          <h5 class="fw-bold mt-3">Midwest and Florida Region</h5>
+          <h5 class="fw-bold mt-3 mb-0">Midwest and Florida Region</h5>
           <p class="mb-0">
             Dennis Radcliff -
             <a :href="getContactLink('dennisradcliff@icloud.com')" class="text-decoration-none">
@@ -117,7 +120,7 @@
               connor.radcliff@nauticstarboats.com
             </a>
           </p>
-          <h5 class="fw-bold mt-3">West Region</h5>
+          <h5 class="fw-bold mt-3 mb-0">West Region</h5>
           <p>
             Brian Allred -
             <a
@@ -130,8 +133,8 @@
         </div>
 
         <!-- Press Contact -->
-        <div class="col-lg-4 col-md-12 mb-4">
-          <h4 class="fw-bold">Press Contact</h4>
+        <div class="col-lg-4 col-md-12 mb-4 ps-lg-5">
+          <h4 class="fw-bold text-decoration-underline">Press Contact</h4>
           <p>NauticStar is enthusiastic to provide media and press assets.</p>
           <p>
             <b>Ryan Fritinger</b> - Marketing Manager<br />
@@ -141,6 +144,16 @@
               class="text-decoration-none"
             >
               ryan.fritinger@nauticstarboats.com
+            </a>
+          </p>
+          <p>
+            <b>Tyson Moran</b> - Marketing Manager<br />
+            <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
+            <a
+              :href="getContactLink('tyson@bigthundermarine.com')"
+              class="text-decoration-none"
+            >
+              tyson@bigthundermarine.com
             </a>
           </p>
         </div>
@@ -216,9 +229,9 @@
               <!-- Card body -->
               <div class="card-body">
                 <!-- Title -->
-                <h5 class="card-title">
+                <p class="card-title fw-bold fs-14">
                   {{ (img.display_name || img.alt).split('/').pop() }}
-                </h5>
+                </p>
                 <p class="text-muted small mb-2">
                   Uploaded on: {{ new Date(img.created_at).toLocaleDateString() }}
                 </p>
@@ -243,7 +256,7 @@
 
               <!-- Card footer (optional) -->
               <div class="card-footer bg-transparent border-0">
-                <button class="btn ever-btn-primary w-100" @click="openShareModal(img.url)">
+                <button class="btn ever-btn-boarder w-100" @click="openShareModal(img.url)">
                   Share
                 </button>
               </div>

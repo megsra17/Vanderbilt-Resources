@@ -214,6 +214,10 @@
   overflow-y: auto;
 }
 
+.nav-link{
+  font-family: 'Oxanium', sans-serif !important;
+}
+
 /* Optional: Adjust for smaller screens (use one column) */
 @media (max-width: 576px) {
   .width-container{

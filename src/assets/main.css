@@ -56,6 +56,10 @@ a {
   font-family: var(--ever-font-body);
 }
 
+.fs-14 {
+  font-size: 14px;
+}
+
 .btn {
   border: 3px solid var(--ever-primary);
   padding: 5px 15px;
@@ -73,19 +77,22 @@ a {
 }
 
 .ever-btn-primary:hover {
-  background-color: white;
-  color: var(--ever-primary);
-  border: 3px solid white;
+  background-color: white !important;
+  color: var(--ever-primary) !important;
+}
+
+.ever-btn-boarder {
+  border: var(--ever-primary) solid 2px !important;
+  color: var(--ever-primary) !important;
 }
 
 .ever-btn-secondary {
   background-color: var(--ever-secondary) !important;
 }
 
-.ever-btn-primary:hover {
-  background-color: white;
-  color: var(--ever-secondary);
-  border: 3px solid white;
+.ever-btn-secondary:hover {
+  background-color: white !important;
+  color: var(--ever-secondary) !important;
 }
 
 .separator {
@@ -123,5 +130,9 @@ a {
 @media (max-width: 992px) {
   .w-25 {
     width: 100% !important;
+  }
+
+  .no-border-mobile {
+    border: none !important;
   }
 }
