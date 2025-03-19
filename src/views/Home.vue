@@ -25,9 +25,9 @@
 }
 
 .page-number.active {
-  background-color: #0b2349; /* your brand color */
+  background-color: black; /* your brand color */
   color: #fff;
-  border-color: #0b2349;
+  border-color: black;
 }
 
 .custom-border {
@@ -92,15 +92,10 @@
 
         <!-- Chesapeake Bay Region & Southeast Contacts -->
         <div class="col-lg-4 col-md-6 mb-4 custom-border">
-          
-          
           <h5 class="fw-bold mt-3 mb-0">Southeast and Southwest Region</h5>
           <p class="mb-0">
             Nat Rich -
-            <a
-              :href="getContactLink('nat.ritch@nauticstarboats.com')"
-              class="text-decoration-none"
-            >
+            <a :href="getContactLink('nat.ritch@nauticstarboats.com')" class="text-decoration-none">
               nat.ritch@nauticstarboats.com
             </a>
           </p>
@@ -149,10 +144,7 @@
           <p>
             <b>Tyson Moran</b> - Marketing Manager<br />
             <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
-            <a
-              :href="getContactLink('tyson@bigthundermarine.com')"
-              class="text-decoration-none"
-            >
+            <a :href="getContactLink('tyson@bigthundermarine.com')" class="text-decoration-none">
               tyson@bigthundermarine.com
             </a>
           </p>

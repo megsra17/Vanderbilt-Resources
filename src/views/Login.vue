@@ -7,7 +7,7 @@ import backgroundImage from '@/images/home-background-DuuOsHM--1.jpg'
 // Import your custom login form components
 import LoginForm from '@/components/auth/LoginForm.vue'
 import SendResetForm from '@/components/auth/SendResetForm.vue'
- 
+
 const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
@@ -44,7 +44,12 @@ onMounted(async () => {
 
 <template>
   <div class="row">
-    <img src="@/images/Vanderbilt-Live-Distinctively-1-1536x576.png.webp" alt="Vanderbilt Pontoons" style="width: 300px;" class="logo mb-3" />
+    <img
+      src="@/images/Vanderbilt-Logo-Black.png"
+      alt="Vanderbilt Pontoons"
+      style="width: 300px"
+      class="logo mb-3"
+    />
   </div>
   <div class="row">
     <div
@@ -58,8 +63,8 @@ onMounted(async () => {
             <h1 class="fw-bold text-uppercase">Dealer Digital Asset Library</h1>
             <div class="separator"></div>
             <p>
-              Engage your customers with high-quality branded content from Vanderbilt Pontoons. New users
-              can request access, existing users can login below.
+              Engage your customers with high-quality branded content from Vanderbilt Pontoons. New
+              users can request access, existing users can login below.
             </p>
 
             <!-- Login & Password Reset Forms -->
@@ -116,9 +121,7 @@ onMounted(async () => {
           </p>
           <p>
             <b>Tyson Moran</b> - Marketing Director<br />
-            <a href="mailto:tyson@bigthundermarine.com"
-              >tyson@bigthundermarine.com</a
-            >
+            <a href="mailto:tyson@bigthundermarine.com">tyson@bigthundermarine.com</a>
           </p>
         </div>
       </div>
@@ -126,8 +129,9 @@ onMounted(async () => {
     <div class="row mx-5">
       <div class="col">
         <p class="disclaimer">
-          Vanderbilt Pontoons grants blanket permission to use any of the provided photography, logos,
-          ads and other assets for "legitimate and favorable" benefit to the Vanderbilt Pontoons brand.
+          Vanderbilt Pontoons grants blanket permission to use any of the provided photography,
+          logos, ads and other assets for "legitimate and favorable" benefit to the Vanderbilt
+          Pontoons brand.
         </p>
       </div>
     </div>

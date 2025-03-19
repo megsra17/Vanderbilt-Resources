@@ -20,16 +20,23 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
     </main>
 
     <!-- Optional Footer -->
-    <footer class="ever-bg-primary text-white text-center py-3">
+    <footer class="ever-bg-secondary text-center py-3">
       <div class="row">
         <div class="col-lg-6">
           <p class="mb-0">© 2025 Vanderbilt Pontoons. All rights reserved.</p>
         </div>
         <div class="col-lg-6">
-          <p class="mb-0"><a class="text-white" href="https://vanderbiltpontoons.com/privacy-policy-2/">Privacy Policy</a> | <a href="https://vanderbiltpontoons.com/privacy-policy-2/terms-of-use/" class="text-white">Terms of Use</a> | <a class="text-white" href="https://vanderbiltpontoons.com/privacy-policy-2/acessibility/">Accessibility</a></p>
+          <p class="mb-0">
+            <a href="https://vanderbiltpontoons.com/privacy-policy-2/">Privacy Policy</a>
+            |
+            <a href="https://vanderbiltpontoons.com/privacy-policy-2/terms-of-use/">Terms of Use</a>
+            |
+            <a href="https://vanderbiltpontoons.com/privacy-policy-2/acessibility/"
+              >Accessibility</a
+            >
+          </p>
         </div>
       </div>
-      
     </footer>
   </div>
 </template>
@@ -40,7 +47,6 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
   display: flex;
   flex-direction: column;
 }
-
 
 .main-content {
   flex: 1; /* Ensures dynamic content takes up remaining space */

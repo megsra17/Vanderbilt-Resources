@@ -6,7 +6,7 @@
         <!-- Left side: Logo -->
         <div class="col-6 d-flex align-items-center">
           <a href="/">
-            <img src="@/images/Vanderbilt-Live-Distinctively-1-1536x576.png.webp" alt="Vanderbilt Logo" height="40" />
+            <img src="@/images/Vanderbilt-Logo-Black.png" alt="Vanderbilt Logo" height="40" />
           </a>
         </div>
         <div class="col-6 text-end">
@@ -19,7 +19,7 @@
           </a>
           <a
             v-if="authStore.isAdmin"
-            class="badge rounded-pill ever-bg-secondary text-decoration-none"
+            class="badge rounded-pill ever-bg-primary text-white text-decoration-none"
             href="/users"
           >
             Manage Users
@@ -29,7 +29,7 @@
     </div>
 
     <!-- MAIN NAVBAR (Navy background) -->
-    <nav v-if="!isAdminPage" class="navbar navbar-expand-lg ever-bg-primary">
+    <nav v-if="!isAdminPage" class="navbar navbar-expand-lg bg-black">
       <div class="container-fluid">
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
@@ -63,7 +63,11 @@
             </li>
 
             <!-- Boat Model  -->
-             <li class="nav-item dropdown px-lg-4" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+            <li
+              class="nav-item dropdown px-lg-4"
+              @mouseenter="menuOver('boats')"
+              @mouseleave="menuLeave"
+            >
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -74,10 +78,7 @@
               </a>
 
               <!-- Manual 5-column layout -->
-              <ul
-                class="dropdown-menu width-container p-3"
-                :class="{ show: active === 'boats' }"
-              >
+              <ul class="dropdown-menu width-container p-3" :class="{ show: active === 'boats' }">
                 <div class="row">
                   <!-- Column 1: Bay Boats -->
                   <div class="col-12 col-lg-2">
@@ -205,21 +206,21 @@
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.width-container{
-  width: 900px; 
-  max-height: 400px; 
+.width-container {
+  width: 900px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
-.nav-link{
-  font-family: 'Oxanium', sans-serif !important;
+.nav-link {
+  font-family: 'Jost', sans-serif !important;
 }
 
 /* Optional: Adjust for smaller screens (use one column) */
 @media (max-width: 576px) {
-  .width-container{
-  width: 400px; 
-}
+  .width-container {
+    width: 400px;
+  }
 }
 </style>
 
@@ -247,32 +248,32 @@ const isAdminPage = computed(() => route.path === '/users')
 const bayBoats = computed(() =>
   menuStore.menu.boats.filter((boat) => {
     // check if boat.name includes "Bay" or ends with "Bay".
-    return boat.name.includes("Bay")
-  })
+    return boat.name.includes('Bay')
+  }),
 )
 
 const deckBoats = computed(() =>
   menuStore.menu.boats.filter((boat) => {
     // If last word is "DC" or "SC"
-    const lastWord = boat.name.split(" ").pop()
-    return lastWord === "DC" || lastWord === "SC"
-  })
+    const lastWord = boat.name.split(' ').pop()
+    return lastWord === 'DC' || lastWord === 'SC'
+  }),
 )
 
 const hybridBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => boat.name.includes("Hybrid"))
+  menuStore.menu.boats.filter((boat) => boat.name.includes('Hybrid')),
 )
 
 const legacyBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => boat.name.includes("Legacy"))
+  menuStore.menu.boats.filter((boat) => boat.name.includes('Legacy')),
 )
 
 const offshoreBoats = computed(() =>
   menuStore.menu.boats.filter((boat) => {
     // If last word is "OS" or "OSL"
-    const lastWord = boat.name.split(" ").pop()
-    return lastWord === "OS" || lastWord === "OSL"
-  })
+    const lastWord = boat.name.split(' ').pop()
+    return lastWord === 'OS' || lastWord === 'OSL'
+  }),
 )
 
 /** Hover Methods for Navbar */

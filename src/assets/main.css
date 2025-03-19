@@ -1,10 +1,10 @@
 @import './base.css';
 
 :root {
-  --ever-primary: #9F7360;
-  --ever-secondary: white;
-  --ever-font-body: "Jost", Sans-serif;
-  --ever-font-header: "Jost", Sans-serif;
+  --ever-primary: #9f7360;
+  --ever-secondary: #edebe6;
+  --ever-font-body: 'Jost', Sans-serif;
+  --ever-font-header: 'Jost', Sans-serif;
 }
 
 html,
@@ -45,7 +45,7 @@ h5 {
 }
 
 .text-hover-primary:hover {
-  color: var(--ever-secondary) !important;
+  color: #787878 !important;
 }
 
 a {
@@ -82,21 +82,22 @@ a {
 }
 
 .ever-btn-boarder {
-  border:black solid 2px !important;
-  color:black !important;
+  border: black solid 2px !important;
+  color: black !important;
 }
 
 .ever-btn-secondary {
-  background-color: var(--ever-secondary) !important;
+  background-color: #787878 !important;
+  color: white !important;
 }
 
 .ever-btn-secondary:hover {
   background-color: white !important;
-  color: var(--ever-secondary) !important;
+  color: black !important;
 }
 
 .separator {
-  background-color: var(--ever-primary);
+  background-color: #787878;
   display: inline-block;
   height: 5px;
   margin-bottom: 14px;
