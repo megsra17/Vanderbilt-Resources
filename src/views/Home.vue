@@ -62,7 +62,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
           <h4 class="fw-bold text-decoration-underline">Sales & Servicing</h4>
           <p>
-            If you require dealer net price sheets, please reach out to your NauticStar regional
+            If you require dealer net price sheets, please reach out to your Vanderbilt regional
             sales manager.
           </p>
           <h5 class="fw-bold mb-0">Chesapeake Bay Region</h5>
@@ -135,7 +135,7 @@
         <!-- Press Contact -->
         <div class="col-lg-4 col-md-12 mb-4 ps-lg-5">
           <h4 class="fw-bold text-decoration-underline">Press Contact</h4>
-          <p>NauticStar is enthusiastic to provide media and press assets.</p>
+          <p>Vanderbilt is enthusiastic to provide media and press assets.</p>
           <p>
             <b>Ryan Fritinger</b> - Marketing Manager<br />
             <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
@@ -397,9 +397,9 @@ function goToPage(pageNumber) {
 // Cloudinary folder path
 const uploadFolder = computed(() => {
   if (menuStore.active.year && selectedBoat.value) {
-    return `nauticstar/${menuStore.active.year.key}/${selectedBoat.value}`
+    return `vanderbilt/${menuStore.active.year.key}/${selectedBoat.value}`
   }
-  return 'nauticstar/default'
+  return 'vanderbilt/default'
 })
 
 // Local reactive state for resources
@@ -428,7 +428,7 @@ const galleryTitle = computed(() => {
 
 // Email helper function
 const getContactLink = (email) =>
-  `mailto:${email}?subject=Everglades Resources Contact Request&body=`
+  `mailto:${email}?subject=Vanderbilt Resources Contact Request&body=`
 
 // Navbar states
 const active = ref(null)

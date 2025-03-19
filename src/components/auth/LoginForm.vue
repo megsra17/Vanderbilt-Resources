@@ -69,7 +69,7 @@ const login = async (event) => {
         <a href="#" @click.prevent="emit('forgot')">Forgot Password</a>
         <br />
         <a
-          href="mailto:ryan.fritinger@nauticstarboats.com?subject=Request%20Everglades%20Resources%20Access&amp;body="
+          href="mailto:ryan.fritinger@nauticstarboats.com?subject=Request%20Vanderbilt%20Resources%20Access&amp;body="
           >Need Access? Request Here</a
         >
       </p>

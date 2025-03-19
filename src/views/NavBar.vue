@@ -6,7 +6,7 @@
         <!-- Left side: Logo -->
         <div class="col-6 d-flex align-items-center">
           <a href="/">
-            <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="Everglades Logo" height="40" />
+            <img src="@/images/Vanderbilt-Live-Distinctively-1-1536x576.png.webp" alt="Vanderbilt Logo" height="40" />
           </a>
         </div>
         <div class="col-6 text-end">
@@ -312,7 +312,7 @@ const logout = () => {
 // Email contact link
 const contactLink = computed(() => {
   return `mailto:amanda.aloy@evergladesboats.com?subject=${encodeURIComponent(
-    'Everglades Resources Contact Request',
+    'Vanderbilt Resources Contact Request',
   )}`
 })
 

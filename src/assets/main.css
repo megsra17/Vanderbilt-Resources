@@ -1,10 +1,10 @@
 @import './base.css';
 
 :root {
-  --ever-primary: #003e5a;
-  --ever-secondary: #fdbb27;
-  --ever-font-body: 'Poppins', Sans-serif;
-  --ever-font-header: 'Oxanium', sans-serif;
+  --ever-primary: #9F7360;
+  --ever-secondary: white;
+  --ever-font-body: "Jost", Sans-serif;
+  --ever-font-header: "Jost", Sans-serif;
 }
 
 html,
@@ -78,12 +78,12 @@ a {
 
 .ever-btn-primary:hover {
   background-color: white !important;
-  color: var(--ever-primary) !important;
+  color: black !important;
 }
 
 .ever-btn-boarder {
-  border: var(--ever-primary) solid 2px !important;
-  color: var(--ever-primary) !important;
+  border:black solid 2px !important;
+  color:black !important;
 }
 
 .ever-btn-secondary {
@@ -96,7 +96,7 @@ a {
 }
 
 .separator {
-  background-color: #ffc72c;
+  background-color: var(--ever-primary);
   display: inline-block;
   height: 5px;
   margin-bottom: 14px;
@@ -123,7 +123,7 @@ a {
 
 @media (hover: hover) {
   a:hover {
-    color: #003561;
+    color: var(--ever-primary);
   }
 }
 

@@ -40,12 +40,12 @@ mongoose
 // 📌 Endpoint: Fetch all folders
 app.get('/cloudinary/folders', async (req, res) => {
   try {
-    const result = await cloudinary.api.sub_folders('nauticstar')
+    const result = await cloudinary.api.sub_folders('vanderbilt')
     const years = result.folders.map((folder) => folder.name)
     let boats = []
     if (years.length > 0) {
       const firstYear = years[0]
-      const boatResult = await cloudinary.api.sub_folders(`nauticstar/${firstYear}`)
+      const boatResult = await cloudinary.api.sub_folders(`vanderbilt/${firstYear}`)
       boats = boatResult.folders.map((folder) => folder.name)
     }
     res.json({ years, boats, types: ['photos', 'videos'] })
@@ -59,7 +59,7 @@ app.get('/cloudinary/folders', async (req, res) => {
 app.get('/cloudinary/list-subfolders', async (req, res) => {
   const { year } = req.query
   try {
-    const result = await cloudinary.api.sub_folders(`nauticstar/${year}`)
+    const result = await cloudinary.api.sub_folders(`vanderbilt/${year}`)
     res.json({ subfolders: result.folders })
   } catch (error) {
     console.error('Error fetching subfolders:', error)
@@ -75,7 +75,7 @@ app.get('/cloudinary/images', async (req, res) => {
     return res.status(400).json({ error: 'Missing year or boat parameter' })
   }
 
-  const folderPath = `nauticstar/${year}/${boat}`
+  const folderPath = `vanderbilt/${year}/${boat}`
 
   let resourceType = 'image'
   if (type) {
@@ -118,7 +118,7 @@ app.get('/cloudinary/all-assets', async (req, res) => {
 
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
-    const folderPath = req.body.folder || 'nauticstar/defualt'
+    const folderPath = req.body.folder || 'vanderbilt/defualt'
 
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: folderPath,

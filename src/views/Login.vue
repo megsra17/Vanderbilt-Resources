@@ -44,7 +44,7 @@ onMounted(async () => {
 
 <template>
   <div class="row">
-    <img src="@/images/Nauticstar-Blue-Logo.jpg" alt="NauticStar Boats" style="width: 300px;" class="logo mb-3" />
+    <img src="@/images/Vanderbilt-Live-Distinctively-1-1536x576.png.webp" alt="Vanderbilt Pontoons" style="width: 300px;" class="logo mb-3" />
   </div>
   <div class="row">
     <div
@@ -58,7 +58,7 @@ onMounted(async () => {
             <h1 class="fw-bold text-uppercase">Dealer Digital Asset Library</h1>
             <div class="separator"></div>
             <p>
-              Engage your customers with high-quality branded content from NauticStar Boats. New users
+              Engage your customers with high-quality branded content from Vanderbilt Pontoons. New users
               can request access, existing users can login below.
             </p>
 
@@ -88,7 +88,7 @@ onMounted(async () => {
           <h4>Photography & Video</h4>
           <p>
             In-depth high- and low-resolution photography and video are provided for our full line
-            of NauticStar Boats.
+            of Vanderbilt Pontoons.
           </p>
         </div>
         <div class="col-lg-4">
@@ -98,7 +98,7 @@ onMounted(async () => {
             emails, boat show, and PR applications.
           </p>
           <p>
-            NauticStar Boats' policy is to cooperate enthusiastically with the media and press.
+            Vanderbilt Pontoons' policy is to cooperate enthusiastically with the media and press.
             Direct inquiries to:
           </p>
         </div>
@@ -126,8 +126,8 @@ onMounted(async () => {
     <div class="row mx-5">
       <div class="col">
         <p class="disclaimer">
-          NauticStar Boats grants blanket permission to use any of the provided photography, logos,
-          ads and other assets for "legitimate and favorable" benefit to the NauticStar Boats brand.
+          Vanderbilt Pontoons grants blanket permission to use any of the provided photography, logos,
+          ads and other assets for "legitimate and favorable" benefit to the Vanderbilt Pontoons brand.
         </p>
       </div>
     </div>
