@@ -80,10 +80,10 @@
               <!-- Manual 5-column layout -->
               <ul class="dropdown-menu width-container p-3" :class="{ show: active === 'boats' }">
                 <div class="row">
-                  <!-- Column 1: Bay Boats -->
+                  <!-- Column 1: V Class -->
                   <div class="col-12 col-lg-2">
-                    <li class="dropdown-header">Bay Boats</li>
-                    <li v-for="boat in bayBoats" :key="boat.key">
+                    <li class="dropdown-header">V Class</li>
+                    <li v-for="boat in vclass" :key="boat.key">
                       <a
                         class="dropdown-item"
                         href="#"
@@ -94,52 +94,10 @@
                     </li>
                   </div>
 
-                  <!-- Column 2: Deck Boats -->
+                  <!-- Column 2: L Class -->
                   <div class="col-12 col-lg-2">
-                    <li class="dropdown-header">Deck Boats</li>
-                    <li v-for="boat in deckBoats" :key="boat.key">
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="menuStore.setFilter('boat', boat)"
-                      >
-                        {{ boat.name }}
-                      </a>
-                    </li>
-                  </div>
-
-                  <!-- Column 3: Hybrid Boats -->
-                  <div class="col-12 col-lg-2">
-                    <li class="dropdown-header">Hybrid Boats</li>
-                    <li v-for="boat in hybridBoats" :key="boat.key">
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="menuStore.setFilter('boat', boat)"
-                      >
-                        {{ boat.name }}
-                      </a>
-                    </li>
-                  </div>
-
-                  <!-- Column 4: Legacy Boats -->
-                  <div class="col-12 col-lg-2">
-                    <li class="dropdown-header">Legacy Boats</li>
-                    <li v-for="boat in legacyBoats" :key="boat.key">
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="menuStore.setFilter('boat', boat)"
-                      >
-                        {{ boat.name }}
-                      </a>
-                    </li>
-                  </div>
-
-                  <!-- Column 5: Offshore Boats -->
-                  <div class="col-12 col-lg-2">
-                    <li class="dropdown-header">Offshore Boats</li>
-                    <li v-for="boat in offshoreBoats" :key="boat.key">
+                    <li class="dropdown-header">L Class</li>
+                    <li v-for="boat in lclass" :key="boat.key">
                       <a
                         class="dropdown-item"
                         href="#"
@@ -245,36 +203,16 @@ const route = useRoute()
 // Compute a flag to determine if we are on the admin page
 const isAdminPage = computed(() => route.path === '/users')
 
-const bayBoats = computed(() =>
+const vclass = computed(() =>
   menuStore.menu.boats.filter((boat) => {
-    // check if boat.name includes "Bay" or ends with "Bay".
-    return boat.name.includes('Bay')
+    return boat.name.includes('V')
   }),
 )
 
-const deckBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => {
-    // If last word is "DC" or "SC"
-    const lastWord = boat.name.split(' ').pop()
-    return lastWord === 'DC' || lastWord === 'SC'
-  }),
+const lclass = computed(() =>
+  menuStore.menu.boats.filter((boat) => boat.name.includes('L')),
 )
 
-const hybridBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => boat.name.includes('Hybrid')),
-)
-
-const legacyBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => boat.name.includes('Legacy')),
-)
-
-const offshoreBoats = computed(() =>
-  menuStore.menu.boats.filter((boat) => {
-    // If last word is "OS" or "OSL"
-    const lastWord = boat.name.split(' ').pop()
-    return lastWord === 'OS' || lastWord === 'OSL'
-  }),
-)
 
 /** Hover Methods for Navbar */
 const menuOver = (menuItem) => {
