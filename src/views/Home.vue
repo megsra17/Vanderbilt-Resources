@@ -132,20 +132,13 @@
           <h4 class="fw-bold text-decoration-underline">Press Contact</h4>
           <p>Vanderbilt is enthusiastic to provide media and press assets.</p>
           <p>
-            <b>Ryan Fritinger</b> - Marketing Manager<br />
-            <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
+            <b>Tricia Niebuhr</b> - General Manager<br />
+            <a href="tel:2604787227" class="text-decoration-none">260.478.7227</a> |
             <a
-              :href="getContactLink('ryan.fritinger@nauticstarboats.com')"
+              :href="getContactLink('TNiebuhr@vanderbiltpontoons.com')"
               class="text-decoration-none"
             >
-              ryan.fritinger@nauticstarboats.com
-            </a>
-          </p>
-          <p>
-            <b>Tyson Moran</b> - Marketing Manager<br />
-            <a href="tel:3308888474" class="text-decoration-none">330.888.8474</a> |
-            <a :href="getContactLink('tyson@bigthundermarine.com')" class="text-decoration-none">
-              tyson@bigthundermarine.com
+              TNiebuhr@vanderbiltpontoons.com
             </a>
           </p>
         </div>

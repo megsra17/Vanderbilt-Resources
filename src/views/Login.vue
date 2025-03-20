@@ -114,14 +114,10 @@ onMounted(async () => {
             are available.
           </p>
           <p>
-            <b>Ryan Fritinger</b> - Marketing Manager<br />
-            <a href="mailto:ryan.fritinger@nauticstarboats.com"
-              >ryan.fritinger@nauticstarboats.com</a
+            <b>Tricia Niebuhr</b> - Marketing Manager<br />
+            <a href="mailto:TNiebuhr@vanderbiltpontoons.com"
+              >rTNiebuhr@vanderbiltpontoons.com</a
             >
-          </p>
-          <p>
-            <b>Tyson Moran</b> - Marketing Director<br />
-            <a href="mailto:tyson@bigthundermarine.com">tyson@bigthundermarine.com</a>
           </p>
         </div>
       </div>
