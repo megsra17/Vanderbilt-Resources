@@ -230,7 +230,7 @@
                     High Res
                   </a>
                   <a
-                    :href="img.url.replace('/upload/', '/upload/q_auto:eco/fl_attachment/')"
+                    :href="img.url.replace('/upload/', '/upload/q_auto:eco,w_1920,h_1280,c_fit/fl_attachment/')"
                     download
                     class="ever-text-primary text-hover-primary ms-2"
                   >
