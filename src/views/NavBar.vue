@@ -81,7 +81,7 @@
               <ul class="dropdown-menu width-container p-3" :class="{ show: active === 'boats' }">
                 <div class="row">
                   <!-- Column 1: V Class -->
-                  <div class="col-12 col-lg-2">
+                  <div class="col-12 col-lg-6">
                     <li class="dropdown-header">V Class</li>
                     <li v-for="boat in vclass" :key="boat.key">
                       <a
@@ -95,7 +95,7 @@
                   </div>
 
                   <!-- Column 2: L Class -->
-                  <div class="col-12 col-lg-2">
+                  <div class="col-12 col-lg-6">
                     <li class="dropdown-header">L Class</li>
                     <li v-for="boat in lclass" :key="boat.key">
                       <a
@@ -165,7 +165,7 @@
 }
 
 .width-container {
-  width: 900px;
+  width: 400px;
   max-height: 400px;
   overflow-y: auto;
 }
