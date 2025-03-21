@@ -85,9 +85,9 @@ router.post('/reset-password-request', async (req, res) => {
 
     // Set up email options
     const mailOptions = {
-      from: '"Your App Name" <no-reply@yourapp.com>',
+      from: '"Vanderbilt Pontoons" <no-reply@vanderbiltpontoons.com>',
       to: user.email,
-      subject: 'Password Reset Request',
+      subject: 'Vanderbilt Pontoons - Password Reset Request',
       text: `You requested a password reset. Click here to reset your password: ${resetUrl}\n\nIf you did not request this, please ignore this email.`,
       html: `<p>You requested a password reset.</p><p>Click <a href="${resetUrl}">here</a> to reset your password.</p><p>If you did not request this, please ignore this email.</p>`,
     }

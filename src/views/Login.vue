@@ -2,7 +2,7 @@
 import { ref, watch, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRoute, useRouter } from 'vue-router'
-import backgroundImage from '@/images/home-background-DuuOsHM--1.jpg'
+import backgroundImage from '@/images/Vanderbilt-V31TX-QS-09315-2-B&W.png'
 
 // Import your custom login form components
 import LoginForm from '@/components/auth/LoginForm.vue'
@@ -88,7 +88,7 @@ onMounted(async () => {
 
     <!-- Callouts Section -->
     <div class="callouts">
-      <div class="row mx-5 g-5">
+      <div class="row mx-lg-5 g-5">
         <div class="col-lg-4">
           <h4>Photography & Video</h4>
           <p>
@@ -114,15 +114,13 @@ onMounted(async () => {
             are available.
           </p>
           <p>
-            <b>Tricia Niebuhr</b> - Marketing Manager<br />
-            <a href="mailto:TNiebuhr@vanderbiltpontoons.com"
-              >rTNiebuhr@vanderbiltpontoons.com</a
-            >
+            <b>Tricia Niebuhr</b> - General Manager<br />
+            <a href="mailto:TNiebuhr@vanderbiltpontoons.com">TNiebuhr@vanderbiltpontoons.com</a>
           </p>
         </div>
       </div>
     </div>
-    <div class="row mx-5">
+    <div class="row mx-lg-5">
       <div class="col">
         <p class="disclaimer">
           Vanderbilt Pontoons grants blanket permission to use any of the provided photography,

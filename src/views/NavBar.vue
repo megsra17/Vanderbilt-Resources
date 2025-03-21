@@ -11,13 +11,6 @@
         </div>
         <div class="col-6 text-end">
           <a
-            class="fw-bold me-lg-3"
-            target="_blank"
-            href="https://wakeeffects.com/collections/shop-by-brand-nauticstar"
-          >
-            Dealer Appeal
-          </a>
-          <a
             v-if="authStore.isAdmin"
             class="badge rounded-pill ever-bg-primary text-white text-decoration-none"
             href="/users"
@@ -209,10 +202,7 @@ const vclass = computed(() =>
   }),
 )
 
-const lclass = computed(() =>
-  menuStore.menu.boats.filter((boat) => boat.name.includes('L')),
-)
-
+const lclass = computed(() => menuStore.menu.boats.filter((boat) => boat.name.includes('L')))
 
 /** Hover Methods for Navbar */
 const menuOver = (menuItem) => {

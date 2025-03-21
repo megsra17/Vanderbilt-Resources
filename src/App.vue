@@ -8,7 +8,7 @@ const authStore = useAuthStore()
 // Computed property to check authentication status
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 
-var year = new Date().getFullYear();
+var year = new Date().getFullYear()
 </script>
 
 <template>
@@ -25,15 +25,19 @@ var year = new Date().getFullYear();
     <footer class="ever-bg-secondary text-center py-3">
       <div class="row">
         <div class="col-lg-6">
-          <p class="mb-0">© {{year}} Vanderbilt Pontoons. All rights reserved.</p>
+          <p class="mb-0">© {{ year }} Vanderbilt Pontoons. All rights reserved.</p>
         </div>
         <div class="col-lg-6">
           <p class="mb-0">
-            <a href="https://vanderbiltpontoons.com/privacy-policy-2/">Privacy Policy</a>
+            <a target="_blank" href="https://vanderbiltpontoons.com/privacy-policy-2/"
+              >Privacy Policy</a
+            >
             |
-            <a href="https://vanderbiltpontoons.com/privacy-policy-2/terms-of-use/">Terms of Use</a>
+            <a target="_blank" href="https://vanderbiltpontoons.com/privacy-policy-2/terms-of-use/"
+              >Terms of Use</a
+            >
             |
-            <a href="https://vanderbiltpontoons.com/privacy-policy-2/acessibility/"
+            <a target="_blank" href="https://vanderbiltpontoons.com/privacy-policy-2/acessibility/"
               >Accessibility</a
             >
           </p>

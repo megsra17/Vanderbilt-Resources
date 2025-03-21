@@ -65,64 +65,21 @@
             If you require dealer net price sheets, please reach out to your Vanderbilt regional
             sales manager.
           </p>
-          <h5 class="fw-bold mb-0">Chesapeake Bay Region</h5>
-          <p class="mb-0">
-            Ryan Kagy -
-            <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
-              ryankagy3@gmail.com
-            </a>
-          </p>
-          <p>
-            Connor Radcliff -
-            <a
-              :href="getContactLink('connor.radcliff@nauticstarboats.com')"
-              class="text-decoration-none"
-            >
-              connor.radcliff@nauticstarboats.com
-            </a>
-          </p>
-          <h5 class="fw-bold mt-3 mb-0">Northeast & Canada Region</h5>
-          <p>
-            Ryan Kagy -
-            <a :href="getContactLink('ryankagy3@gmail.com')" class="text-decoration-none">
-              ryankagy3@gmail.com
-            </a>
-          </p>
         </div>
 
         <!-- Chesapeake Bay Region & Southeast Contacts -->
         <div class="col-lg-4 col-md-6 mb-4 custom-border">
-          <h5 class="fw-bold mt-3 mb-0">Southeast and Southwest Region</h5>
-          <p class="mb-0">
-            Nat Rich -
-            <a :href="getContactLink('nat.ritch@nauticstarboats.com')" class="text-decoration-none">
-              nat.ritch@nauticstarboats.com
-            </a>
-          </p>
-          <h5 class="fw-bold mt-3 mb-0">Midwest and Florida Region</h5>
+          <h5 class="fw-bold mt-3 mb-0">Sales</h5>
           <p class="mb-0">
             Dennis Radcliff -
             <a :href="getContactLink('dennisradcliff@icloud.com')" class="text-decoration-none">
               dennisradcliff@icloud.com
             </a>
           </p>
-          <p>
-            Connor Radcliff -
-            <a
-              :href="getContactLink('connor.radcliff@nauticstarboats.com')"
-              class="text-decoration-none"
-            >
-              connor.radcliff@nauticstarboats.com
-            </a>
-          </p>
-          <h5 class="fw-bold mt-3 mb-0">West Region</h5>
-          <p>
-            Brian Allred -
-            <a
-              :href="getContactLink('dbrian.allred@nauticstarboats.com')"
-              class="text-decoration-none"
-            >
-              brian.allred@nauticstarboats.com
+          <p class="mb-0">
+            Dennis Radcliff -
+            <a :href="getContactLink('dennisradcliff@icloud.com')" class="text-decoration-none">
+              dennisradcliff@icloud.com
             </a>
           </p>
         </div>
@@ -230,7 +187,12 @@
                     High Res
                   </a>
                   <a
-                    :href="img.url.replace('/upload/', '/upload/q_auto:eco,w_1920,h_1280,c_fit/fl_attachment/')"
+                    :href="
+                      img.url.replace(
+                        '/upload/',
+                        '/upload/q_auto:eco,w_1920,h_1280,c_fit/fl_attachment/',
+                      )
+                    "
                     download
                     class="ever-text-primary text-hover-primary ms-2"
                   >
@@ -334,7 +296,7 @@ import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
-import backgroundImage from '@/images/main-image.jpg'
+import backgroundImage from '@/images/Vanderbilt-V31TX-QS-09315-2-B&W.png'
 
 // Initialize Stores and Router
 const menuStore = useMenuStore()
