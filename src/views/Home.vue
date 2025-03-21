@@ -311,7 +311,7 @@ import { ref, watch, onMounted, computed } from 'vue'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter, useRoute } from 'vue-router'
-import backgroundImage from '@/images/Vanderbilt-V31TX-QS-09315-2-B&W.png'
+import backgroundImage from '@/images/VLP-main-image.jpg'
 
 // Initialize Stores and Router
 const menuStore = useMenuStore()
