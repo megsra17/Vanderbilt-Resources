@@ -77,9 +77,24 @@
             </a>
           </p>
           <p class="mb-0">
-            Dennis Radcliff -
-            <a :href="getContactLink('dennisradcliff@icloud.com')" class="text-decoration-none">
-              dennisradcliff@icloud.com
+            Connor Radcliff -
+            <a :href="getContactLink('connorradcliff@gmail.com')" class="text-decoration-none">
+              connorradcliff@gmail.com
+            </a>
+          </p>
+          <p class="mb-0">
+            Darren Landry -
+            <a :href="getContactLink('darren@dplrocks.com')" class="text-decoration-none">
+              darren@dplrocks.com
+            </a>
+          </p>
+          <p class="mb-0">
+            Chase Oldsen -
+            <a
+              :href="getContactLink('coldsen@vanderbiltpontoons.com')"
+              class="text-decoration-none"
+            >
+              coldsen@vanderbiltpontoons.com
             </a>
           </p>
         </div>
