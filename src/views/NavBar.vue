@@ -139,10 +139,7 @@
             </li>
 
             <!-- Authentication Section -->
-            <li class="nav-item" v-if="!authStore.isAuthenticated">
-              <router-link class="nav-link text-white fs-5" to="/login">Login</router-link>
-            </li>
-            <li class="nav-item" v-else>
+            <li class="nav-item">
               <a class="nav-link text-white fs-5" href="#" @click.prevent="logout">Logout</a>
             </li>
           </ul>

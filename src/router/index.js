@@ -34,11 +34,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const menuStore = useMenuStore()
 
-  if (to.meta.requiresAuth && !menuStore.isAuthenticated) {
-    next('/login') // Redirect to login if user is not authenticated
-  } else {
-    next() // Allow navigation
+  // If user is authenticated and is trying to access the login page, redirect to home
+  if (to.path === '/login' && menuStore.isAuthenticated) {
+    return next('/')
   }
+
+  // If the route requires auth and the user is not authenticated, redirect to login
+  if (to.meta.requiresAuth && !menuStore.isAuthenticated) {
+    return next('/login')
+  }
+
+  next()
 })
 
 export default router
