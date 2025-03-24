@@ -47,7 +47,17 @@ export const useMenuStore = defineStore('menu', {
 
         // Use initial boats and types from API response
         this.menu.boats = data.boats.map((boat) => ({ key: boat, name: boat }))
-        this.menu.types = data.types.map((type) => ({ key: type, name: type }))
+
+        // Map types to friendly display names
+        const typeDisplayMapping = {
+          photos: 'Photos',
+          videos: 'Videos',
+          brand_logos: 'Brand Guidelines & Logos',
+        }
+        this.menu.types = data.types.map((type) => ({
+          key: type,
+          name: typeDisplayMapping[type] || type,
+        }))
 
         // Set default active values (defaulting to first year)
         this.active.year = this.menu.years.length

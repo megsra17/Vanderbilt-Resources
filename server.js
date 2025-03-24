@@ -48,7 +48,7 @@ app.get('/cloudinary/folders', async (req, res) => {
       const boatResult = await cloudinary.api.sub_folders(`vanderbilt/${firstYear}`)
       boats = boatResult.folders.map((folder) => folder.name)
     }
-    res.json({ years, boats, types: ['photos', 'videos'] })
+    res.json({ years, boats, types: ['photos', 'videos', 'brand_logos'] })
   } catch (error) {
     console.error('❌ Error fetching Cloudinary folders:', error)
     res.status(500).json({ error: 'Failed to fetch Cloudinary folders' })
@@ -70,6 +70,28 @@ app.get('/cloudinary/list-subfolders', async (req, res) => {
 // 📌 Endpoint: Fetch images from a specific folder
 app.get('/cloudinary/images', async (req, res) => {
   const { year, boat, type } = req.query
+
+  // If the type is "brand_logos", we skip the year/boat requirement
+  if (type === 'brand_logos') {
+    try {
+      // Force the folder path to "nauticstar/brand_logos"
+      const folderPath = 'vanderbilt/brand_logos'
+
+      // brand_logos are presumably images
+      const resourceType = 'image'
+
+      const result = await cloudinary.search
+        .expression(`folder:"${folderPath}" AND resource_type:${resourceType}`)
+        .sort_by('created_at', 'desc')
+        .max_results(50)
+        .execute()
+
+      return res.json({ images: result.resources })
+    } catch (error) {
+      console.error('❌ Error searching Cloudinary for brand_logos:', error)
+      return res.status(500).json({ error: 'Failed to search Cloudinary images' })
+    }
+  }
 
   if (!year || !boat) {
     return res.status(400).json({ error: 'Missing year or boat parameter' })

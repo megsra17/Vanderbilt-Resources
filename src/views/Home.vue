@@ -177,7 +177,7 @@
             <div class="card h-100 d-flex flex-column justify-content-between">
               <!-- Card image -->
               <img
-                :src="img.url"
+                :src="getPreviewUrl(img.url)"
                 :alt="img.alt"
                 class="card-img-top"
                 style="object-fit: cover; max-height: 200px"
@@ -480,6 +480,29 @@ watch(
     }
   },
 )
+
+function getPreviewUrl(url) {
+  const lowerUrl = url.toLowerCase()
+  if (lowerUrl.endsWith('.pdf')) {
+    const parts = url.split('/upload/')
+    let base = parts[0]
+    if (base.includes('/raw/')) {
+      base = base.replace('/raw/', '/image/')
+    }
+    return `${base}/upload/pg_1,f_jpg/${parts[1].replace(/\.pdf$/i, '.jpg')}`
+  }
+  // If it's an EPS, just force conversion to JPG.
+  else if (lowerUrl.endsWith('.eps')) {
+    const parts = url.split('/upload/')
+    let base = parts[0]
+    if (base.includes('/raw/')) {
+      base = base.replace('/raw/', '/image/')
+    }
+    return `${base}/upload/f_jpg/${parts[1].replace(/\.eps$/i, '.jpg')}`
+  }
+  // For other files, return the original URL.
+  return url
+}
 
 // File change handler
 function handleFileChange(event) {
