@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     // Token is considered valid only if it exists and hasn't expired.
     isAuthenticated: (state) =>
-      !!state.token && !!state.tokenExpires && Date.now() < state.tokenExpires,,
+      !!state.token && !!state.tokenExpires && Date.now() < state.tokenExpires,
     getUser: (state) => state.user,
     userRole: (state) => (state.user ? state.user.role : 'user'),
     isAdmin: (state) => state.user && state.user.role === 'admin',
