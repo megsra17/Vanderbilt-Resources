@@ -500,6 +500,15 @@ function getPreviewUrl(url) {
     }
     return `${base}/upload/f_jpg/${parts[1].replace(/\.eps$/i, '.jpg')}`
   }
+  //if its an mp4, just force conversion to JPG
+  else if (lowerUrl.endsWith('.mp4')) {
+    const parts = url.split('/upload/')
+    let base = parts[0]
+    if (base.includes('/raw/')) {
+      base = base.replace('/raw/', '/image/')
+    }
+    return `${base}/upload/f_jpg/${parts[1].replace(/\.mp4$/i, '.jpg')}`
+  }
   // For other files, return the original URL.
   return url
 }
