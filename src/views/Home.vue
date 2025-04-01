@@ -34,6 +34,25 @@
   border-right: 1px solid black;
 }
 
+.position-relative {
+  position: relative;
+}
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+}
+
 @media (max-width: 991px) {
   .custom-border {
     border-right: none;
