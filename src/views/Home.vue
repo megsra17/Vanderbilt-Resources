@@ -175,16 +175,27 @@
             class="col-md-3 mb-4 text-center"
           >
             <div class="card h-100 d-flex flex-column justify-content-between">
-              <!-- Card image -->
-              <img
-                :src="getPreviewUrl(img.url)"
-                :alt="img.alt"
-                class="card-img-top"
-                style="object-fit: cover; max-height: 200px"
-              />
+              <!-- Card image with play button overlay for videos -->
+              <div class="position-relative">
+                <img
+                  :src="getPreviewUrl(img.url)"
+                  :alt="img.alt"
+                  class="card-img-top"
+                  style="object-fit: cover; max-height: 200px"
+                />
+                <!-- Show the play button overlay if the asset is a video -->
+                <template v-if="img.url.toLowerCase().endsWith('.mp4')">
+                  <button
+                    class="play-button"
+                    @click="openVideo(img.url)"
+                  >
+                    ▶
+                  </button>
+                </template>
+              </div>
+
               <!-- Card body -->
-               <div class="card-body">
-                <!-- Title -->
+              <div class="card-body">
                 <p class="card-title fw-bold fs-14">
                   {{ (img.display_name || img.alt).split('/').pop() }}
                 </p>
@@ -219,7 +230,7 @@
                     </a>
                   </template>
                 </p>
-              </div>
+            </div>
               <!-- Card footer (optional) -->
               <div class="card-footer bg-transparent border-0">
                 <button class="btn ever-btn-boarder w-100" @click="openShareModal(img.url)">
@@ -484,6 +495,10 @@ watch(
     }
   },
 )
+
+function openVideo(url) {
+  window.open(url, '_blank');
+}
 
 function getDownloadLink(url, isLowRes = false) {
   const isVideo = url.toLowerCase().endsWith('.mp4');
