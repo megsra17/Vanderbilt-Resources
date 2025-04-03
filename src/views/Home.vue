@@ -231,6 +231,15 @@
                       Video
                     </a>
                   </template>
+                  <template v-else-if="img.url.toLowerCase().endsWith('.pdf')">
+                    <a
+                      :href="getDownloadLink(img.url)"
+                      download
+                      class="ever-text-primary text-hover-primary ms-1"
+                    >
+                      PDF
+                    </a>
+                  </template>
                   <template v-else>
                     <a
                       :href="getDownloadLink(img.url)"
