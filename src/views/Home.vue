@@ -267,8 +267,19 @@
               </div>
             </div>
           </div>
-          <div v-if="menuStore.images.length === 0" class="alert alert-warning text-center">
-            No images found.
+          <div
+            v-if="!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type"
+            class="alert alert-info text-center w-100"
+            style="padding: 2rem; font-size: 1.25rem"
+          >
+            Please pick a Model Year, Boat Model &amp; Resource Type above to view assets.
+          </div>
+          <!-- if filters set but no results -->
+          <div
+            v-else-if="menuStore.images.length === 0"
+            class="alert alert-warning text-center w-100"
+          >
+            No images found for that selection.
           </div>
         </div>
 

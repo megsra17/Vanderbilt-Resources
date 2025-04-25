@@ -133,7 +133,7 @@
 
             <!-- Reset Filter -->
             <li class="nav-item text-white pe-lg-4">
-              <router-link class="nav-link text-white fs-5" to="/" @click="closeMenu"
+              <router-link class="nav-link text-white fs-5" to="/" @click="resetFilter"
                 >Reset Filter</router-link
               >
             </li>
@@ -217,21 +217,21 @@ const menuClick = (menuItem) => {
 }
 
 // Close menus after selecting an item
-const closeMenu = () => {
+const resetFilter = () => {
   active.value = null
   mobileOpen.value = false
-  userOpen.value = false
   menuStore.active = {
-    // Reset active menu to default values
-    year: menuStore.menu.years.length ? menuStore.menu.years[0] : { key: '', year: 'Unknown' },
-    boat: menuStore.menu.boats.length ? menuStore.menu.boats[0] : { key: '', name: 'Unknown' },
-    type: menuStore.menu.types.length ? menuStore.menu.types[0] : { key: '', name: 'Unknown' },
+    year: null,
+    boat: null,
+    type: null,
   }
+  // optionally clear images as well
+  menuStore.images = []
 }
 
 const logout = () => {
   authStore.logout() // Use the auth store's logout method
-  closeMenu()
+  resetFilter()
   window.location.reload()
 }
 

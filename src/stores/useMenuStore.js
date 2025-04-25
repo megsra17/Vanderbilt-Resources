@@ -43,10 +43,10 @@ export const useMenuStore = defineStore('menu', {
         // Extract valid years (numbers only)
         this.menu.years = data.years
           .filter((year) => !isNaN(year))
-          .map((year) => ({ key: year, year }))
+          .map((y) => ({ key: y, year: y }))
 
         // Use initial boats and types from API response
-        this.menu.boats = data.boats.map((boat) => ({ key: boat, name: boat }))
+        this.menu.boats = data.boats.map((b) => ({ key: b, name: b }))
 
         // Map types to friendly display names
         const typeDisplayMapping = {
@@ -54,21 +54,15 @@ export const useMenuStore = defineStore('menu', {
           videos: 'Videos',
           brand_logos: 'Brand Guidelines & Logos',
         }
-        this.menu.types = data.types.map((type) => ({
-          key: type,
-          name: typeDisplayMapping[type] || type,
+        this.menu.types = data.types.map((t) => ({
+          key: t,
+          name: typeDisplayMapping[t] || t,
         }))
 
         // Set default active values (defaulting to first year)
-        this.active.year = this.menu.years.length
-          ? this.menu.years[0]
-          : { key: '2022', year: '2022' }
-        this.active.boat = this.menu.boats.length
-          ? this.menu.boats[0]
-          : { key: 'default', name: 'Default Boat' }
-        this.active.type = this.menu.types.length
-          ? this.menu.types[0]
-          : { key: 'photos', name: 'Photos' }
+        this.active.year = null
+        this.active.boat = null
+        this.active.type = null
 
         this.fetchImages()
       } catch (error) {
@@ -84,9 +78,9 @@ export const useMenuStore = defineStore('menu', {
         const data = await response.json()
 
         // Map each subfolder to a boat object
-        this.menu.boats = data.subfolders.map((folder) => ({
-          key: folder.name,
-          name: folder.name,
+        this.menu.boats = data.subfolders.map((f) => ({
+          key: f.name,
+          name: f.name,
         }))
         // Update active boat to the first available for the year, if any.
         this.active.boat = this.menu.boats.length
