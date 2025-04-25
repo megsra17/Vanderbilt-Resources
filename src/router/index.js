@@ -8,10 +8,11 @@ import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
 
 const unwantedParams = ['_gl', '_gcl_au', '_ga', '_ga_1E3C1VDFFE']
 const url = new URL(window.location.href)
-unwantedParams.forEach((param) => url.searchParams.delete(param))
-// preserve any other query-string (e.g. ?key=…)
-window.history.replaceState({}, document.title, url.pathname + url.search)
-
+if (!url.pathname.startsWith('/reset-password')) {
+  unwantedParams.forEach((param) => url.searchParams.delete(param))
+  // keep any other params (e.g. ?key=…)
+  window.history.replaceState({}, document.title, url.pathname + url.search)
+}
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,7 +28,11 @@ const router = createRouter({
       component: AdminUsers,
       meta: { requiresAuth: true }, // 🔒 Protected route
     },
-    { path: '/reset-password', component: ResetPasswordForm },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: ResetPasswordForm,
+    },
     {
       path: '/login',
       name: 'login',
