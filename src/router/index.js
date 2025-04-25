@@ -9,7 +9,8 @@ import { useMenuStore } from '@/stores/useMenuStore' // Import Pinia store
 const unwantedParams = ['_gl', '_gcl_au', '_ga', '_ga_1E3C1VDFFE']
 const url = new URL(window.location.href)
 unwantedParams.forEach((param) => url.searchParams.delete(param))
-window.history.replaceState({}, document.title, url.pathname)
+// preserve any other query-string (e.g. ?key=…)
+window.history.replaceState({}, document.title, url.pathname + url.search)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
