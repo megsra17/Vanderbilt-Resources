@@ -21,6 +21,7 @@ export const useMenuStore = defineStore('menu', {
     },
     images: [],
     loading: false,
+    isViewingLogos: false,
   }),
 
   getters: {
@@ -144,7 +145,7 @@ export const useMenuStore = defineStore('menu', {
     },
     async fetchBrandLogos() {
       this.active.boat = null
-      this.active.type = { key: 'brand_logos', name: 'Logos' }
+      this.isViewingLogos = true
 
       this.loading = true
       try {
@@ -169,9 +170,9 @@ export const useMenuStore = defineStore('menu', {
       }
     },
     setFilter(filterKey, filterValue) {
+      this.isViewingLogos = false // ✅ exit logos mode when filtering normally
       this.active[filterKey] = filterValue
       if (filterKey === 'year') {
-        // When the year changes, fetch the boat folders for that year first.
         this.fetchBoatsForYear(filterValue.key).then(() => {
           this.fetchImages()
         })
