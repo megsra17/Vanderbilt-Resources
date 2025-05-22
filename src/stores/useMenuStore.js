@@ -85,9 +85,10 @@ export const useMenuStore = defineStore('menu', {
           name: f.name,
         }))
         // Update active boat to the first available for the year, if any.
-        this.active.boat = this.menu.boats.length
-          ? this.menu.boats[0]
-          : { key: 'default', name: 'Default Boat' }
+        // this.active.boat = this.menu.boats.length
+        //   ? this.menu.boats[0]
+        //   : { key: 'default', name: 'Default Boat' }
+        this.active.boat = null // Reset active boat when changing year
       } catch (error) {
         console.error('❌ Error fetching boats for year:', year, error)
       }
