@@ -45,7 +45,7 @@ onMounted(async () => {
 <template>
   <div class="row">
     <img
-      src="@/images/Vanderbilt-Logo-Black.png"
+      src="@/images/Vanderbilt-black.png"
       alt="Vanderbilt Pontoons"
       style="width: 300px"
       class="logo mb-3"

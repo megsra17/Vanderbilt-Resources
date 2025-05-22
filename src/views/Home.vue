@@ -172,7 +172,7 @@
           <!-- Year (non-active) -->
           <li class="breadcrumb-item">
             <router-link>
-              {{ menuStore.active.year?.key || '2025' }}
+              {{ menuStore.active.year?.key || '2026' }}
             </router-link>
           </li>
 
@@ -258,7 +258,6 @@
                   </template>
                 </p>
               </div>
-
               <!-- Card footer (optional) -->
               <div class="card-footer bg-transparent border-0">
                 <button class="btn ever-btn-boarder w-100" @click="openShareModal(img.url)">
@@ -425,7 +424,7 @@ const page = ref(1)
 const total = ref(0)
 const notFound = ref(false)
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5173'
 
 // Computed property for Gallery title based on active type
 const galleryTitle = computed(() => {
