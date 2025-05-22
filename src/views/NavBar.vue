@@ -141,7 +141,7 @@
                 href="#"
                 @click.prevent="menuStore.fetchBrandLogos()"
               >
-                {{ menuStore.menu.brandLogosType.name }}
+                Logos
               </a>
             </li>
 
