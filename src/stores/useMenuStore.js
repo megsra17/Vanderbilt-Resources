@@ -54,7 +54,6 @@ export const useMenuStore = defineStore('menu', {
         const typeDisplayMapping = {
           photos: 'Photos',
           videos: 'Videos',
-          brand_logos: 'Logos',
         }
 
         // Separate brand_logos into its own section
@@ -138,6 +137,33 @@ export const useMenuStore = defineStore('menu', {
         }
       } catch (error) {
         console.error('❌ Error fetching Cloudinary images:', error)
+        this.images = []
+      } finally {
+        this.loading = false
+      }
+    },
+    async fetchBrandLogos() {
+      this.active.year = null
+      this.active.boat = null
+      this.active.type = null
+
+      this.loading = true
+      try {
+        const response = await fetch(`${API_URL}/cloudinary/images?type=brand_logos`)
+        const data = await response.json()
+
+        if (data.images) {
+          this.images = data.images.map((img) => ({
+            url: img.secure_url,
+            alt: img.public_id,
+            created_at: img.created_at,
+            display_name: img.display_name,
+          }))
+        } else {
+          this.images = []
+        }
+      } catch (error) {
+        console.error('❌ Error fetching brand logos:', error)
         this.images = []
       } finally {
         this.loading = false

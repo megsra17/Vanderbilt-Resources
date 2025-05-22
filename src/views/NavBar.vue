@@ -133,17 +133,17 @@
 
             <!-- Brand Logos -->
             <li
-                v-if="menuStore.menu.brandLogosType"
-                class="nav-item pe-lg-4"
+              v-if="menuStore.menu.brandLogosType"
+              class="nav-item pe-lg-4"
+            >
+              <a
+                class="nav-link fs-5 text-white"
+                href="#"
+                @click.prevent="menuStore.fetchBrandLogos()"
               >
-                <a
-                  class="nav-link fs-5 text-white"
-                  href="#"
-                  @click.prevent="menuStore.setFilter('type', menuStore.menu.brandLogosType)"
-                >
-                  {{ menuStore.menu.brandLogosType.name }}
-                </a>
-              </li>
+                {{ menuStore.menu.brandLogosType.name }}
+              </a>
+            </li>
 
             <!-- Reset Filter -->
             <li class="nav-item text-white pe-lg-4">
