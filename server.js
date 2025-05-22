@@ -48,7 +48,7 @@ app.get('/cloudinary/folders', async (req, res) => {
       const boatResult = await cloudinary.api.sub_folders(`vanderbilt/${firstYear}`)
       boats = boatResult.folders.map((folder) => folder.name)
     }
-    res.json({ years, boats, types: ['photos', 'videos', 'brand_logos'] })
+    res.json({ years, boats, types: ['photos', 'videos', 'brand_logos', 'sell_sheets'] })
   } catch (error) {
     console.error('❌ Error fetching Cloudinary folders:', error)
     res.status(500).json({ error: 'Failed to fetch Cloudinary folders' })
@@ -90,6 +90,24 @@ app.get('/cloudinary/images', async (req, res) => {
     } catch (error) {
       console.error('❌ Error searching Cloudinary for brand_logos:', error)
       return res.status(500).json({ error: 'Failed to search Cloudinary images' })
+    }
+  }
+
+  if (type === 'sell_sheets') {
+    try {
+      const folderPath = 'vanderbilt/sell_sheets'
+      const resourceType = 'image'
+
+      const result = await cloudinary.search
+        .expression(`folder:"${folderPath}" AND resource_type:${resourceType}`)
+        .sort_by('created_at', 'desc')
+        .max_results(50)
+        .execute()
+
+      return res.json({ images: result.resources })
+    } catch (error) {
+      console.error('❌ Error searching Cloudinary for sell_sheets:', error)
+      return res.status(500).json({ error: 'Failed to search Cloudinary sell_sheets' })
     }
   }
 

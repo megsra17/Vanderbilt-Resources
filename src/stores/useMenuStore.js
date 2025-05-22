@@ -55,6 +55,7 @@ export const useMenuStore = defineStore('menu', {
         const typeDisplayMapping = {
           photos: 'Photos',
           videos: 'Videos',
+          sell_sheets: 'Sell Sheets',
         }
 
         // Separate brand_logos into its own section
