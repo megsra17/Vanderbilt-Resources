@@ -143,7 +143,6 @@ export const useMenuStore = defineStore('menu', {
       }
     },
     async fetchBrandLogos() {
-      this.active.year = null
       this.active.boat = null
       this.active.type = { key: 'brand_logos', name: 'Logos' }
 
