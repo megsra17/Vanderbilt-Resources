@@ -267,7 +267,7 @@
             </div>
           </div>
           <div
-            v-if="!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type"
+          v-if="(!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type) && menuStore.active.type?.key !== 'brand_logos'"
             class="alert alert-info text-center w-100"
             style="padding: 2rem; font-size: 1.25rem"
           >
