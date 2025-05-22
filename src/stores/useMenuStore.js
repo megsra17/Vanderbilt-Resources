@@ -11,11 +11,13 @@ export const useMenuStore = defineStore('menu', {
       years: [],
       boats: [],
       types: [],
+      brand_logos: null,
     }),
     active: {
       year: null,
       boat: null,
       type: null,
+      brand_logos: null,
     },
     images: [],
     loading: false,
@@ -52,12 +54,26 @@ export const useMenuStore = defineStore('menu', {
         const typeDisplayMapping = {
           photos: 'Photos',
           videos: 'Videos',
-          brand_logos: 'Brand Guidelines & Logos',
+          brand_logos: 'Logos',
         }
-        this.menu.types = data.types.map((t) => ({
-          key: t,
-          name: typeDisplayMapping[t] || t,
-        }))
+
+        // Separate brand_logos into its own section
+        const resourceTypes = []
+        let brandLogosType = null
+
+        data.types.forEach((t) => {
+          const displayName = typeDisplayMapping[t] || t
+          const entry = { key: t, name: displayName }
+
+          if (t === 'brand_logos') {
+            brandLogosType = entry
+          } else {
+            resourceTypes.push(entry)
+          }
+        })
+
+        this.menu.types = resourceTypes
+        this.menu.brandLogosType = brandLogosType
 
         // Set default active values (defaulting to first year)
         if (this.menu.years.length > 0) {
