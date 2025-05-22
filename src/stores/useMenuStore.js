@@ -112,19 +112,29 @@ export const useMenuStore = defineStore('menu', {
     },
 
     async fetchImages() {
-      if (!this.active.year || !this.active.boat) {
+      const typeKey = this.active.type?.key
+
+      // Special case: sell_sheets doesn't require a boat
+      const isSellSheets = typeKey === 'sell_sheets'
+
+      if (!this.active.year || (!this.active.boat && !isSellSheets) || !this.active.type) {
         console.error('❌ Filters are not set correctly:', this.active)
         return
       }
 
-      const encodedBoat = encodeURIComponent(this.active.boat.key)
-
       this.loading = true
       try {
-        // Include the "type" filter in the query string
-        const response = await fetch(
-          `${API_URL}/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}&type=${this.active.type.key}`,
-        )
+        let response
+
+        if (isSellSheets) {
+          response = await fetch(`${API_URL}/cloudinary/images?type=sell_sheets`)
+        } else {
+          const encodedBoat = encodeURIComponent(this.active.boat.key)
+          response = await fetch(
+            `${API_URL}/cloudinary/images?year=${this.active.year.key}&boat=${encodedBoat}&type=${typeKey}`,
+          )
+        }
+
         const data = await response.json()
 
         if (data.images) {
@@ -138,7 +148,7 @@ export const useMenuStore = defineStore('menu', {
           this.images = []
         }
       } catch (error) {
-        console.error('❌ Error fetching Cloudinary images:', error)
+        console.error(`❌ Error fetching Cloudinary images (${typeKey}):`, error)
         this.images = []
       } finally {
         this.loading = false
