@@ -60,7 +60,9 @@ export const useMenuStore = defineStore('menu', {
         }))
 
         // Set default active values (defaulting to first year)
-        this.active.year = null
+        if (this.menu.years.length > 0) {
+          this.setFilter('year', this.menu.years[0])
+        }
         this.active.boat = null
         this.active.type = null
 

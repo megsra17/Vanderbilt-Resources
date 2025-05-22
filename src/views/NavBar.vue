@@ -6,7 +6,7 @@
         <!-- Left side: Logo -->
         <div class="col-6 d-flex align-items-center">
           <a href="/">
-            <img src="@/images/Vanderbilt-black.png" alt="Vanderbilt Logo" height="40" />
+            <img src="@/images/Vanderbilt-black.png" alt="Vanderbilt Logo" height="70" />
           </a>
         </div>
         <div class="col-6 text-end">
@@ -183,13 +183,6 @@ const authStore = useAuthStore()
 const active = ref(null)
 const userOpen = ref(false)
 const mobileOpen = ref(false)
-
-
-onMounted(() => {
-  if (!menuStore.active.year && menuStore.menu.years.length > 0) {
-    menuStore.setFilter('year', menuStore.menu.years[0])
-  }
-})
 
 // Computed properties for Pinia state
 const activeMenu = computed(() => active.value)
