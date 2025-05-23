@@ -56,11 +56,7 @@
             </li>
 
             <!-- Boat Model  -->
-            <li
-              class="nav-item dropdown px-lg-4"
-              @mouseenter="menuOver('boats')"
-              @mouseleave="menuLeave"
-            >
+            <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -105,11 +101,7 @@
             </li>
 
             <!-- Resource Type -->
-            <li
-              class="nav-item dropdown pe-lg-4"
-              @mouseenter="menuOver('types')"
-              @mouseleave="menuLeave"
-            >
+            <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
               <a
                 class="nav-link dropdown-toggle fs-5 text-white"
                 href="#"
@@ -132,7 +124,7 @@
             </li>
 
             <!-- Brand Logos -->
-            <li v-if="menuStore.menu.brandLogosType" class="nav-item pe-lg-4">
+            <li v-if="menuStore.menu.brandLogosType" class="nav-item">
               <a
                 class="nav-link fs-5 text-white"
                 href="#"
@@ -143,7 +135,7 @@
             </li>
 
             <!-- Reset Filter -->
-            <li class="nav-item text-white pe-lg-4">
+            <li class="nav-item text-white">
               <router-link class="nav-link text-white fs-5" to="/" @click="resetFilter"
                 >Reset Filter</router-link
               >
