@@ -185,9 +185,7 @@ export const useMenuStore = defineStore('menu', {
 
       // If changing type to photos/videos, clear out brand_logos & sell_sheets views
       if (filterKey === 'type') {
-        if (filterValue.key !== 'brand_logos' && filterValue.key !== 'sell_sheets') {
-          this.active.brand_logos = null
-        }
+        this.images = []
       }
 
       this.active[filterKey] = filterValue
