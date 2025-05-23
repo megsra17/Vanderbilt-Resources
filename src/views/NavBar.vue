@@ -132,10 +132,7 @@
             </li>
 
             <!-- Brand Logos -->
-            <li
-              v-if="menuStore.menu.brandLogosType"
-              class="nav-item pe-lg-4"
-            >
+            <li v-if="menuStore.menu.brandLogosType" class="nav-item pe-lg-4">
               <a
                 class="nav-link fs-5 text-white"
                 href="#"
@@ -176,6 +173,19 @@
 
 .nav-link {
   font-family: 'Jost', sans-serif !important;
+}
+
+.navbar-nav .nav-item {
+  min-width: 150px;
+  text-align: center;
+}
+
+.navbar-nav .nav-link {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Optional: Adjust for smaller screens (use one column) */
