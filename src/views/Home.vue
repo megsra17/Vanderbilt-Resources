@@ -53,6 +53,10 @@
   z-index: 10;
 }
 
+a.text-decoration-none:hover {
+  color: rgba(0, 0, 0, 0.5); /* 50% gray */
+}
+
 @media (max-width: 991px) {
   .custom-border {
     border-right: none;
@@ -114,6 +118,12 @@
               class="text-decoration-none"
             >
               coldsen@vanderbiltpontoons.com
+            </a>
+          </p>
+          <p class="mb-0">
+            Nat Ritch -
+            <a :href="getContactLink('natritch@gmail.com')" class="text-decoration-none">
+              natritch@gmail.com
             </a>
           </p>
         </div>
@@ -267,7 +277,10 @@
             </div>
           </div>
           <div
-           v-if="!menuStore.isViewingLogos && (!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type)"
+            v-if="
+              !menuStore.isViewingLogos &&
+              (!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type)
+            "
             class="alert alert-info text-center w-100"
             style="padding: 2rem; font-size: 1.25rem"
           >
