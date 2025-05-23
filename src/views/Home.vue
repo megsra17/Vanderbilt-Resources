@@ -279,6 +279,7 @@ a.text-decoration-none:hover {
           <div
             v-if="
               !menuStore.isViewingLogos &&
+              menuStore.active.type?.key !== 'sell_sheets' &&
               (!menuStore.active.year || !menuStore.active.boat || !menuStore.active.type)
             "
             class="alert alert-info text-center w-100"
