@@ -181,8 +181,17 @@ export const useMenuStore = defineStore('menu', {
       }
     },
     setFilter(filterKey, filterValue) {
-      this.isViewingLogos = false // ✅ exit logos mode when filtering normally
+      this.isViewingLogos = false
+
+      // If changing type to photos/videos, clear out brand_logos & sell_sheets views
+      if (filterKey === 'type') {
+        if (filterValue.key !== 'brand_logos' && filterValue.key !== 'sell_sheets') {
+          this.active.brand_logos = null
+        }
+      }
+
       this.active[filterKey] = filterValue
+
       if (filterKey === 'year') {
         this.fetchBoatsForYear(filterValue.key).then(() => {
           this.fetchImages()
