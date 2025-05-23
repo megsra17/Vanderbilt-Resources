@@ -117,7 +117,8 @@ export const useMenuStore = defineStore('menu', {
       // Special case: sell_sheets doesn't require a boat
       const isSellSheets = typeKey === 'sell_sheets'
 
-      if (!this.active.year || (!this.active.boat && !isSellSheets) || !this.active.type) {
+      // Require full filters for standard types
+      if (!isSellSheets && (!this.active.year || !this.active.boat || !this.active.type)) {
         console.error('❌ Filters are not set correctly:', this.active)
         return
       }
@@ -182,11 +183,6 @@ export const useMenuStore = defineStore('menu', {
     },
     setFilter(filterKey, filterValue) {
       this.isViewingLogos = false
-
-      // If changing type to photos/videos, clear out brand_logos & sell_sheets views
-      if (filterKey === 'type') {
-        this.images = []
-      }
 
       this.active[filterKey] = filterValue
 
