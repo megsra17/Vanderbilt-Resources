@@ -23,7 +23,7 @@
 
     <!-- MAIN NAVBAR (Navy background) -->
     <nav v-if="!isAdminPage" class="navbar navbar-expand-lg bg-black">
-      <div class="container-fluid">
+      <div class="container-fluid sticky-top">
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
           <span class="navbar-toggler-icon"></span>
