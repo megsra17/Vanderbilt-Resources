@@ -23,129 +23,131 @@
 
     <!-- MAIN NAVBAR (Navy background) -->
     <nav v-if="!isAdminPage" class="navbar navbar-expand-lg bg-black">
-      <div class="container-fluid sticky-top">
-        <!-- Mobile Toggle Button -->
-        <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <div class="sticky-top">
+        <div class="container-fluid">
+          <!-- Mobile Toggle Button -->
+          <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-        <!-- Navbar Links: Center items using justify-content-center -->
-        <div class="collapse navbar-collapse justify-content-center" :class="{ show: mobileOpen }">
-          <ul class="navbar-nav text-white">
-            <!-- Model Year -->
-            <li class="nav-item dropdown" @mouseenter="menuOver('years')" @mouseleave="menuLeave">
-              <a
-                class="nav-link dropdown-toggle fs-5 text-white"
-                href="#"
-                role="button"
-                @click.prevent="menuClick('years')"
-              >
-                {{ menuStore.active.year ? menuStore.active.year.year : 'Model Year' }}
-              </a>
-              <ul class="dropdown-menu" :class="{ show: active === 'years' }">
-                <li v-for="(year, index) in menuStore.menu.years" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('year', year)"
-                  >
-                    {{ year.year }}
-                  </a>
-                </li>
-              </ul>
-            </li>
+          <!-- Navbar Links: Center items using justify-content-center -->
+          <div class="collapse navbar-collapse justify-content-center" :class="{ show: mobileOpen }">
+            <ul class="navbar-nav text-white">
+              <!-- Model Year -->
+              <li class="nav-item dropdown" @mouseenter="menuOver('years')" @mouseleave="menuLeave">
+                <a
+                  class="nav-link dropdown-toggle fs-5 text-white"
+                  href="#"
+                  role="button"
+                  @click.prevent="menuClick('years')"
+                >
+                  {{ menuStore.active.year ? menuStore.active.year.year : 'Model Year' }}
+                </a>
+                <ul class="dropdown-menu" :class="{ show: active === 'years' }">
+                  <li v-for="(year, index) in menuStore.menu.years" :key="index">
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      @click.prevent="menuStore.setFilter('year', year)"
+                    >
+                      {{ year.year }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
-            <!-- Boat Model  -->
-            <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
-              <a
-                class="nav-link dropdown-toggle fs-5 text-white"
-                href="#"
-                role="button"
-                @click.prevent="menuClick('boats')"
-              >
-                {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
-              </a>
+              <!-- Boat Model  -->
+              <li class="nav-item dropdown" @mouseenter="menuOver('boats')" @mouseleave="menuLeave">
+                <a
+                  class="nav-link dropdown-toggle fs-5 text-white"
+                  href="#"
+                  role="button"
+                  @click.prevent="menuClick('boats')"
+                >
+                  {{ menuStore.active.boat ? menuStore.active.boat.name : 'Boat Model' }}
+                </a>
 
-              <!-- Manual 5-column layout -->
-              <ul class="dropdown-menu width-container p-3" :class="{ show: active === 'boats' }">
-                <div class="row">
-                  <!-- Column 1: V Class -->
-                  <div class="col-12 col-lg-6">
-                    <li class="dropdown-header">V Class</li>
-                    <li v-for="boat in vclass" :key="boat.key">
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="menuStore.setFilter('boat', boat)"
-                      >
-                        {{ boat.name }}
-                      </a>
-                    </li>
+                <!-- Manual 5-column layout -->
+                <ul class="dropdown-menu width-container p-3" :class="{ show: active === 'boats' }">
+                  <div class="row">
+                    <!-- Column 1: V Class -->
+                    <div class="col-12 col-lg-6">
+                      <li class="dropdown-header">V Class</li>
+                      <li v-for="boat in vclass" :key="boat.key">
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          @click.prevent="menuStore.setFilter('boat', boat)"
+                        >
+                          {{ boat.name }}
+                        </a>
+                      </li>
+                    </div>
+
+                    <!-- Column 2: L Class -->
+                    <div class="col-12 col-lg-6">
+                      <li class="dropdown-header">L Class</li>
+                      <li v-for="boat in lclass" :key="boat.key">
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          @click.prevent="menuStore.setFilter('boat', boat)"
+                        >
+                          {{ boat.name }}
+                        </a>
+                      </li>
+                    </div>
                   </div>
+                </ul>
+              </li>
 
-                  <!-- Column 2: L Class -->
-                  <div class="col-12 col-lg-6">
-                    <li class="dropdown-header">L Class</li>
-                    <li v-for="boat in lclass" :key="boat.key">
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="menuStore.setFilter('boat', boat)"
-                      >
-                        {{ boat.name }}
-                      </a>
-                    </li>
-                  </div>
-                </div>
-              </ul>
-            </li>
+              <!-- Resource Type -->
+              <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
+                <a
+                  class="nav-link dropdown-toggle fs-5 text-white"
+                  href="#"
+                  role="button"
+                  @click.prevent="menuClick('types')"
+                >
+                  {{ menuStore.active.type ? menuStore.active.type.name : 'Resource Type' }}
+                </a>
+                <ul class="dropdown-menu" :class="{ show: active === 'types' }">
+                  <li v-for="(type, index) in menuStore.menu.types" :key="index">
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      @click.prevent="menuStore.setFilter('type', type)"
+                    >
+                      {{ type.name }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
 
-            <!-- Resource Type -->
-            <li class="nav-item dropdown" @mouseenter="menuOver('types')" @mouseleave="menuLeave">
-              <a
-                class="nav-link dropdown-toggle fs-5 text-white"
-                href="#"
-                role="button"
-                @click.prevent="menuClick('types')"
-              >
-                {{ menuStore.active.type ? menuStore.active.type.name : 'Resource Type' }}
-              </a>
-              <ul class="dropdown-menu" :class="{ show: active === 'types' }">
-                <li v-for="(type, index) in menuStore.menu.types" :key="index">
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    @click.prevent="menuStore.setFilter('type', type)"
-                  >
-                    {{ type.name }}
-                  </a>
-                </li>
-              </ul>
-            </li>
+              <!-- Brand Logos -->
+              <li v-if="menuStore.menu.brandLogosType" class="nav-item">
+                <a
+                  class="nav-link fs-5 text-white"
+                  href="#"
+                  @click.prevent="menuStore.fetchBrandLogos()"
+                >
+                  Logos
+                </a>
+              </li>
 
-            <!-- Brand Logos -->
-            <li v-if="menuStore.menu.brandLogosType" class="nav-item">
-              <a
-                class="nav-link fs-5 text-white"
-                href="#"
-                @click.prevent="menuStore.fetchBrandLogos()"
-              >
-                Logos
-              </a>
-            </li>
+              <!-- Reset Filter -->
+              <li class="nav-item text-white">
+                <router-link class="nav-link text-white fs-5" to="/" @click="resetFilter"
+                  >Reset Filter</router-link
+                >
+              </li>
 
-            <!-- Reset Filter -->
-            <li class="nav-item text-white">
-              <router-link class="nav-link text-white fs-5" to="/" @click="resetFilter"
-                >Reset Filter</router-link
-              >
-            </li>
-
-            <!-- Authentication Section -->
-            <li class="nav-item">
-              <a class="nav-link text-white fs-5" href="#" @click.prevent="logout">Logout</a>
-            </li>
-          </ul>
+              <!-- Authentication Section -->
+              <li class="nav-item">
+                <a class="nav-link text-white fs-5" href="#" @click.prevent="logout">Logout</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
