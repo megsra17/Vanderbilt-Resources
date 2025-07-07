@@ -1,6 +1,6 @@
 <template>
   <!-- WRAP everything in a parent container so we can have a top bar above the nav -->
-  <div>
+  <div class="sticky-top">
     <div class="container-fluid border-bottom py-2" style="background-color: #fff">
       <div class="row align-items-center">
         <!-- Left side: Logo -->
@@ -22,7 +22,7 @@
     </div>
 
     <!-- MAIN NAVBAR (Navy background) -->
-    <nav v-if="!isAdminPage" class="navbar navbar-expand-lg bg-black sticky-top">
+    <nav v-if="!isAdminPage" class="navbar navbar-expand-lg bg-black">
       <div class="container-fluid">
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler text-white" type="button" @click="mobileOpen = !mobileOpen">
