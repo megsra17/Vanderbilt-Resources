@@ -180,12 +180,6 @@
   text-overflow: ellipsis;
 }
 
-.sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 1020;
-}
-
 body {
   padding-top: 80px; /* adjust to your navbar height */
 }
