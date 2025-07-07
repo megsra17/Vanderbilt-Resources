@@ -176,7 +176,7 @@
   display: inline-block;
   width: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
 }
 
